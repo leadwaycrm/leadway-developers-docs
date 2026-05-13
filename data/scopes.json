@@ -1,0 +1,647 @@
+{
+  "categories": [
+    {
+      "slug": "ad-manager",
+      "name": "Ad Manager",
+      "summary": "Campañas de anuncios de Facebook y Google conectadas a tu cuenta.",
+      "scopes": [
+        {
+          "name": "adManager.readonly",
+          "type": "read",
+          "description": "Leer reportes, campañas y métricas del Ad Manager de tu cuenta."
+        },
+        {
+          "name": "adManager.write",
+          "type": "write",
+          "description": "Crear, pausar y editar campañas de anuncios desde el Ad Manager."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Ad Manager bajo `/adManager/`."
+    },
+    {
+      "slug": "affiliate-manager",
+      "name": "Affiliate Manager",
+      "summary": "Programa de afiliados, payouts y tracking de comisiones.",
+      "scopes": [
+        {
+          "name": "affiliateManager.readonly",
+          "type": "read",
+          "description": "Leer afiliados, sus enlaces, métricas y payouts."
+        },
+        {
+          "name": "affiliateManager.write",
+          "type": "write",
+          "description": "Crear afiliados, ajustar comisiones y registrar payouts."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Affiliate Manager bajo `/affiliateManager/`."
+    },
+    {
+      "slug": "ai-agent",
+      "name": "AI Agent",
+      "summary": "Configuración y ejecución de agentes IA en tu cuenta.",
+      "scopes": [
+        {
+          "name": "aiAgent.readonly",
+          "type": "read",
+          "description": "Leer agentes IA, sus prompts, herramientas y configuración."
+        },
+        {
+          "name": "aiAgent.write",
+          "type": "write",
+          "description": "Crear y editar agentes IA, sus prompts, herramientas y triggers."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con AI Agent bajo `/aiAgent/`."
+    },
+    {
+      "slug": "associations",
+      "name": "Associations",
+      "summary": "Relaciones entre contactos, oportunidades y objetos personalizados.",
+      "scopes": [
+        {
+          "name": "associations.readonly",
+          "type": "read",
+          "description": "Leer asociaciones entre recursos (contact↔opportunity, contact↔company, etc)."
+        },
+        {
+          "name": "associations.write",
+          "type": "write",
+          "description": "Crear y eliminar asociaciones entre recursos."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Associations bajo `/associations/`."
+    },
+    {
+      "slug": "blogs",
+      "name": "Blogs",
+      "summary": "Posts, categorías y autores del blog de tu cuenta.",
+      "scopes": [
+        {
+          "name": "blogs.readonly",
+          "type": "read",
+          "description": "Leer posts, categorías y autores del blog."
+        },
+        {
+          "name": "blogs.write",
+          "type": "write",
+          "description": "Crear, publicar y editar posts, categorías y autores del blog."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Blogs bajo `/blogs/`."
+    },
+    {
+      "slug": "brandboards",
+      "name": "Brandboards",
+      "summary": "Sistemas de marca de tu cuenta: colores, tipografía, logos.",
+      "scopes": [
+        {
+          "name": "brandboards.readonly",
+          "type": "read",
+          "description": "Leer brandboards, tokens de color, tipografía y assets de marca."
+        },
+        {
+          "name": "brandboards.write",
+          "type": "write",
+          "description": "Crear y editar brandboards y sus tokens."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Brandboards bajo `/brandboards/`."
+    },
+    {
+      "slug": "business-calendars",
+      "name": "Business Calendars",
+      "summary": "Calendarios, slots, citas y disponibilidad de tu cuenta.",
+      "scopes": [
+        {
+          "name": "calendars.readonly",
+          "type": "read",
+          "description": "Leer calendarios, slots disponibles, citas y configuración de disponibilidad."
+        },
+        {
+          "name": "calendars.write",
+          "type": "write",
+          "description": "Crear y editar calendarios, citas y configuración de disponibilidad."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Business Calendars bajo `/calendars/`."
+    },
+    {
+      "slug": "campaigns",
+      "name": "Campaigns",
+      "summary": "Campañas de email y SMS, listas de envío y métricas de entrega.",
+      "scopes": [
+        {
+          "name": "campaigns.readonly",
+          "type": "read",
+          "description": "Leer campañas de email/SMS, sus envíos y métricas."
+        },
+        {
+          "name": "campaigns.write",
+          "type": "write",
+          "description": "Crear, pausar y editar campañas de email/SMS."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Campaigns bajo `/campaigns/`."
+    },
+    {
+      "slug": "chat-widget",
+      "name": "Chat Widget",
+      "summary": "El widget de chat embebido en tus sitios y funnels.",
+      "scopes": [
+        {
+          "name": "chatWidget.readonly",
+          "type": "read",
+          "description": "Leer la configuración, mensajes recibidos y branding del chat widget."
+        },
+        {
+          "name": "chatWidget.write",
+          "type": "write",
+          "description": "Editar la configuración, branding y comportamiento del chat widget."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Chat Widget bajo `/chatWidget/`."
+    },
+    {
+      "slug": "companies",
+      "name": "Companies",
+      "summary": "Empresas a las que pertenecen tus contactos en tu CRM.",
+      "scopes": [
+        {
+          "name": "companies.readonly",
+          "type": "read",
+          "description": "Leer empresas, sus contactos asociados y sus campos personalizados."
+        },
+        {
+          "name": "companies.write",
+          "type": "write",
+          "description": "Crear, actualizar y eliminar empresas en tu CRM."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Companies bajo `/companies/`."
+    },
+    {
+      "slug": "contacts",
+      "name": "Contacts",
+      "summary": "Leer, crear, actualizar y eliminar contactos en tu cuenta.",
+      "scopes": [
+        {
+          "name": "contacts.readonly",
+          "type": "read",
+          "description": "Leer la lista de contactos y los detalles de cualquier contacto."
+        },
+        {
+          "name": "contacts.write",
+          "type": "write",
+          "description": "Crear, actualizar y eliminar contactos."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Contacts bajo `/contacts/`."
+    },
+    {
+      "slug": "conversation-ai",
+      "name": "Conversation AI",
+      "summary": "Bots conversacionales y configuración de IA para hilos de mensajes.",
+      "scopes": [
+        {
+          "name": "conversationAi.readonly",
+          "type": "read",
+          "description": "Leer bots de IA conversacional, sus prompts y reglas de respuesta."
+        },
+        {
+          "name": "conversationAi.write",
+          "type": "write",
+          "description": "Crear y editar bots conversacionales y sus reglas."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Conversation AI bajo `/conversationAi/`."
+    },
+    {
+      "slug": "conversations",
+      "name": "Conversations",
+      "summary": "Hilos de mensajes a través de WhatsApp, SMS, email, Instagram y otros canales.",
+      "scopes": [
+        {
+          "name": "conversations.readonly",
+          "type": "read",
+          "description": "Leer conversaciones y mensajes a través de todos los canales conectados."
+        },
+        {
+          "name": "conversations.write",
+          "type": "write",
+          "description": "Enviar mensajes, marcar leídos y mover conversaciones entre carpetas."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Conversations bajo `/conversations/`."
+    },
+    {
+      "slug": "courses",
+      "name": "Courses",
+      "summary": "Cursos, módulos, lecciones y matriculaciones.",
+      "scopes": [
+        {
+          "name": "courses.readonly",
+          "type": "read",
+          "description": "Leer cursos, módulos, lecciones y matriculaciones de estudiantes."
+        },
+        {
+          "name": "courses.write",
+          "type": "write",
+          "description": "Crear cursos, módulos, lecciones y matricular estudiantes."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Courses bajo `/courses/`."
+    },
+    {
+      "slug": "custom-fields",
+      "name": "Custom Fields",
+      "summary": "Campos personalizados de contactos, oportunidades y otros recursos.",
+      "scopes": [
+        {
+          "name": "customFields.readonly",
+          "type": "read",
+          "description": "Leer la definición de los campos personalizados y sus opciones."
+        },
+        {
+          "name": "customFields.write",
+          "type": "write",
+          "description": "Crear, editar y eliminar campos personalizados."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Custom Fields bajo `/customFields/`."
+    },
+    {
+      "slug": "custom-menus",
+      "name": "Custom Menus",
+      "summary": "Menús personalizados en la barra lateral del portal.",
+      "scopes": [
+        {
+          "name": "customMenus.readonly",
+          "type": "read",
+          "description": "Leer los items del menú personalizado de tu cuenta."
+        },
+        {
+          "name": "customMenus.write",
+          "type": "write",
+          "description": "Crear, ordenar y eliminar items del menú personalizado."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Custom Menus bajo `/customMenus/`."
+    },
+    {
+      "slug": "email-forms",
+      "name": "Email Forms",
+      "summary": "Formularios embebibles y sus envíos.",
+      "scopes": [
+        {
+          "name": "forms.readonly",
+          "type": "read",
+          "description": "Leer formularios y los envíos que han generado."
+        },
+        {
+          "name": "forms.write",
+          "type": "write",
+          "description": "Crear y editar formularios; ingestar envíos desde fuentes externas."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Email Forms bajo `/forms/`."
+    },
+    {
+      "slug": "funnels",
+      "name": "Funnels",
+      "summary": "Funnels, páginas, secciones y sitios estáticos.",
+      "scopes": [
+        {
+          "name": "funnels.readonly",
+          "type": "read",
+          "description": "Leer la estructura de funnels, páginas y secciones."
+        },
+        {
+          "name": "funnels.write",
+          "type": "write",
+          "description": "Crear y editar funnels, páginas y redirecciones."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Funnels bajo `/funnels/`."
+    },
+    {
+      "slug": "invoice",
+      "name": "Invoice",
+      "summary": "Facturas, recibos y envíos a clientes.",
+      "scopes": [
+        {
+          "name": "invoices.readonly",
+          "type": "read",
+          "description": "Leer facturas emitidas, sus líneas y su estado de cobro."
+        },
+        {
+          "name": "invoices.write",
+          "type": "write",
+          "description": "Crear, enviar y marcar como pagadas las facturas a tus clientes."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Invoice bajo `/invoices/`."
+    },
+    {
+      "slug": "knowledge-base",
+      "name": "Knowledge Base",
+      "summary": "Artículos de ayuda agrupados en bases de conocimiento.",
+      "scopes": [
+        {
+          "name": "knowledgeBase.readonly",
+          "type": "read",
+          "description": "Leer artículos y categorías de las bases de conocimiento."
+        },
+        {
+          "name": "knowledgeBase.write",
+          "type": "write",
+          "description": "Crear, publicar y editar artículos y categorías."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Knowledge Base bajo `/knowledgeBase/`."
+    },
+    {
+      "slug": "lc-email",
+      "name": "LC Email",
+      "summary": "Email transaccional y de marketing enviado desde tu cuenta.",
+      "scopes": [
+        {
+          "name": "email.readonly",
+          "type": "read",
+          "description": "Leer templates, schedules y estadísticas de email enviado."
+        },
+        {
+          "name": "email.write",
+          "type": "write",
+          "description": "Crear y enviar emails transaccionales y de marketing."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con LC Email bajo `/email/`."
+    },
+    {
+      "slug": "media-storage",
+      "name": "Media Storage",
+      "summary": "Archivos, imágenes y carpetas del media library.",
+      "scopes": [
+        {
+          "name": "medias.readonly",
+          "type": "read",
+          "description": "Leer archivos y carpetas del media library."
+        },
+        {
+          "name": "medias.write",
+          "type": "write",
+          "description": "Subir, mover y eliminar archivos del media library."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Media Storage bajo `/medias/`."
+    },
+    {
+      "slug": "objects",
+      "name": "Objects",
+      "summary": "Objetos personalizados (custom objects) y sus registros.",
+      "scopes": [
+        {
+          "name": "objects.readonly",
+          "type": "read",
+          "description": "Leer el esquema de objetos personalizados y los registros que contienen."
+        },
+        {
+          "name": "objects.write",
+          "type": "write",
+          "description": "Crear y editar el esquema de objetos personalizados, sus campos y registros."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Objects bajo `/objects/`."
+    },
+    {
+      "slug": "opportunities",
+      "name": "Opportunities",
+      "summary": "Pipelines, etapas, oportunidades y movimientos entre etapas.",
+      "scopes": [
+        {
+          "name": "opportunities.readonly",
+          "type": "read",
+          "description": "Leer pipelines, etapas y oportunidades."
+        },
+        {
+          "name": "opportunities.write",
+          "type": "write",
+          "description": "Crear oportunidades y moverlas entre etapas; editar pipelines."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Opportunities bajo `/opportunities/`."
+    },
+    {
+      "slug": "payments",
+      "name": "Payments",
+      "summary": "Pagos, órdenes, transacciones y configuración de Stripe.",
+      "scopes": [
+        {
+          "name": "payments.readonly",
+          "type": "read",
+          "description": "Leer transacciones, órdenes y configuración de la integración de pagos."
+        },
+        {
+          "name": "payments.write",
+          "type": "write",
+          "description": "Crear órdenes, registrar pagos y modificar la configuración de pagos."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Payments bajo `/payments/`."
+    },
+    {
+      "slug": "phone-system",
+      "name": "Phone System",
+      "summary": "Números, llamadas, mensajería SMS, IVR y grabaciones.",
+      "scopes": [
+        {
+          "name": "phone.readonly",
+          "type": "read",
+          "description": "Leer números de teléfono, historial de llamadas y configuración de IVR."
+        },
+        {
+          "name": "phone.write",
+          "type": "write",
+          "description": "Iniciar llamadas salientes, configurar números, editar el IVR."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Phone System bajo `/phone/`."
+    },
+    {
+      "slug": "products",
+      "name": "Products",
+      "summary": "Catálogo de productos, precios y SKUs de tu cuenta.",
+      "scopes": [
+        {
+          "name": "products.readonly",
+          "type": "read",
+          "description": "Leer productos, precios y SKUs."
+        },
+        {
+          "name": "products.write",
+          "type": "write",
+          "description": "Crear, editar y eliminar productos y precios."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Products bajo `/products/`."
+    },
+    {
+      "slug": "proposals",
+      "name": "Proposals",
+      "summary": "Propuestas comerciales y firmas electrónicas.",
+      "scopes": [
+        {
+          "name": "proposals.readonly",
+          "type": "read",
+          "description": "Leer propuestas, su estado y firmas."
+        },
+        {
+          "name": "proposals.write",
+          "type": "write",
+          "description": "Crear propuestas, enviarlas y registrar firmas."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Proposals bajo `/proposals/`."
+    },
+    {
+      "slug": "social-planner",
+      "name": "Social Planner",
+      "summary": "Posts programados en redes sociales y cuentas conectadas.",
+      "scopes": [
+        {
+          "name": "socialPlanner.readonly",
+          "type": "read",
+          "description": "Leer posts programados, calendarios de redes y cuentas conectadas."
+        },
+        {
+          "name": "socialPlanner.write",
+          "type": "write",
+          "description": "Programar, editar y eliminar posts en redes sociales."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Social Planner bajo `/socialPlanner/`."
+    },
+    {
+      "slug": "store",
+      "name": "Store",
+      "summary": "Tu tienda online, órdenes, descuentos y configuración de checkout.",
+      "scopes": [
+        {
+          "name": "store.readonly",
+          "type": "read",
+          "description": "Leer órdenes, descuentos y configuración de la tienda online."
+        },
+        {
+          "name": "store.write",
+          "type": "write",
+          "description": "Crear y editar órdenes, descuentos y configuración del checkout."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Store bajo `/store/`."
+    },
+    {
+      "slug": "studio",
+      "name": "Studio",
+      "summary": "Ediciones de video y audio en Studio.",
+      "scopes": [
+        {
+          "name": "studio.readonly",
+          "type": "read",
+          "description": "Leer proyectos, recursos y exports de Studio."
+        },
+        {
+          "name": "studio.write",
+          "type": "write",
+          "description": "Crear y editar proyectos de Studio, subir recursos y exportar."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Studio bajo `/studio/`."
+    },
+    {
+      "slug": "surveys",
+      "name": "Surveys",
+      "summary": "Encuestas embebibles y sus respuestas.",
+      "scopes": [
+        {
+          "name": "surveys.readonly",
+          "type": "read",
+          "description": "Leer encuestas y las respuestas que han generado."
+        },
+        {
+          "name": "surveys.write",
+          "type": "write",
+          "description": "Crear y editar encuestas; ingestar respuestas desde fuentes externas."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Surveys bajo `/surveys/`."
+    },
+    {
+      "slug": "trigger-links",
+      "name": "Trigger Links",
+      "summary": "Links que disparan workflows cuando alguien los abre.",
+      "scopes": [
+        {
+          "name": "triggerLinks.readonly",
+          "type": "read",
+          "description": "Leer los trigger links de tu cuenta y sus métricas de clicks."
+        },
+        {
+          "name": "triggerLinks.write",
+          "type": "write",
+          "description": "Crear y editar trigger links y los workflows que disparan."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Trigger Links bajo `/triggerLinks/`."
+    },
+    {
+      "slug": "users",
+      "name": "Users",
+      "summary": "Usuarios de tu cuenta, sus roles y permisos.",
+      "scopes": [
+        {
+          "name": "users.readonly",
+          "type": "read",
+          "description": "Leer la lista de usuarios y sus permisos."
+        },
+        {
+          "name": "users.write",
+          "type": "write",
+          "description": "Invitar, editar y eliminar usuarios de tu cuenta."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Users bajo `/users/`."
+    },
+    {
+      "slug": "voice-ai",
+      "name": "Voice AI",
+      "summary": "Agentes de voz IA, llamadas salientes y entrantes automatizadas.",
+      "scopes": [
+        {
+          "name": "voiceAi.readonly",
+          "type": "read",
+          "description": "Leer agentes de voz, sus prompts y el historial de llamadas que han hecho."
+        },
+        {
+          "name": "voiceAi.write",
+          "type": "write",
+          "description": "Crear y editar agentes de voz; iniciar llamadas salientes."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Voice AI bajo `/voiceAi/`."
+    },
+    {
+      "slug": "workflows",
+      "name": "Workflows",
+      "summary": "Automatizaciones, triggers, acciones y ramas.",
+      "scopes": [
+        {
+          "name": "workflows.readonly",
+          "type": "read",
+          "description": "Leer workflows, sus triggers, acciones y ejecuciones."
+        }
+      ],
+      "endpointsHint": "Estos scopes habilitan endpoints relacionados con Workflows bajo `/workflows/`."
+    }
+  ]
+}
