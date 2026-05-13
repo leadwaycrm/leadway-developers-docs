@@ -43,7 +43,6 @@
     }
   },
   "seo": {
-    "metatags": { "og:image": "/images/og.png" },
     "indexing": "navigable"
   }
 }
