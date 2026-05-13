@@ -1,0 +1,42 @@
+---
+title: "Empieza a construir con la API de Leadway"
+description: "Automatiza tu cuenta de Leadway con scripts e integraciones. Misma plataforma, sin intermediarios."
+---
+
+Todo lo que necesitas para conectar tu cuenta de Leadway con tu CRM, herramientas internas o automatizaciones. Desde tu primera petición hasta producción.
+
+<CardGroup cols={2}>
+  <Card title="Empezar" icon="rocket" href="/authentication">
+    Mintea un token, haz tu primer request, y entiende los headers que pide la API.
+  </Card>
+  <Card title="Scopes" icon="key" href="/scopes">
+    Navega el catálogo completo de scopes. Encuentra cuál pedirle a tu token según lo que vayas a automatizar.
+  </Card>
+</CardGroup>
+
+## Qué es la API de Leadway
+
+La API REST de Leadway expone toda tu cuenta. Contactos, oportunidades, calendarios, conversaciones, llamadas, pagos, sitios, blogs, formularios, productos: lo que veas en el portal lo puedes leer y escribir desde código.
+
+La base URL es:
+
+```
+https://services.leadconnectorhq.com
+```
+
+Las llamadas se autentican con un Bearer token que generas desde tu portal Leadway. Cada token tiene un set de scopes asignado que define qué partes de tu cuenta puede tocar.
+
+## Ejemplo rápido
+
+```bash
+curl https://services.leadconnectorhq.com/contacts/?locationId=<TU_ACCOUNT_ID> \
+  -H "Authorization: Bearer <TU_TOKEN>" \
+  -H "Version: 2021-07-28" \
+  -H "Accept: application/json"
+```
+
+`locationId` en la respuesta representa tu cuenta. Lo verás en cada endpoint que devuelva o reciba datos de tu cuenta.
+
+## Soporte
+
+Si te trabas, escribe a soporte desde tu portal o consulta el [help center](https://docs.leadwaycrm.com).
