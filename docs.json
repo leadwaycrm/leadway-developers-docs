@@ -30,7 +30,8 @@
       {
         "tab": "Documentación",
         "groups": [
-          { "group": "Empezar", "pages": ["landing", "authentication"] }
+          { "group": "Empezar", "pages": ["landing", "authentication"] },
+          { "group": "Scopes", "pages": ["scopes/index"] }
         ]
       }
     ]
