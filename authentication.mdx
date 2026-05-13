@@ -1,0 +1,119 @@
+---
+title: "Autenticación"
+description: "Cómo conseguir tu token, qué headers pide la API y cómo hacer tu primera petición."
+---
+
+La API de Leadway se autentica con un **Bearer token** personal que generas desde tu portal Leadway. El token concentra los permisos (scopes) que decides darle. No expira automáticamente, pero lo puedes revocar y reemplazar cuando quieras.
+
+## Cómo conseguir tu token
+
+<Note>
+  Esta sección depende de la UI exacta del portal Leadway. Verifica la ruta antes de publicar.
+</Note>
+
+1. Entra a tu portal Leadway en https://app.leadwaycrm.com.
+2. Abre **Settings → API** (TBD: confirmar la ruta exacta).
+3. Da click en **Generate new token**.
+4. Selecciona los scopes que necesite tu integración. Si no estás seguro, empieza con `contacts.readonly` para probar; siempre puedes generar tokens adicionales con más permisos después.
+5. Copia el token. **Es lo único que verás una sola vez**, guárdalo en un gestor de secretos (1Password, AWS Secrets Manager, vault). Si lo pierdes, genera otro.
+
+## Headers obligatorios
+
+Toda llamada a la API debe incluir:
+
+| Header | Valor | Notas |
+|---|---|---|
+| `Authorization` | `Bearer <TU_TOKEN>` | El token que generaste arriba. |
+| `Version` | `2021-07-28` | Versión de la API. Fija; no la cambies a menos que la documentación de un endpoint específico te indique otra. |
+| `Accept` | `application/json` | Todas las respuestas son JSON. |
+| `Content-Type` | `application/json` | Solo en `POST`, `PUT`, `PATCH`. |
+
+## Base URL
+
+```
+https://services.leadconnectorhq.com
+```
+
+Todos los endpoints documentados se cuelgan de esta base. Por ejemplo, listar contactos es `GET https://services.leadconnectorhq.com/contacts/?locationId=<TU_ACCOUNT_ID>`.
+
+## Tu primera petición
+
+Probemos un `GET /contacts/`:
+
+<Tabs>
+  <Tab title="curl">
+    ```bash
+    curl https://services.leadconnectorhq.com/contacts/?locationId=<TU_ACCOUNT_ID> \
+      -H "Authorization: Bearer <TU_TOKEN>" \
+      -H "Version: 2021-07-28" \
+      -H "Accept: application/json"
+    ```
+  </Tab>
+  <Tab title="Node.js">
+    ```js
+    const res = await fetch(
+      `https://services.leadconnectorhq.com/contacts/?locationId=${process.env.LEADWAY_ACCOUNT_ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+          Version: "2021-07-28",
+          Accept: "application/json",
+        },
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    import os, requests
+
+    res = requests.get(
+        "https://services.leadconnectorhq.com/contacts/",
+        params={"locationId": os.environ["LEADWAY_ACCOUNT_ID"]},
+        headers={
+            "Authorization": f"Bearer {os.environ['LEADWAY_TOKEN']}",
+            "Version": "2021-07-28",
+            "Accept": "application/json",
+        },
+    )
+    print(res.json())
+    ```
+  </Tab>
+</Tabs>
+
+Respuesta esperada (truncada):
+
+```json
+{
+  "contacts": [
+    {
+      "id": "ocQHyuzHvysMo5N5VsXc",
+      "locationId": "TU_ACCOUNT_ID",
+      "firstName": "...",
+      "email": "..."
+    }
+  ],
+  "count": 1,
+  "meta": { "total": 1, "currentPage": 1, "nextPage": null, "prevPage": null }
+}
+```
+
+<Note>
+  El campo `locationId` que ves en la respuesta representa **tu cuenta**. Lo verás en cada respuesta de la API porque es el identificador wire-level de tu workspace.
+</Note>
+
+## Rotar o revocar tu token
+
+Si un token se filtra o ya no se usa, ve a **Settings → API** en el portal y dale click a **Revoke**. La revocación es inmediata: cualquier petición pendiente con ese token devuelve `401 Unauthorized`.
+
+Recomendación: rota tokens cada 90 días, o cuando alguien con acceso deje el equipo.
+
+## Errores comunes de auth
+
+| Código | Causa | Cómo resolver |
+|---|---|---|
+| `401 Unauthorized` | Token inválido, revocado o ausente. | Verifica el header `Authorization`. Genera un token nuevo si lo perdiste. |
+| `403 Forbidden` | El token es válido pero no tiene el scope requerido. | Mira la página del [scope](/scopes) del endpoint y genera un token nuevo con ese permiso. |
+| `429 Too Many Requests` | Excediste el rate limit de tu cuenta. | Espera y reintenta. Si esto ocurre seguido, contacta soporte para ajustar tu límite. |

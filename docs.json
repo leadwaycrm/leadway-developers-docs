@@ -30,7 +30,7 @@
       {
         "tab": "Documentación",
         "groups": [
-          { "group": "Empezar", "pages": ["landing"] }
+          { "group": "Empezar", "pages": ["landing", "authentication"] }
         ]
       }
     ]
