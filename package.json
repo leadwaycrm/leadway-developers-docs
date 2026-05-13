@@ -1,0 +1,14 @@
+{
+  "name": "leadway-developers-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "mintlify dev",
+    "fetch-scopes": "node scripts/fetch-ghl-scopes.mjs",
+    "build-scopes-data": "node scripts/build-scopes-data.mjs",
+    "generate-pages": "node scripts/generate-scope-pages.mjs",
+    "build-pipeline": "npm run fetch-scopes && npm run build-scopes-data && npm run generate-pages",
+    "test": "node --test scripts/tests/"
+  }
+}
