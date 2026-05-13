@@ -35,7 +35,10 @@ export function applyCookbook(text) {
   return out;
 }
 
-const AGENCY_ONLY_PREFIXES = ["oauth.", "companies."];
+// Agency-level scopes excluded from client docs. `companies.*` is kept because
+// Pablo's category list documents Companies as a B2B CRM resource, not the
+// agency-level Company entity. Only `oauth.*` is unambiguously agency-only.
+const AGENCY_ONLY_PREFIXES = ["oauth."];
 
 export function isAgencyOnlyScope(scope) {
   return AGENCY_ONLY_PREFIXES.some((p) => scope.name.startsWith(p));

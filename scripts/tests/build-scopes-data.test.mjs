@@ -34,10 +34,10 @@ test("applyCookbook does not touch wire-level identifiers", () => {
   assert.equal(applyCookbook("Scope: contacts.readonly"), "Scope: contacts.readonly");
 });
 
-test("isAgencyOnlyScope flags oauth scopes and company scopes", () => {
+test("isAgencyOnlyScope flags oauth scopes only (companies stays)", () => {
   assert.equal(isAgencyOnlyScope({ name: "oauth.write" }), true);
   assert.equal(isAgencyOnlyScope({ name: "oauth.readonly" }), true);
-  assert.equal(isAgencyOnlyScope({ name: "companies.readonly" }), true);
+  assert.equal(isAgencyOnlyScope({ name: "companies.readonly" }), false);
   assert.equal(isAgencyOnlyScope({ name: "contacts.readonly" }), false);
 });
 
