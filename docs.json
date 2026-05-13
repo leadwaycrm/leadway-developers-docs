@@ -1,0 +1,49 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Leadway API",
+  "colors": {
+    "primary": "#397dff",
+    "light": "#5C95FF",
+    "dark": "#1E5BD9"
+  },
+  "appearance": { "default": "light", "strict": false },
+  "logo": {
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png",
+    "href": "https://leadwaycrm.com"
+  },
+  "favicon": "/images/favicon.svg",
+  "navbar": {
+    "links": [
+      { "label": "Portal", "href": "https://app.leadwaycrm.com" },
+      { "label": "Soporte", "href": "https://docs.leadwaycrm.com" }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Crear cuenta",
+      "href": "https://leadwaycrm.com/signup"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentación",
+        "groups": [
+          { "group": "Empezar", "pages": ["landing"] }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/leadwaycrm",
+      "linkedin": "https://www.linkedin.com/company/leadwaycrm/",
+      "youtube": "https://www.youtube.com/@leadwaycrm"
+    }
+  },
+  "seo": {
+    "metatags": { "og:image": "/images/og.png" },
+    "indexing": "navigable"
+  }
+}
