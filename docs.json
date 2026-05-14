@@ -7,7 +7,10 @@
     "light": "#5C95FF",
     "dark": "#1E5BD9"
   },
-  "appearance": { "default": "light", "strict": false },
+  "appearance": {
+    "default": "light",
+    "strict": false
+  },
   "logo": {
     "light": "/logo/light.png",
     "dark": "/logo/dark.png",
@@ -16,8 +19,14 @@
   "favicon": "/images/favicon.svg",
   "navbar": {
     "links": [
-      { "label": "Portal", "href": "https://app.leadwaycrm.com" },
-      { "label": "Soporte", "href": "mailto:soporte@leadwaycrm.com" }
+      {
+        "label": "Portal",
+        "href": "https://app.leadwaycrm.com"
+      },
+      {
+        "label": "Soporte",
+        "href": "mailto:soporte@leadwaycrm.com"
+      }
     ],
     "primary": {
       "type": "button",
@@ -30,7 +39,13 @@
       {
         "tab": "Documentación",
         "groups": [
-          { "group": "Empezar", "pages": ["landing", "authentication"] },
+          {
+            "group": "Empezar",
+            "pages": [
+              "landing",
+              "authentication"
+            ]
+          },
           {
             "group": "Scopes",
             "pages": [
@@ -82,7 +97,685 @@
       },
       {
         "tab": "Referencia API",
-        "openapi": "test-openapi.json"
+        "groups": [
+          {
+            "group": "Ad Manager",
+            "pages": [
+              "api-reference/ad-manager/ad-manager-fb-get-reporting",
+              "api-reference/ad-manager/ad-manager-fb-get-campaign-reporting",
+              "api-reference/ad-manager/ad-manager-fb-get-reporting-list",
+              "api-reference/ad-manager/ad-manager-fb-get-current-user",
+              "api-reference/ad-manager/ad-manager-fb-get-pages",
+              "api-reference/ad-manager/ad-manager-fb-get-instagram-accounts",
+              "api-reference/ad-manager/ad-manager-fb-get-page-lead-forms",
+              "api-reference/ad-manager/ad-manager-fb-create-page-lead-form",
+              "api-reference/ad-manager/ad-manager-fb-get-ad-accounts",
+              "api-reference/ad-manager/ad-manager-fb-get-ad-account",
+              "api-reference/ad-manager/ad-manager-fb-delete-ad-account",
+              "api-reference/ad-manager/ad-manager-fb-get-conversation-forms",
+              "api-reference/ad-manager/ad-manager-fb-create-conversation-form",
+              "api-reference/ad-manager/ad-manager-fb-create-integration",
+              "api-reference/ad-manager/ad-manager-fb-get-integration",
+              "api-reference/ad-manager/ad-manager-fb-delete-integration",
+              "api-reference/ad-manager/ad-manager-fb-search-targeting",
+              "api-reference/ad-manager/ad-manager-fb-publish-campaign",
+              "api-reference/ad-manager/ad-manager-fb-delete-page",
+              "api-reference/ad-manager/ad-manager-fb-get-pixels",
+              "api-reference/ad-manager/ad-manager-fb-upsert-pixel",
+              "api-reference/ad-manager/ad-manager-fb-get-custom-audiences",
+              "api-reference/ad-manager/ad-manager-fb-delete-custom-audience",
+              "api-reference/ad-manager/ad-manager-fb-update-custom-audience",
+              "api-reference/ad-manager/ad-manager-fb-get-custom-audience-by-id",
+              "api-reference/ad-manager/ad-manager-fb-add-custom-audience-member",
+              "api-reference/ad-manager/ad-manager-fb-remove-custom-audience-member",
+              "api-reference/ad-manager/ad-manager-fb-batch-update-audience-members",
+              "api-reference/ad-manager/ad-manager-fb-set-default-page",
+              "api-reference/ad-manager/ad-manager-fb-get-lead-form",
+              "api-reference/ad-manager/ad-manager-fb-get-campaign",
+              "api-reference/ad-manager/ad-manager-fb-get-entity",
+              "api-reference/ad-manager/ad-manager-fb-upsert-campaign",
+              "api-reference/ad-manager/ad-manager-fb-upsert-adset",
+              "api-reference/ad-manager/ad-manager-fb-upsert-ad",
+              "api-reference/ad-manager/ad-manager-fb-pause-campaign",
+              "api-reference/ad-manager/ad-manager-fb-resume-campaign",
+              "api-reference/ad-manager/ad-manager-fb-duplicate-campaign",
+              "api-reference/ad-manager/ad-manager-fb-delete-campaign",
+              "api-reference/ad-manager/ad-manager-fb-pause-adset",
+              "api-reference/ad-manager/ad-manager-fb-resume-adset",
+              "api-reference/ad-manager/ad-manager-fb-duplicate-adset",
+              "api-reference/ad-manager/ad-manager-fb-delete-adset",
+              "api-reference/ad-manager/ad-manager-fb-pause-ad",
+              "api-reference/ad-manager/ad-manager-fb-resume-ad",
+              "api-reference/ad-manager/ad-manager-fb-duplicate-ad",
+              "api-reference/ad-manager/ad-manager-fb-delete-ad",
+              "api-reference/ad-manager/ad-manager-google-get-reporting",
+              "api-reference/ad-manager/ad-manager-google-get-reporting-list",
+              "api-reference/ad-manager/ad-manager-google-get-campaign-reporting",
+              "api-reference/ad-manager/ad-manager-google-get-conversions",
+              "api-reference/ad-manager/ad-manager-google-upsert-conversion",
+              "api-reference/ad-manager/ad-manager-google-get-conversion-by-id",
+              "api-reference/ad-manager/ad-manager-google-delete-conversion",
+              "api-reference/ad-manager/ad-manager-google-get-integration",
+              "api-reference/ad-manager/ad-manager-google-create-integration",
+              "api-reference/ad-manager/ad-manager-google-get-current-user",
+              "api-reference/ad-manager/ad-manager-google-get-ad-accounts",
+              "api-reference/ad-manager/ad-manager-google-get-ad-account-details",
+              "api-reference/ad-manager/ad-manager-google-delete-ad-account",
+              "api-reference/ad-manager/ad-manager-google-publish-ad",
+              "api-reference/ad-manager/ad-manager-google-search-targeting",
+              "api-reference/ad-manager/ad-manager-google-get-keyword-ideas",
+              "api-reference/ad-manager/ad-manager-google-get-assets",
+              "api-reference/ad-manager/ad-manager-google-upsert-assets",
+              "api-reference/ad-manager/ad-manager-google-get-entity",
+              "api-reference/ad-manager/ad-manager-google-get-target-interests",
+              "api-reference/ad-manager/ad-manager-google-get-segments",
+              "api-reference/ad-manager/ad-manager-google-upsert-segment",
+              "api-reference/ad-manager/ad-manager-google-delete-segment",
+              "api-reference/ad-manager/ad-manager-google-get-segment-by-id",
+              "api-reference/ad-manager/ad-manager-google-create-offline-user-list-job",
+              "api-reference/ad-manager/ad-manager-google-upsert-audience",
+              "api-reference/ad-manager/ad-manager-google-get-audiences",
+              "api-reference/ad-manager/ad-manager-google-get-audience-by-id",
+              "api-reference/ad-manager/ad-manager-google-upsert-campaign",
+              "api-reference/ad-manager/ad-manager-google-get-campaign-by-id",
+              "api-reference/ad-manager/ad-manager-google-get-conversion-goals",
+              "api-reference/ad-manager/ad-manager-li-get-integration",
+              "api-reference/ad-manager/ad-manager-li-create-integration",
+              "api-reference/ad-manager/ad-manager-li-get-ad-accounts",
+              "api-reference/ad-manager/ad-manager-li-get-ad-account-details",
+              "api-reference/ad-manager/ad-manager-li-delete-ad-account",
+              "api-reference/ad-manager/ad-manager-li-get-current-user",
+              "api-reference/ad-manager/ad-manager-li-get-campaign-group",
+              "api-reference/ad-manager/ad-manager-li-publish-campaign-group",
+              "api-reference/ad-manager/ad-manager-li-upsert-campaign-group",
+              "api-reference/ad-manager/ad-manager-li-search-targeting",
+              "api-reference/ad-manager/ad-manager-li-get-lead-forms",
+              "api-reference/ad-manager/ad-manager-li-create-lead-form",
+              "api-reference/ad-manager/ad-manager-li-update-ad-status",
+              "api-reference/ad-manager/ad-manager-li-get-ad-analytics",
+              "api-reference/ad-manager/ad-manager-li-get-reporting-list",
+              "api-reference/ad-manager/ad-manager-li-get-campaign-group-reporting"
+            ]
+          },
+          {
+            "group": "Affiliate Manager",
+            "pages": [
+              "api-reference/affiliate-manager/affiliate-manager-list-affiliates",
+              "api-reference/affiliate-manager/affiliate-manager-get-affiliate",
+              "api-reference/affiliate-manager/affiliate-manager-list-payouts",
+              "api-reference/affiliate-manager/affiliate-manager-list-commissions"
+            ]
+          },
+          {
+            "group": "Associations",
+            "pages": [
+              "api-reference/associations/associations-create-relation",
+              "api-reference/associations/associations-get-relations-by-record-id",
+              "api-reference/associations/associations-delete-relation",
+              "api-reference/associations/associations-get-association-key-by-key-name",
+              "api-reference/associations/associations-get-association-by-object-keys",
+              "api-reference/associations/associations-update-association",
+              "api-reference/associations/associations-delete-association",
+              "api-reference/associations/associations-get-association-by-id",
+              "api-reference/associations/associations-create-association",
+              "api-reference/associations/associations-find-associations"
+            ]
+          },
+          {
+            "group": "Blogs",
+            "pages": [
+              "api-reference/blogs/blogs-check-url-slug-exists",
+              "api-reference/blogs/blogs-update-blog-post",
+              "api-reference/blogs/blogs-create-blog-post",
+              "api-reference/blogs/blogs-get-all-blog-authors-by-account",
+              "api-reference/blogs/blogs-get-all-categories-by-account",
+              "api-reference/blogs/blogs-get-blog-post",
+              "api-reference/blogs/blogs-get-blogs"
+            ]
+          },
+          {
+            "group": "Brandboards",
+            "pages": [
+              "api-reference/brandboards/brandboards-getbrandboardsbylocation",
+              "api-reference/brandboards/brandboards-getbrandboardbyid",
+              "api-reference/brandboards/brandboards-updatebrandboard",
+              "api-reference/brandboards/brandboards-deletebrandboard",
+              "api-reference/brandboards/brandboards-createbrandboard"
+            ]
+          },
+          {
+            "group": "Business Calendars",
+            "pages": [
+              "api-reference/business-calendars/business-calendars-get-groups",
+              "api-reference/business-calendars/business-calendars-create-calendar-group",
+              "api-reference/business-calendars/business-calendars-validate-groups-slug",
+              "api-reference/business-calendars/business-calendars-delete-group",
+              "api-reference/business-calendars/business-calendars-edit-group",
+              "api-reference/business-calendars/business-calendars-disable-group",
+              "api-reference/business-calendars/business-calendars-create-appointment",
+              "api-reference/business-calendars/business-calendars-edit-appointment",
+              "api-reference/business-calendars/business-calendars-get-appointment",
+              "api-reference/business-calendars/business-calendars-get-calendar-events",
+              "api-reference/business-calendars/business-calendars-get-blocked-slots",
+              "api-reference/business-calendars/business-calendars-create-block-slot",
+              "api-reference/business-calendars/business-calendars-edit-block-slot",
+              "api-reference/business-calendars/business-calendars-get-slots",
+              "api-reference/business-calendars/business-calendars-update-calendar",
+              "api-reference/business-calendars/business-calendars-get-calendar",
+              "api-reference/business-calendars/business-calendars-delete-calendar",
+              "api-reference/business-calendars/business-calendars-delete-event",
+              "api-reference/business-calendars/business-calendars-get-appointment-notes",
+              "api-reference/business-calendars/business-calendars-create-appointment-note",
+              "api-reference/business-calendars/business-calendars-update-appointment-note",
+              "api-reference/business-calendars/business-calendars-delete-appointment-note",
+              "api-reference/business-calendars/business-calendars-get-calendar-resource",
+              "api-reference/business-calendars/business-calendars-update-calendar-resource",
+              "api-reference/business-calendars/business-calendars-delete-calendar-resource",
+              "api-reference/business-calendars/business-calendars-fetch-calendar-resources",
+              "api-reference/business-calendars/business-calendars-create-calendar-resource",
+              "api-reference/business-calendars/business-calendars-get-event-notification",
+              "api-reference/business-calendars/business-calendars-create-event-notification",
+              "api-reference/business-calendars/business-calendars-find-event-notification",
+              "api-reference/business-calendars/business-calendars-update-event-notification",
+              "api-reference/business-calendars/business-calendars-delete-event-notification",
+              "api-reference/business-calendars/business-calendars-getallschedules",
+              "api-reference/business-calendars/business-calendars-getschedulebyid",
+              "api-reference/business-calendars/business-calendars-updateschedule",
+              "api-reference/business-calendars/business-calendars-deleteschedule",
+              "api-reference/business-calendars/business-calendars-createschedule",
+              "api-reference/business-calendars/business-calendars-add-calendar-to-schedule",
+              "api-reference/business-calendars/business-calendars-remove-calendar-from-schedule",
+              "api-reference/business-calendars/business-calendars-get-calendars",
+              "api-reference/business-calendars/business-calendars-create-calendar"
+            ]
+          },
+          {
+            "group": "Campaigns",
+            "pages": [
+              "api-reference/campaigns/campaigns-get-campaigns"
+            ]
+          },
+          {
+            "group": "Companies",
+            "pages": [
+              "api-reference/companies/companies-update-business",
+              "api-reference/companies/companies-delete-business",
+              "api-reference/companies/companies-get-business",
+              "api-reference/companies/companies-get-businesses-by-account",
+              "api-reference/companies/companies-create-business"
+            ]
+          },
+          {
+            "group": "Contacts",
+            "pages": [
+              "api-reference/contacts/contacts-search-contacts-advanced",
+              "api-reference/contacts/contacts-get-duplicate-contact",
+              "api-reference/contacts/contacts-get-all-tasks",
+              "api-reference/contacts/contacts-create-task",
+              "api-reference/contacts/contacts-get-task",
+              "api-reference/contacts/contacts-update-task",
+              "api-reference/contacts/contacts-delete-task",
+              "api-reference/contacts/contacts-update-task-completed",
+              "api-reference/contacts/contacts-get-appointments-for-contact",
+              "api-reference/contacts/contacts-add-tags",
+              "api-reference/contacts/contacts-remove-tags",
+              "api-reference/contacts/contacts-get-all-notes",
+              "api-reference/contacts/contacts-create-note",
+              "api-reference/contacts/contacts-get-note",
+              "api-reference/contacts/contacts-update-note",
+              "api-reference/contacts/contacts-delete-note",
+              "api-reference/contacts/contacts-create-association",
+              "api-reference/contacts/contacts-add-remove-contact-from-business",
+              "api-reference/contacts/contacts-get-contact",
+              "api-reference/contacts/contacts-update-contact",
+              "api-reference/contacts/contacts-delete-contact",
+              "api-reference/contacts/contacts-upsert-contact",
+              "api-reference/contacts/contacts-get-contacts-by-businessid",
+              "api-reference/contacts/contacts-add-followers-contact",
+              "api-reference/contacts/contacts-remove-followers-contact",
+              "api-reference/contacts/contacts-add-contact-to-campaign",
+              "api-reference/contacts/contacts-remove-contact-from-campaign",
+              "api-reference/contacts/contacts-remove-contact-from-every-campaign",
+              "api-reference/contacts/contacts-add-contact-to-workflow",
+              "api-reference/contacts/contacts-delete-contact-from-workflow",
+              "api-reference/contacts/contacts-create-contact",
+              "api-reference/contacts/contacts-get-contacts"
+            ]
+          },
+          {
+            "group": "Conversation AI",
+            "pages": [
+              "api-reference/conversation-ai/conversation-ai-create-action",
+              "api-reference/conversation-ai/conversation-ai-list-actions",
+              "api-reference/conversation-ai/conversation-ai-get-action-by-id",
+              "api-reference/conversation-ai/conversation-ai-update-action",
+              "api-reference/conversation-ai/conversation-ai-delete-action",
+              "api-reference/conversation-ai/conversation-ai-update-followup-settings",
+              "api-reference/conversation-ai/conversation-ai-create-agent",
+              "api-reference/conversation-ai/conversation-ai-search-agent",
+              "api-reference/conversation-ai/conversation-ai-update-agent",
+              "api-reference/conversation-ai/conversation-ai-get-agent",
+              "api-reference/conversation-ai/conversation-ai-delete-agent",
+              "api-reference/conversation-ai/conversation-ai-get-generation-details"
+            ]
+          },
+          {
+            "group": "Conversations",
+            "pages": [
+              "api-reference/conversations/conversations-search-conversation",
+              "api-reference/conversations/conversations-get-conversation",
+              "api-reference/conversations/conversations-update-conversation",
+              "api-reference/conversations/conversations-delete-conversation",
+              "api-reference/conversations/conversations-get-all-custom-subtypes",
+              "api-reference/conversations/conversations-create-custom-subtype",
+              "api-reference/conversations/conversations-update-custom-subtype",
+              "api-reference/conversations/conversations-get-contact-unsubscription-status",
+              "api-reference/conversations/conversations-user-subscription-change",
+              "api-reference/conversations/conversations-get-email-by-id",
+              "api-reference/conversations/conversations-cancel-scheduled-email-message",
+              "api-reference/conversations/conversations-export-messages-by-account",
+              "api-reference/conversations/conversations-get-message",
+              "api-reference/conversations/conversations-get-messages",
+              "api-reference/conversations/conversations-send-a-new-message",
+              "api-reference/conversations/conversations-add-an-inbound-message",
+              "api-reference/conversations/conversations-add-an-outbound-message",
+              "api-reference/conversations/conversations-send-review-reply",
+              "api-reference/conversations/conversations-cancel-scheduled-message",
+              "api-reference/conversations/conversations-upload-file-attachments",
+              "api-reference/conversations/conversations-initiate-file-upload",
+              "api-reference/conversations/conversations-complete-file-upload",
+              "api-reference/conversations/conversations-update-message-status",
+              "api-reference/conversations/conversations-add-message-attachments",
+              "api-reference/conversations/conversations-get-message-recording",
+              "api-reference/conversations/conversations-get-message-transcription",
+              "api-reference/conversations/conversations-download-message-transcription",
+              "api-reference/conversations/conversations-live-chat-agent-typing",
+              "api-reference/conversations/conversations-create-conversation"
+            ]
+          },
+          {
+            "group": "Courses",
+            "pages": [
+              "api-reference/courses/courses-import-courses"
+            ]
+          },
+          {
+            "group": "Custom Fields",
+            "pages": [
+              "api-reference/custom-fields/custom-fields-get-custom-field-by-id",
+              "api-reference/custom-fields/custom-fields-update-custom-field",
+              "api-reference/custom-fields/custom-fields-delete-custom-field",
+              "api-reference/custom-fields/custom-fields-get-custom-fields-by-object-key",
+              "api-reference/custom-fields/custom-fields-create-custom-field-folder",
+              "api-reference/custom-fields/custom-fields-update-custom-field-folder",
+              "api-reference/custom-fields/custom-fields-delete-custom-field-folder",
+              "api-reference/custom-fields/custom-fields-create-custom-field"
+            ]
+          },
+          {
+            "group": "Custom Menus",
+            "pages": [
+              "api-reference/custom-menus/custom-menus-get-custom-menu-by-id",
+              "api-reference/custom-menus/custom-menus-delete-custom-menu",
+              "api-reference/custom-menus/custom-menus-update-custom-menu",
+              "api-reference/custom-menus/custom-menus-get-custom-menus",
+              "api-reference/custom-menus/custom-menus-create-custom-menu"
+            ]
+          },
+          {
+            "group": "Email Forms",
+            "pages": [
+              "api-reference/email-forms/email-forms-get-forms-submissions",
+              "api-reference/email-forms/email-forms-upload-to-custom-fields",
+              "api-reference/email-forms/email-forms-get-forms"
+            ]
+          },
+          {
+            "group": "Funnels",
+            "pages": [
+              "api-reference/funnels/funnels-create-redirect",
+              "api-reference/funnels/funnels-update-redirect-by-id",
+              "api-reference/funnels/funnels-delete-redirect-by-id",
+              "api-reference/funnels/funnels-fetch-redirects-list",
+              "api-reference/funnels/funnels-getfunnels",
+              "api-reference/funnels/funnels-getpagesbyfunnelid",
+              "api-reference/funnels/funnels-getpagescountbyfunnelid"
+            ]
+          },
+          {
+            "group": "Invoice",
+            "pages": [
+              "api-reference/invoice/invoice-create-invoice-template",
+              "api-reference/invoice/invoice-list-invoice-templates",
+              "api-reference/invoice/invoice-get-invoice-template",
+              "api-reference/invoice/invoice-update-invoice-template",
+              "api-reference/invoice/invoice-delete-invoice-template",
+              "api-reference/invoice/invoice-update-invoice-template-late-fees-configuration",
+              "api-reference/invoice/invoice-update-invoice-payment-methods-configuration",
+              "api-reference/invoice/invoice-create-invoice-schedule",
+              "api-reference/invoice/invoice-list-invoice-schedules",
+              "api-reference/invoice/invoice-get-invoice-schedule",
+              "api-reference/invoice/invoice-update-invoice-schedule",
+              "api-reference/invoice/invoice-delete-invoice-schedule",
+              "api-reference/invoice/invoice-update-and-schedule-invoice-schedule",
+              "api-reference/invoice/invoice-schedule-invoice-schedule",
+              "api-reference/invoice/invoice-auto-payment-invoice-schedule",
+              "api-reference/invoice/invoice-cancel-invoice-schedule",
+              "api-reference/invoice/invoice-text2pay-invoice",
+              "api-reference/invoice/invoice-generate-invoice-number",
+              "api-reference/invoice/invoice-get-invoice-settings",
+              "api-reference/invoice/invoice-get-invoice",
+              "api-reference/invoice/invoice-update-invoice",
+              "api-reference/invoice/invoice-delete-invoice",
+              "api-reference/invoice/invoice-update-invoice-late-fees-configuration",
+              "api-reference/invoice/invoice-void-invoice",
+              "api-reference/invoice/invoice-send-invoice",
+              "api-reference/invoice/invoice-record-invoice",
+              "api-reference/invoice/invoice-update-invoice-last-visited-at",
+              "api-reference/invoice/invoice-create-new-estimate",
+              "api-reference/invoice/invoice-update-estimate",
+              "api-reference/invoice/invoice-delete-estimate",
+              "api-reference/invoice/invoice-generate-estimate-number",
+              "api-reference/invoice/invoice-send-estimate",
+              "api-reference/invoice/invoice-create-invoice-from-estimate",
+              "api-reference/invoice/invoice-list-estimates",
+              "api-reference/invoice/invoice-update-estimate-last-visited-at",
+              "api-reference/invoice/invoice-list-estimate-templates",
+              "api-reference/invoice/invoice-create-estimate-template",
+              "api-reference/invoice/invoice-update-estimate-template",
+              "api-reference/invoice/invoice-delete-estimate-template",
+              "api-reference/invoice/invoice-preview-estimate-template",
+              "api-reference/invoice/invoice-create-invoice",
+              "api-reference/invoice/invoice-list-invoices"
+            ]
+          },
+          {
+            "group": "Knowledge Base",
+            "pages": [
+              "api-reference/knowledge-base/knowledge-base-list",
+              "api-reference/knowledge-base/knowledge-base-create",
+              "api-reference/knowledge-base/knowledge-base-update",
+              "api-reference/knowledge-base/knowledge-base-delete",
+              "api-reference/knowledge-base/knowledge-base-getallwebsiteurlsdatabyknowledgebase",
+              "api-reference/knowledge-base/knowledge-base-discoverwebsite",
+              "api-reference/knowledge-base/knowledge-base-deletetrainedurlsforknowledgebase",
+              "api-reference/knowledge-base/knowledge-base-getcrawlingstatusforlatestoperation",
+              "api-reference/knowledge-base/knowledge-base-traindiscoveredurls",
+              "api-reference/knowledge-base/knowledge-base-getknowledgebasebyid",
+              "api-reference/knowledge-base/knowledge-base-deleteknowledgebase",
+              "api-reference/knowledge-base/knowledge-base-updateknowledgebase",
+              "api-reference/knowledge-base/knowledge-base-listallknowledgebasespaginated",
+              "api-reference/knowledge-base/knowledge-base-createknowledgebase"
+            ]
+          },
+          {
+            "group": "LC Email",
+            "pages": [
+              "api-reference/lc-email/lc-email-fetch-campaigns",
+              "api-reference/lc-email/lc-email-create-template",
+              "api-reference/lc-email/lc-email-fetch-template",
+              "api-reference/lc-email/lc-email-delete-template",
+              "api-reference/lc-email/lc-email-update-template"
+            ]
+          },
+          {
+            "group": "Media Storage",
+            "pages": [
+              "api-reference/media-storage/media-storage-fetch-media-content",
+              "api-reference/media-storage/media-storage-upload-media-content",
+              "api-reference/media-storage/media-storage-delete-media-content",
+              "api-reference/media-storage/media-storage-update-media-object",
+              "api-reference/media-storage/media-storage-create-media-folder",
+              "api-reference/media-storage/media-storage-bulk-update-media-objects",
+              "api-reference/media-storage/media-storage-bulk-delete-media-objects"
+            ]
+          },
+          {
+            "group": "Objects",
+            "pages": [
+              "api-reference/objects/objects-get-object-schema-by-key",
+              "api-reference/objects/objects-update-custom-object",
+              "api-reference/objects/objects-get-record-by-id",
+              "api-reference/objects/objects-update-object-record",
+              "api-reference/objects/objects-delete-object-record",
+              "api-reference/objects/objects-create-object-record",
+              "api-reference/objects/objects-search-object-records",
+              "api-reference/objects/objects-get-object-by-account-id",
+              "api-reference/objects/objects-create-custom-object-schema"
+            ]
+          },
+          {
+            "group": "Opportunities",
+            "pages": [
+              "api-reference/opportunities/opportunities-get-lost-reason",
+              "api-reference/opportunities/opportunities-search-opportunity",
+              "api-reference/opportunities/opportunities-search-opportunities-advanced",
+              "api-reference/opportunities/opportunities-get-pipelines",
+              "api-reference/opportunities/opportunities-get-opportunity",
+              "api-reference/opportunities/opportunities-delete-opportunity",
+              "api-reference/opportunities/opportunities-update-opportunity",
+              "api-reference/opportunities/opportunities-update-opportunity-status",
+              "api-reference/opportunities/opportunities-upsert-opportunity",
+              "api-reference/opportunities/opportunities-add-followers-opportunity",
+              "api-reference/opportunities/opportunities-remove-followers-opportunity",
+              "api-reference/opportunities/opportunities-create-opportunity"
+            ]
+          },
+          {
+            "group": "Payments",
+            "pages": [
+              "api-reference/payments/payments-create-integration-provider",
+              "api-reference/payments/payments-list-integration-providers",
+              "api-reference/payments/payments-list-orders",
+              "api-reference/payments/payments-get-order-by-id",
+              "api-reference/payments/payments-record-order-payment",
+              "api-reference/payments/payments-create-order-fulfillment",
+              "api-reference/payments/payments-list-order-fulfillment",
+              "api-reference/payments/payments-list-order-notes",
+              "api-reference/payments/payments-list-transactions",
+              "api-reference/payments/payments-get-transaction-by-id",
+              "api-reference/payments/payments-list-subscriptions",
+              "api-reference/payments/payments-get-subscription-by-id",
+              "api-reference/payments/payments-list-coupons",
+              "api-reference/payments/payments-create-coupon",
+              "api-reference/payments/payments-update-coupon",
+              "api-reference/payments/payments-delete-coupon",
+              "api-reference/payments/payments-get-coupon",
+              "api-reference/payments/payments-create-integration",
+              "api-reference/payments/payments-delete-integration",
+              "api-reference/payments/payments-fetch-config",
+              "api-reference/payments/payments-create-config",
+              "api-reference/payments/payments-disconnect-config",
+              "api-reference/payments/payments-custom-provider-marketplace-app-update-capabilities"
+            ]
+          },
+          {
+            "group": "Phone System",
+            "pages": [
+              "api-reference/phone-system/phone-system-getnumberpoollist",
+              "api-reference/phone-system/phone-system-available-numbers",
+              "api-reference/phone-system/phone-system-purchase-phone-number",
+              "api-reference/phone-system/phone-system-active-numbers"
+            ]
+          },
+          {
+            "group": "Products",
+            "pages": [
+              "api-reference/products/products-bulkupdate",
+              "api-reference/products/products-bulkedit",
+              "api-reference/products/products-create-price-for-product",
+              "api-reference/products/products-list-prices-for-product",
+              "api-reference/products/products-get-list-inventory",
+              "api-reference/products/products-update-inventory",
+              "api-reference/products/products-get-price-by-id-for-product",
+              "api-reference/products/products-update-price-by-id-for-product",
+              "api-reference/products/products-delete-price-by-id-for-product",
+              "api-reference/products/products-get-product-store-stats",
+              "api-reference/products/products-update-store-status",
+              "api-reference/products/products-update-display-priority",
+              "api-reference/products/products-get-product-collection",
+              "api-reference/products/products-create-product-collection",
+              "api-reference/products/products-get-product-collection-id",
+              "api-reference/products/products-update-product-collection",
+              "api-reference/products/products-delete-product-collection",
+              "api-reference/products/products-get-product-reviews",
+              "api-reference/products/products-get-reviews-count",
+              "api-reference/products/products-update-product-review",
+              "api-reference/products/products-delete-product-review",
+              "api-reference/products/products-bulk-update-product-review",
+              "api-reference/products/products-get-product-by-id",
+              "api-reference/products/products-delete-product-by-id",
+              "api-reference/products/products-update-product-by-id",
+              "api-reference/products/products-create-product",
+              "api-reference/products/products-list-invoices"
+            ]
+          },
+          {
+            "group": "Proposals",
+            "pages": [
+              "api-reference/proposals/proposals-list-documents-contracts",
+              "api-reference/proposals/proposals-send-documents-contracts",
+              "api-reference/proposals/proposals-list-documents-contracts-templates",
+              "api-reference/proposals/proposals-send-documents-contracts-template"
+            ]
+          },
+          {
+            "group": "Social Planner",
+            "pages": [
+              "api-reference/social-planner/social-planner-start-google-oauth",
+              "api-reference/social-planner/social-planner-get-google-accounts",
+              "api-reference/social-planner/social-planner-set-google-accounts",
+              "api-reference/social-planner/social-planner-get-posts",
+              "api-reference/social-planner/social-planner-create-post",
+              "api-reference/social-planner/social-planner-get-post",
+              "api-reference/social-planner/social-planner-edit-post",
+              "api-reference/social-planner/social-planner-delete-post",
+              "api-reference/social-planner/social-planner-bulk-delete-social-planner-posts",
+              "api-reference/social-planner/social-planner-get-account",
+              "api-reference/social-planner/social-planner-delete-account",
+              "api-reference/social-planner/social-planner-start-facebook-oauth",
+              "api-reference/social-planner/social-planner-get-facebook-page-group",
+              "api-reference/social-planner/social-planner-attach-facebook-page-group",
+              "api-reference/social-planner/social-planner-start-instagram-oauth",
+              "api-reference/social-planner/social-planner-get-instagram-page-group",
+              "api-reference/social-planner/social-planner-attach-instagram-page-group",
+              "api-reference/social-planner/social-planner-start-linkedin-oauth",
+              "api-reference/social-planner/social-planner-get-linkedin-page-profile",
+              "api-reference/social-planner/social-planner-attach-linkedin-page-profile",
+              "api-reference/social-planner/social-planner-start-twitter-oauth",
+              "api-reference/social-planner/social-planner-get-twitter-profile",
+              "api-reference/social-planner/social-planner-attach-twitter-profile",
+              "api-reference/social-planner/social-planner-upload-csv",
+              "api-reference/social-planner/social-planner-get-upload-status",
+              "api-reference/social-planner/social-planner-set-accounts",
+              "api-reference/social-planner/social-planner-get-csv-post",
+              "api-reference/social-planner/social-planner-start-csv-finalize",
+              "api-reference/social-planner/social-planner-delete-csv",
+              "api-reference/social-planner/social-planner-delete-csv-post",
+              "api-reference/social-planner/social-planner-start-tiktok-oauth",
+              "api-reference/social-planner/social-planner-get-tiktok-profile",
+              "api-reference/social-planner/social-planner-attach-tiktok-profile",
+              "api-reference/social-planner/social-planner-start-tiktok-business-oauth",
+              "api-reference/social-planner/social-planner-get-tiktok-business-profile",
+              "api-reference/social-planner/social-planner-get-categories-account-id",
+              "api-reference/social-planner/social-planner-get-categories-id",
+              "api-reference/social-planner/social-planner-get-tags-account-id",
+              "api-reference/social-planner/social-planner-get-tags-by-ids",
+              "api-reference/social-planner/social-planner-get-social-media-statistics"
+            ]
+          },
+          {
+            "group": "Store",
+            "pages": [
+              "api-reference/store/store-create-shipping-zone",
+              "api-reference/store/store-list-shipping-zones",
+              "api-reference/store/store-get-shipping-zones",
+              "api-reference/store/store-update-shipping-zone",
+              "api-reference/store/store-delete-shipping-zone",
+              "api-reference/store/store-get-available-shipping-zones",
+              "api-reference/store/store-create-shipping-rate",
+              "api-reference/store/store-list-shipping-rates",
+              "api-reference/store/store-get-shipping-rates",
+              "api-reference/store/store-update-shipping-rate",
+              "api-reference/store/store-delete-shipping-rate",
+              "api-reference/store/store-create-shipping-carrier",
+              "api-reference/store/store-list-shipping-carriers",
+              "api-reference/store/store-get-shipping-carriers",
+              "api-reference/store/store-update-shipping-carrier",
+              "api-reference/store/store-delete-shipping-carrier",
+              "api-reference/store/store-create-store-setting",
+              "api-reference/store/store-get-store-settings"
+            ]
+          },
+          {
+            "group": "Studio (AI Agent + Studio)",
+            "pages": [
+              "api-reference/studio/studio-createagent",
+              "api-reference/studio/studio-getagents",
+              "api-reference/studio/studio-updateagentversion",
+              "api-reference/studio/studio-updateagentmetadata",
+              "api-reference/studio/studio-deleteagent",
+              "api-reference/studio/studio-getagentbyid",
+              "api-reference/studio/studio-promoteandpublish",
+              "api-reference/studio/studio-executeagent",
+              "api-reference/studio/studio-getagents-deprecated",
+              "api-reference/studio/studio-getagentbyid-deprecated",
+              "api-reference/studio/studio-executeagent-deprecated"
+            ]
+          },
+          {
+            "group": "Surveys",
+            "pages": [
+              "api-reference/surveys/surveys-get-surveys-submissions",
+              "api-reference/surveys/surveys-get-surveys"
+            ]
+          },
+          {
+            "group": "Trigger Links",
+            "pages": [
+              "api-reference/trigger-links/trigger-links-get-link-by-id",
+              "api-reference/trigger-links/trigger-links-update-link",
+              "api-reference/trigger-links/trigger-links-delete-link",
+              "api-reference/trigger-links/trigger-links-search-trigger-links",
+              "api-reference/trigger-links/trigger-links-get-links",
+              "api-reference/trigger-links/trigger-links-create-link"
+            ]
+          },
+          {
+            "group": "Users",
+            "pages": [
+              "api-reference/users/users-search-users",
+              "api-reference/users/users-filter-users-by-email",
+              "api-reference/users/users-get-user",
+              "api-reference/users/users-update-user",
+              "api-reference/users/users-delete-user",
+              "api-reference/users/users-get-user-by-account",
+              "api-reference/users/users-create-user"
+            ]
+          },
+          {
+            "group": "Voice AI",
+            "pages": [
+              "api-reference/voice-ai/voice-ai-create-agent",
+              "api-reference/voice-ai/voice-ai-get-agents",
+              "api-reference/voice-ai/voice-ai-patch-agent",
+              "api-reference/voice-ai/voice-ai-get-agent",
+              "api-reference/voice-ai/voice-ai-delete-agent",
+              "api-reference/voice-ai/voice-ai-get-call-logs",
+              "api-reference/voice-ai/voice-ai-getcalllog",
+              "api-reference/voice-ai/voice-ai-create-action",
+              "api-reference/voice-ai/voice-ai-update-action",
+              "api-reference/voice-ai/voice-ai-get-action",
+              "api-reference/voice-ai/voice-ai-delete-action"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "api-reference/workflows/workflows-get-workflow"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -94,7 +787,12 @@
     }
   },
   "seo": {
-    "metatags": { "og:image": "/images/og.png" },
+    "metatags": {
+      "og:image": "/images/og.png"
+    },
     "indexing": "navigable"
+  },
+  "api": {
+    "openapi": "openapi.json"
   }
 }
