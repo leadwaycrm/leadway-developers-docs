@@ -31,7 +31,53 @@
         "tab": "Documentación",
         "groups": [
           { "group": "Empezar", "pages": ["landing", "authentication"] },
-          { "group": "Scopes", "pages": ["scopes/index"] }
+          {
+            "group": "Scopes",
+            "pages": [
+              "scopes/index",
+              {
+                "group": "Catálogo",
+                "pages": [
+                  "scopes/ad-manager",
+                  "scopes/affiliate-manager",
+                  "scopes/ai-agent",
+                  "scopes/associations",
+                  "scopes/blogs",
+                  "scopes/brandboards",
+                  "scopes/business-calendars",
+                  "scopes/campaigns",
+                  "scopes/chat-widget",
+                  "scopes/companies",
+                  "scopes/contacts",
+                  "scopes/conversation-ai",
+                  "scopes/conversations",
+                  "scopes/courses",
+                  "scopes/custom-fields",
+                  "scopes/custom-menus",
+                  "scopes/email-forms",
+                  "scopes/funnels",
+                  "scopes/invoice",
+                  "scopes/knowledge-base",
+                  "scopes/lc-email",
+                  "scopes/media-storage",
+                  "scopes/objects",
+                  "scopes/opportunities",
+                  "scopes/payments",
+                  "scopes/phone-system",
+                  "scopes/products",
+                  "scopes/proposals",
+                  "scopes/social-planner",
+                  "scopes/store",
+                  "scopes/studio",
+                  "scopes/surveys",
+                  "scopes/trigger-links",
+                  "scopes/users",
+                  "scopes/voice-ai",
+                  "scopes/workflows"
+                ]
+              }
+            ]
+          }
         ]
       }
     ]
