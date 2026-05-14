@@ -98,8 +98,8 @@
       {
         "tab": "Referencia API",
         "openapi": {
-          "source": "openapi.json",
-          "directory": "api-reference"
+          "source": "test-minimal.json",
+          "directory": "test-ref"
         }
       }
     ]
