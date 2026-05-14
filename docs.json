@@ -38,6 +38,7 @@
     "tabs": [
       {
         "tab": "Documentación",
+        "openapi": "openapi.json",
         "groups": [
           {
             "group": "Empezar",
@@ -807,6 +808,5 @@
       "og:image": "/images/og.png"
     },
     "indexing": "navigable"
-  },
-  "openapi": "/openapi.json"
+  }
 }
