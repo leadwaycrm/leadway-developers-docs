@@ -1,4 +1,330 @@
 ---
 title: 'Update Agent'
-openapi: 'PUT /conversation-ai/agents/{agentId}'
+description: 'Updates an existing AI agents configuration. All fields in the agent configuration can be updated including name, status, actions, and behavior settings.'
 ---
+
+Updates an existing AI agent's configuration. All fields in the agent configuration can be updated including name, status, actions, and behavior settings.
+
+```http
+PUT https://services.leadconnectorhq.com/conversation-ai/agents/{agentId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="agentId" type="string" required>
+Conversations AI agent id
+</ParamField>
+
+## Body
+
+<ParamField body="name" type="string" default='John Doe'>
+Name of the agent.
+</ParamField>
+
+<ParamField body="businessName" type="string" default='Tech Corp'>
+Name of the business the agent represents.
+</ParamField>
+
+<ParamField body="mode" type="string">
+Mode of operation for the agent, required if primary is enabled. Posibles valores: 'off', 'suggestive', 'auto-pilot'
+</ParamField>
+
+<ParamField body="channels" type="string[]">
+Channels the agent can use.
+</ParamField>
+
+<ParamField body="isPrimary" type="boolean" default='True'>
+Indicates if this agent is a primary agent.
+</ParamField>
+
+<ParamField body="waitTime" type="number" default='30'>
+Wait time before agent responds (max 5 for minutes, 300 for seconds).
+</ParamField>
+
+<ParamField body="waitTimeUnit" type="string" default='seconds'>
+Unit for wait time - SECONDS or MINUTES Posibles valores: 'minutes', 'seconds'
+</ParamField>
+
+<ParamField body="sleepEnabled" type="boolean" default='False'>
+Indicates if sleep functionality is enabled.
+</ParamField>
+
+<ParamField body="sleepTime" type="number" default='10'>
+Duration of sleep period (required if sleepEnabled is true). Set to null for indefinite sleep. (max 2880 for minutes, 172800 for seconds, 48 for hours)
+</ParamField>
+
+<ParamField body="sleepTimeUnit" type="string">
+Unit of sleep time - HOURS, MINUTES, or SECONDS (required if sleepEnabled is true). Set to null for indefinite sleep. Posibles valores: 'hours', 'minutes', 'seconds'
+</ParamField>
+
+<ParamField body="personality" type="string" default='You re an AI assistant and you are friendly and helpful'>
+Personality traits of the agent.
+</ParamField>
+
+<ParamField body="goal" type="string" default='You are an AI assistant and you are helping customers with inquiries.'>
+The goal of the agent.
+</ParamField>
+
+<ParamField body="instructions" type="string" default='Provide excellent customer service.'>
+Instructions for the agent.
+</ParamField>
+
+<ParamField body="autoPilotMaxMessages" type="number" required>
+Maximum number of messages in auto-pilot mode before requiring human intervention. (max: 100, min: 1)
+</ParamField>
+
+<ParamField body="knowledgeBaseIds" type="string[]">
+Array of knowledge base IDs associated with this agent.
+</ParamField>
+
+<ParamField body="respondToImages" type="boolean" default='True'>
+Allow agent to respond to images
+</ParamField>
+
+<ParamField body="respondToAudio" type="boolean" default='True'>
+Allow agent to respond to audio
+</ParamField>
+
+<ParamField body="sleepOnManualMessage" type="boolean" default='False'>
+Enable sleep when a manual outbound message is sent.
+</ParamField>
+
+<ParamField body="sleepOnWorkflowMessage" type="boolean" default='False'>
+Enable sleep when a workflow outbound message is sent.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="id" type="string" required default='emp_123'>
+Unique identifier for the agent.
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='John Doe'>
+Name of the agent.
+</ResponseField>
+
+<ResponseField name="businessName" type="string" default='Tech Corp'>
+Name of the business the agent represents.
+</ResponseField>
+
+<ResponseField name="mode" type="string" required default='auto-pilot'>
+Current operating mode of the agent. Posibles valores: 'off', 'suggestive', 'auto-pilot'
+</ResponseField>
+
+<ResponseField name="channels" type="string[]" required>
+Communication channels the agent operates on.
+</ResponseField>
+
+<ResponseField name="waitTime" type="number" required default='30'>
+Wait time before agent responds.
+</ResponseField>
+
+<ResponseField name="waitTimeUnit" type="string" required default='seconds'>
+Unit for wait time. Posibles valores: 'minutes', 'seconds'
+</ResponseField>
+
+<ResponseField name="sleepEnabled" type="boolean" required default='False'>
+Indicates if sleep functionality is enabled.
+</ResponseField>
+
+<ResponseField name="sleepTime" type="number" default='2'>
+Duration of sleep period.
+</ResponseField>
+
+<ResponseField name="sleepTimeUnit" type="string" default='hours'>
+Unit of sleep time. Posibles valores: 'hours', 'minutes', 'seconds'
+</ResponseField>
+
+<ResponseField name="actions" type="object[]" required>
+List of actions associated with this agent.
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='actionId123'>
+Unique identifier for the action.
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='triggerWorkflow'>
+type of action. Posibles valores: 'triggerWorkflow', 'updateContactField', 'appointmentBooking', 'stopBot', 'humanHandOver', 'advancedFollowup', 'transferBot'
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="isPrimary" type="boolean" required default='False'>
+Indicates if this agent is a primary agent.
+</ResponseField>
+
+<ResponseField name="autoPilotMaxMessages" type="number" required default='25'>
+Maximum number of messages in auto-pilot mode before requiring human intervention.
+</ResponseField>
+
+<ResponseField name="goal" type="string" default='Assist customers with inquiries'>
+The goal of the agent.
+</ResponseField>
+
+<ResponseField name="personality" type="string" default='Friendly and helpful'>
+Personality traits of the agent.
+</ResponseField>
+
+<ResponseField name="instructions" type="string" default='Provide excellent customer service'>
+Instructions for the agent.
+</ResponseField>
+
+<ResponseField name="knowledgeBaseIds" type="string[]">
+Array of knowledge base IDs associated with this agent.
+</ResponseField>
+
+<ResponseField name="sleepOnManualMessage" type="boolean" default='False'>
+Whether the bot sleeps on manual outbound messages.
+</ResponseField>
+
+<ResponseField name="sleepOnWorkflowMessage" type="boolean" default='False'>
+Whether the bot sleeps on workflow outbound messages.
+</ResponseField>
+
+```json
+{
+  "id": "emp_123",
+  "name": "John Doe",
+  "businessName": "Tech Corp",
+  "mode": "auto-pilot",
+  "channels": [
+    "SMS",
+    "Live_Chat"
+  ],
+  "waitTime": 30,
+  "waitTimeUnit": "seconds",
+  "sleepEnabled": false,
+  "sleepTime": 2,
+  "sleepTimeUnit": "hours",
+  "actions": [
+    {
+      "id": "actionId123",
+      "type": "triggerWorkflow"
+    }
+  ],
+  "isPrimary": false,
+  "autoPilotMaxMessages": 25,
+  "goal": "Assist customers with inquiries",
+  "personality": "Friendly and helpful",
+  "instructions": "Provide excellent customer service",
+  "knowledgeBaseIds": [
+    "kb_123",
+    "kb_456"
+  ],
+  "sleepOnManualMessage": false,
+  "sleepOnWorkflowMessage": false
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "John Doe",
+  "businessName": "Tech Corp",
+  "mode": "off",
+  "channels": [
+    "IG"
+  ],
+  "isPrimary": true,
+  "waitTime": 30,
+  "waitTimeUnit": "seconds",
+  "sleepEnabled": false,
+  "sleepTime": 10,
+  "sleepTimeUnit": "hours",
+  "personality": "You re an AI assistant and you are friendly and helpful",
+  "goal": "You are an AI assistant and you are helping customers with inquiries.",
+  "instructions": "Provide excellent customer service.",
+  "autoPilotMaxMessages": 75,
+  "knowledgeBaseIds": [
+    "string"
+  ],
+  "respondToImages": true,
+  "respondToAudio": true,
+  "sleepOnManualMessage": false,
+  "sleepOnWorkflowMessage": false
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"name": "John Doe", "businessName": "Tech Corp", "mode": "off", "channels": ["IG"], "isPrimary": true, "waitTime": 30, "waitTimeUnit": "seconds", "sleepEnabled": false, "sleepTime": 10, "sleepTimeUnit": "hours", "personality": "You re an AI assistant and you are friendly and helpful", "goal": "You are an AI assistant and you are helping customers with inquiries.", "instructions": "Provide excellent customer service.", "autoPilotMaxMessages": 75, "knowledgeBaseIds": ["string"], "respondToImages": true, "respondToAudio": true, "sleepOnManualMessage": false, "sleepOnWorkflowMessage": false}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"name": "John Doe", "businessName": "Tech Corp", "mode": "off", "channels": ["IG"], "isPrimary": true, "waitTime": 30, "waitTimeUnit": "seconds", "sleepEnabled": false, "sleepTime": 10, "sleepTimeUnit": "hours", "personality": "You re an AI assistant and you are friendly and helpful", "goal": "You are an AI assistant and you are helping customers with inquiries.", "instructions": "Provide excellent customer service.", "autoPilotMaxMessages": 75, "knowledgeBaseIds": ["string"], "respondToImages": true, "respondToAudio": true, "sleepOnManualMessage": false, "sleepOnWorkflowMessage": false},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'name': 'John Doe', 'businessName': 'Tech Corp', 'mode': 'off', 'channels': ['IG'], 'isPrimary': true, 'waitTime': 30, 'waitTimeUnit': 'seconds', 'sleepEnabled': false, 'sleepTime': 10, 'sleepTimeUnit': 'hours', 'personality': 'You re an AI assistant and you are friendly and helpful', 'goal': 'You are an AI assistant and you are helping customers with inquiries.', 'instructions': 'Provide excellent customer service.', 'autoPilotMaxMessages': 75, 'knowledgeBaseIds': ['string'], 'respondToImages': true, 'respondToAudio': true, 'sleepOnManualMessage': false, 'sleepOnWorkflowMessage': false}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

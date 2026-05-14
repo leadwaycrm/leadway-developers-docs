@@ -1,4 +1,154 @@
 ---
 title: 'Create Calendar Group'
-openapi: 'POST /calendars/groups'
+description: 'Create Calendar Group'
 ---
+
+Create Calendar Group
+
+```http
+POST https://services.leadconnectorhq.com/calendars/groups
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='ocQHyuzHvysMo5N5VsXc'>
+</ParamField>
+
+<ParamField body="name" type="string" required default='group a'>
+</ParamField>
+
+<ParamField body="description" type="string" required default='group description'>
+</ParamField>
+
+<ParamField body="slug" type="string" required default='15-mins'>
+</ParamField>
+
+<ParamField body="isActive" type="boolean" default='True'>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="group" type="object">
+<Expandable title="propiedades">
+<ResponseField name="locationId" type="string" required default='ocQHyuzHvysMo5N5VsXc'>
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='group a'>
+</ResponseField>
+
+<ResponseField name="description" type="string" required default='group description'>
+</ResponseField>
+
+<ResponseField name="slug" type="string" required default='15-mins'>
+</ResponseField>
+
+<ResponseField name="isActive" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="id" type="string" default='ocQHyuzHvysMo5N5VsXc'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "group": {
+    "locationId": "ocQHyuzHvysMo5N5VsXc",
+    "name": "group a",
+    "description": "group description",
+    "slug": "15-mins",
+    "isActive": true,
+    "id": "ocQHyuzHvysMo5N5VsXc"
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/calendars/groups' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "ocQHyuzHvysMo5N5VsXc",
+  "name": "group a",
+  "description": "group description",
+  "slug": "15-mins",
+  "isActive": true
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/calendars/groups', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "ocQHyuzHvysMo5N5VsXc", "name": "group a", "description": "group description", "slug": "15-mins", "isActive": true}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/calendars/groups',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "ocQHyuzHvysMo5N5VsXc", "name": "group a", "description": "group description", "slug": "15-mins", "isActive": true},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/calendars/groups');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'ocQHyuzHvysMo5N5VsXc', 'name': 'group a', 'description': 'group description', 'slug': '15-mins', 'isActive': true}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,353 @@
 ---
 title: 'Create Price for a Product'
-openapi: 'POST /products/{productId}/price'
+description: 'The "Create Price for a Product" API allows adding a new price associated with a specific product to the system. Use this endpoint to create a price with the specified details for a particular product'
 ---
+
+The "Create Price for a Product" API allows adding a new price associated with a specific product to the system. Use this endpoint to create a price with the specified details for a particular product. Ensure that the required information is provided in the request payload.
+
+```http
+POST https://services.leadconnectorhq.com/products/{productId}/price
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="productId" type="string" required default='6578278e879ad2646715ba9c'>
+ID of the product that needs to be used
+</ParamField>
+
+## Body
+
+<ParamField body="name" type="string" required default='Price Name'>
+The name of the price.
+</ParamField>
+
+<ParamField body="type" type="string" required default='one_time'>
+The type of the price. Posibles valores: 'one_time', 'recurring'
+</ParamField>
+
+<ParamField body="currency" type="string" required default='USD'>
+The currency of the price.
+</ParamField>
+
+<ParamField body="amount" type="number" required default='99.99'>
+The amount of the price. ( min: 0 )
+</ParamField>
+
+<ParamField body="recurring" type="object">
+The recurring details of the price (if type is recurring).
+</ParamField>
+
+<ParamField body="description" type="string">
+A brief description of the price.
+</ParamField>
+
+<ParamField body="membershipOffers" type="object[]">
+An array of membership offers associated with the price.
+<Expandable title="cada item">
+<ParamField body="label" type="string" required default='top_50'>
+Membership offer label
+</ParamField>
+
+<ParamField body="value" type="string" required default='50'>
+Membership offer label
+</ParamField>
+
+<ParamField body="_id" type="string" required default='655b33aa2209e60b6adb87a7'>
+The unique identifier for the membership offer.
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="trialPeriod" type="number" default='7'>
+The trial period duration in days (if applicable).
+</ParamField>
+
+<ParamField body="totalCycles" type="number" default='12'>
+The total number of billing cycles for the price. ( min: 1 )
+</ParamField>
+
+<ParamField body="setupFee" type="number" default='10.99'>
+The setup fee for the price.
+</ParamField>
+
+<ParamField body="variantOptionIds" type="string[]">
+An array of variant option IDs associated with the price.
+</ParamField>
+
+<ParamField body="compareAtPrice" type="number" default='19.99'>
+The compare at price for the price.
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='6578278e879ad2646715ba9c'>
+The unique identifier of the account associated with the price.
+</ParamField>
+
+<ParamField body="userId" type="string" default='6578278e879ad2646715ba9c'>
+The unique identifier of the user who created the price.
+</ParamField>
+
+<ParamField body="meta" type="object">
+Additional metadata associated with the price.
+</ParamField>
+
+<ParamField body="trackInventory" type="boolean" default='True'>
+Need to track inventory stock quantity
+</ParamField>
+
+<ParamField body="availableQuantity" type="number" default='5'>
+Available inventory stock quantity
+</ParamField>
+
+<ParamField body="allowOutOfStockPurchases" type="boolean" default='True'>
+Continue selling when out of stock
+</ParamField>
+
+<ParamField body="sku" type="string" default='sku_123'>
+The unique identifier of the SKU associated with the price
+</ParamField>
+
+<ParamField body="shippingOptions" type="object">
+Shipping options of the Price
+</ParamField>
+
+<ParamField body="isDigitalProduct" type="boolean" default='True'>
+Is the product a digital product
+</ParamField>
+
+<ParamField body="digitalDelivery" type="string[]">
+Digital delivery options
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="_id" type="string" required default='655b33aa2209e60b6adb87a7'>
+The unique identifier for the price.
+</ResponseField>
+
+<ResponseField name="membershipOffers" type="object[]">
+An array of membership offers associated with the price.
+<Expandable title="cada item">
+<ResponseField name="label" type="string" required default='top_50'>
+Membership offer label
+</ResponseField>
+
+<ResponseField name="value" type="string" required default='50'>
+Membership offer label
+</ResponseField>
+
+<ResponseField name="_id" type="string" required default='655b33aa2209e60b6adb87a7'>
+The unique identifier for the membership offer.
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="variantOptionIds" type="string[]">
+An array of variant option IDs associated with the price.
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='3SwdhCsvxI8Au3KsPJt6'>
+The unique identifier for the account.
+</ResponseField>
+
+<ResponseField name="product" type="string" default='655b33a82209e60b6adb87a5'>
+The unique identifier for the associated product.
+</ResponseField>
+
+<ResponseField name="userId" type="string" default='6YAtzfzpmHAdj0e8GkKp'>
+The unique identifier for the user.
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Red / S'>
+The name of the price.
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='one_time'>
+The type of the price (e.g., one_time). Posibles valores: 'one_time', 'recurring'
+</ResponseField>
+
+<ResponseField name="currency" type="string" required default='INR'>
+The currency code for the price.
+</ResponseField>
+
+<ResponseField name="amount" type="number" required default='199999'>
+The amount of the price.
+</ResponseField>
+
+<ResponseField name="recurring" type="object">
+The recurring details of the price (if type is recurring).
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" default='2023-11-20T10:23:38.645Z'>
+The creation timestamp of the price.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" default='2024-01-23T09:57:04.852Z'>
+The last update timestamp of the price.
+</ResponseField>
+
+<ResponseField name="compareAtPrice" type="number" default='2000000'>
+The compare-at price for comparison purposes.
+</ResponseField>
+
+<ResponseField name="trackInventory" type="boolean">
+Indicates whether inventory tracking is enabled.
+</ResponseField>
+
+<ResponseField name="availableQuantity" type="number" default='5'>
+Available inventory stock quantity
+</ResponseField>
+
+<ResponseField name="allowOutOfStockPurchases" type="boolean" default='True'>
+Continue selling when out of stock
+</ResponseField>
+
+```json
+{
+  "_id": "655b33aa2209e60b6adb87a7",
+  "membershipOffers": [
+    {
+      "label": "top_50",
+      "value": "50",
+      "_id": "655b33aa2209e60b6adb87a7"
+    }
+  ],
+  "variantOptionIds": [
+    "h4z7u0im2q8",
+    "h3nst2ltsnn"
+  ],
+  "locationId": "3SwdhCsvxI8Au3KsPJt6",
+  "product": "655b33a82209e60b6adb87a5",
+  "userId": "6YAtzfzpmHAdj0e8GkKp",
+  "name": "Red / S",
+  "type": "one_time",
+  "currency": "INR",
+  "amount": 199999,
+  "createdAt": "2023-11-20T10:23:38.645Z",
+  "updatedAt": "2024-01-23T09:57:04.852Z",
+  "compareAtPrice": 2000000,
+  "availableQuantity": 5,
+  "allowOutOfStockPurchases": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/products/YOUR_productId/price' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Price Name",
+  "type": "one_time",
+  "currency": "USD",
+  "amount": 99.99,
+  "description": "string",
+  "membershipOffers": [
+    {
+      "label": "top_50",
+      "value": "50",
+      "_id": "655b33aa2209e60b6adb87a7"
+    }
+  ],
+  "trialPeriod": 7,
+  "totalCycles": 12,
+  "setupFee": 10.99,
+  "variantOptionIds": [
+    "option_id_1",
+    "option_id_2"
+  ],
+  "compareAtPrice": 19.99,
+  "locationId": "6578278e879ad2646715ba9c",
+  "userId": "6578278e879ad2646715ba9c",
+  "trackInventory": true,
+  "availableQuantity": 5,
+  "allowOutOfStockPurchases": true,
+  "sku": "sku_123",
+  "isDigitalProduct": true,
+  "digitalDelivery": [
+    "string"
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/products/YOUR_productId/price', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"name": "Price Name", "type": "one_time", "currency": "USD", "amount": 99.99, "description": "string", "membershipOffers": [{"label": "top_50", "value": "50", "_id": "655b33aa2209e60b6adb87a7"}], "trialPeriod": 7, "totalCycles": 12, "setupFee": 10.99, "variantOptionIds": ["option_id_1", "option_id_2"], "compareAtPrice": 19.99, "locationId": "6578278e879ad2646715ba9c", "userId": "6578278e879ad2646715ba9c", "trackInventory": true, "availableQuantity": 5, "allowOutOfStockPurchases": true, "sku": "sku_123", "isDigitalProduct": true, "digitalDelivery": ["string"]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/products/YOUR_productId/price',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"name": "Price Name", "type": "one_time", "currency": "USD", "amount": 99.99, "description": "string", "membershipOffers": [{"label": "top_50", "value": "50", "_id": "655b33aa2209e60b6adb87a7"}], "trialPeriod": 7, "totalCycles": 12, "setupFee": 10.99, "variantOptionIds": ["option_id_1", "option_id_2"], "compareAtPrice": 19.99, "locationId": "6578278e879ad2646715ba9c", "userId": "6578278e879ad2646715ba9c", "trackInventory": true, "availableQuantity": 5, "allowOutOfStockPurchases": true, "sku": "sku_123", "isDigitalProduct": true, "digitalDelivery": ["string"]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/products/YOUR_productId/price');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'name': 'Price Name', 'type': 'one_time', 'currency': 'USD', 'amount': 99.99, 'description': 'string', 'membershipOffers': [{'label': 'top_50', 'value': '50', '_id': '655b33aa2209e60b6adb87a7'}], 'trialPeriod': 7, 'totalCycles': 12, 'setupFee': 10.99, 'variantOptionIds': ['option_id_1', 'option_id_2'], 'compareAtPrice': 19.99, 'locationId': '6578278e879ad2646715ba9c', 'userId': '6578278e879ad2646715ba9c', 'trackInventory': true, 'availableQuantity': 5, 'allowOutOfStockPurchases': true, 'sku': 'sku_123', 'isDigitalProduct': true, 'digitalDelivery': ['string']}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

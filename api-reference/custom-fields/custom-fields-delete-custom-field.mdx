@@ -1,4 +1,131 @@
 ---
 title: 'Delete Custom Field By Id'
-openapi: 'DELETE /custom-fields/{id}'
+description: '<div>     <p> Delete Custom Field By Id </p>      <div>       <span style= "display: inline-block;                   width: 25px; height: 25px;                   background-color: yellow;             '
 ---
+
+&lt;div&gt;
+    &lt;p&gt; Delete Custom Field By Id &lt;/p&gt; 
+    &lt;div&gt;
+      &lt;span style= "display: inline-block;
+                  width: 25px; height: 25px;
+                  background-color: yellow;
+                  color: black;
+                  font-weight: bold;
+                  font-size: 24px;
+                  text-align: center;
+                  line-height: 22px;
+                  border: 2px solid black;
+                  border-radius: 10%;
+                  margin-right: 10px;"&gt;
+                  !
+        &lt;/span&gt;
+        &lt;span&gt;
+          &lt;strong&gt;
+          Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.
+          &lt;/strong&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+```http
+DELETE https://services.leadconnectorhq.com/custom-fields/{id}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="succeded" type="boolean" required default='True'>
+</ResponseField>
+
+<ResponseField name="id" type="string" required default='3v34PM428h8vShlRW1KT'>
+</ResponseField>
+
+<ResponseField name="key" type="string" required default='custom_object.pet.name'>
+</ResponseField>
+
+```json
+{
+  "succeded": true,
+  "id": "3v34PM428h8vShlRW1KT",
+  "key": "custom_object.pet.name"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X DELETE 'https://services.leadconnectorhq.com/custom-fields/YOUR_id' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/custom-fields/YOUR_id', {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'DELETE',
+    'https://services.leadconnectorhq.com/custom-fields/YOUR_id',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/custom-fields/YOUR_id');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'DELETE',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,116 @@
 ---
 title: 'Set default page'
-openapi: 'PUT /ad-publishing/facebook/page/default'
+description: 'Set the default Facebook page for a account'
 ---
+
+Set the default Facebook page for a account
+
+```http
+PUT https://services.leadconnectorhq.com/ad-publishing/facebook/page/default
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='HChooFuiyPpVYzeJ4HMe'>
+Account identifier
+</ParamField>
+
+## Body
+
+<ParamField body="pageId" type="string" required default='103456789012345'>
+Facebook page identifier
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Response">
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/ad-publishing/facebook/page/default' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "pageId": "103456789012345"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/ad-publishing/facebook/page/default', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"pageId": "103456789012345"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/ad-publishing/facebook/page/default',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"pageId": "103456789012345"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/ad-publishing/facebook/page/default');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'pageId': '103456789012345'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

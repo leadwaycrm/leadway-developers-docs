@@ -1,4 +1,249 @@
 ---
 title: 'Get Opportunity'
-openapi: 'GET /opportunities/{id}'
+description: 'Get Opportunity'
 ---
+
+Get Opportunity
+
+```http
+GET https://services.leadconnectorhq.com/opportunities/{id}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="id" type="string" required default='yWQobCRIhRguQtD2llvk'>
+Opportunity Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="opportunity" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='yWQobCRIhRguQtD2llvk'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='testing'>
+</ResponseField>
+
+<ResponseField name="monetaryValue" type="number" default='500'>
+</ResponseField>
+
+<ResponseField name="pipelineId" type="string" default='VDm7RPYC2GLUvdpKmBfC'>
+</ResponseField>
+
+<ResponseField name="pipelineStageId" type="string" default='e93ba61a-53b3-45e7-985a-c7732dbcdb69'>
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="status" type="string" default='open'>
+</ResponseField>
+
+<ResponseField name="source" type="string" default=''>
+</ResponseField>
+
+<ResponseField name="lastStatusChangeAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="lastStageChangeAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="lastActionDate" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="indexVersion" type="string" default='1'>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='zT46WSCPbudrq4zhW'>
+</ResponseField>
+
+<ResponseField name="contact" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='byMEV0NQinDhq8ZfiOi2'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='John Deo'>
+</ResponseField>
+
+<ResponseField name="companyName" type="string" default='Tesla Inc'>
+</ResponseField>
+
+<ResponseField name="email" type="string" default='john@deo.com'>
+</ResponseField>
+
+<ResponseField name="phone" type="string" default='+1202-555-0107'>
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="notes" type="array[]">
+</ResponseField>
+
+<ResponseField name="tasks" type="array[]">
+</ResponseField>
+
+<ResponseField name="calendarEvents" type="array[]">
+</ResponseField>
+
+<ResponseField name="lostReasonId" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="customFields" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='MgobCB14YMVKuE4Ka8p1'>
+</ResponseField>
+
+<ResponseField name="fieldValue" type="object" required>
+The value of the custom field
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="followers" type="array[]">
+</ResponseField>
+
+<ResponseField name="externalObjectId" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "opportunity": {
+    "id": "yWQobCRIhRguQtD2llvk",
+    "name": "testing",
+    "monetaryValue": 500,
+    "pipelineId": "VDm7RPYC2GLUvdpKmBfC",
+    "pipelineStageId": "e93ba61a-53b3-45e7-985a-c7732dbcdb69",
+    "assignedTo": "zT46WSCPbudrq4zhWMk6",
+    "status": "open",
+    "source": "",
+    "lastStatusChangeAt": "2021-08-03T04:55:17.355Z",
+    "lastStageChangeAt": "2021-08-03T04:55:17.355Z",
+    "lastActionDate": "2021-08-03T04:55:17.355Z",
+    "indexVersion": 1,
+    "createdAt": "2021-08-03T04:55:17.355Z",
+    "updatedAt": "2021-08-03T04:55:17.355Z",
+    "contactId": "zT46WSCPbudrq4zhWMk6",
+    "locationId": "zT46WSCPbudrq4zhW",
+    "contact": {
+      "id": "byMEV0NQinDhq8ZfiOi2",
+      "name": "John Deo",
+      "companyName": "Tesla Inc",
+      "email": "john@deo.com",
+      "phone": "+1202-555-0107",
+      "tags": [
+        "string"
+      ]
+    },
+    "notes": [
+      []
+    ],
+    "tasks": [
+      []
+    ],
+    "calendarEvents": [
+      []
+    ],
+    "lostReasonId": "zT46WSCPbudrq4zhWMk6",
+    "customFields": [
+  // truncado: 10 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/opportunities/YOUR_id' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/opportunities/YOUR_id', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/opportunities/YOUR_id',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/opportunities/YOUR_id');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

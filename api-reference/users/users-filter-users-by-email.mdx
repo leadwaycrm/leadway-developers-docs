@@ -1,4 +1,358 @@
 ---
 title: 'Filter Users by Email'
-openapi: 'POST /users/search/filter-by-email'
+description: 'Filter users by company ID, deleted status, and email array'
 ---
+
+Filter users by company ID, deleted status, and email array
+
+```http
+POST https://services.leadconnectorhq.com/users/search/filter-by-email
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="companyId" type="string" required default='5DP41231LkQsiKESj6rh'>
+Company ID to filter users
+</ParamField>
+
+<ParamField body="emails" type="string" required default='user1@example.com,user2@example.com'>
+Comma-separated list of email addresses to filter users
+</ParamField>
+
+<ParamField body="deleted" type="boolean" default='False'>
+Filter deleted users
+</ParamField>
+
+<ParamField body="skip" type="string" default='1'>
+No of results to be skipped before returning the result
+</ParamField>
+
+<ParamField body="limit" type="string" default='10'>
+No of results to be limited before returning the result
+</ParamField>
+
+<ParamField body="projection" type="string" default='all'>
+Projection fields to return. Use "all" for all fields, or specify comma-separated field names. Default returns only id and email
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="users" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='0IHuJvc2ofPAAA8GzTRi'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='John Deo'>
+</ResponseField>
+
+<ResponseField name="firstName" type="string" default='John'>
+</ResponseField>
+
+<ResponseField name="lastName" type="string" default='Deo'>
+</ResponseField>
+
+<ResponseField name="email" type="string" default='john@deo.com'>
+</ResponseField>
+
+<ResponseField name="phone" type="string" default='+1 808-868-8888'>
+</ResponseField>
+
+<ResponseField name="extension" type="string" default=''>
+</ResponseField>
+
+<ResponseField name="permissions" type="object">
+<Expandable title="propiedades">
+<ResponseField name="campaignsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="campaignsReadOnly" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="contactsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="workflowsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="workflowsReadOnly" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="triggersEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="funnelsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="websitesEnabled" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="opportunitiesEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="dashboardStatsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="bulkRequestsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="appointmentsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="reviewsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="onlineListingsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="phoneCallEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="conversationsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="assignedDataOnly" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="adwordsReportingEnabled" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="membershipEnabled" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="facebookAdsReportingEnabled" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="attributionsReportingEnabled" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="settingsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="tagsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="leadValueEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="marketingEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="agentReportingEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="botService" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="socialPlanner" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="bloggingEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="invoiceEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="affiliateManagerEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="contentAiEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="refundsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="recordPaymentEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="cancelSubscriptionEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="paymentsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="communitiesEnabled" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="exportPaymentsEnabled" type="boolean" default='True'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="scopes" type="string">
+Posibles valores: 'campaigns.readonly', 'campaigns.write', 'calendars.readonly', 'calendars/events.write', 'calendars/groups.write', 'calendars.write', 'contacts.write', 'contacts/bulkActions.write', 'workflows.readonly', 'workflows.write', 'triggers.write', 'funnels.write', 'forms.write', 'surveys.write', 'quizzes.write', 'websites.write', 'medias.write', 'medias.readonly', 'opportunities.write', 'opportunities/leadValue.readonly', 'opportunities/bulkActions.write', 'reporting/phone.readonly', 'reporting/adwords.readonly', 'reporting/facebookAds.readonly', 'reporting/attributions.readonly', 'prospecting/auditReport.write', 'reporting/reports.readonly', 'reporting/agent.readonly', 'reporting/reports.write', 'reporting/stats.export', 'payments.write', 'payments/records.write', 'payments/orders.readonly', 'payments/orders.export', 'payments/orders.import', 'payments/orders.collectPayment', 'payments/subscriptions.readonly', 'payments/subscriptions.write', 'payments/subscriptions.update', 'payments/subscriptions.export', 'payments/subscriptions.pauseResumeCancel', 'payments/subscriptions.sharePaymentMethod', 'payments/transactions.readonly', 'payments/transactions.export', 'payments/transactions.import', 'payments/transactions.refund', 'payments/transactions.viewReceipts', 'payments/taxesSettings.readonly', 'payments/settings.readonly', 'payments/taxesSettings.updateInclusiveExclusive', 'payments/taxesSettings.manageRates', 'payments/taxesSettings.configureAutomatic', 'products.readonly', 'products.write', 'products.delete', 'products.duplicate', 'products.bulkActions', 'payments/settings.write', 'payments/settings.configureReceipt', 'payments/settings.configureSubscription', 'invoices.write', 'invoices.readonly', 'invoices/schedule.readonly', 'invoices/schedule.write', 'invoices/template.readonly', 'invoices/template.write', 'reputation/review.write', 'reputation/listing.write', 'reputation/reviewsAIAgents.write', 'reputation/gbp.write', 'conversations.write', 'conversations.readonly', 'conversations/message.readonly', 'conversations/message.write', 'contentAI.write', 'dashboard/stats.readonly', 'locations/tags.write', 'locations/tags.readonly', 'marketing.write', 'eliza.write', 'settings.write', 'socialplanner/post.write', 'socialplanner/account.readonly', 'socialplanner/account.write', 'socialplanner/category.readonly', 'socialplanner/category.write', 'socialplanner/csv.readonly', 'socialplanner/csv.write', 'socialplanner/group.write', 'socialplanner/hashtag.readonly', 'socialplanner/hashtag.write', 'socialplanner/oauth.readonly', 'socialplanner/oauth.write', 'socialplanner/post.readonly', 'socialplanner/recurring.readonly', 'socialplanner/recurring.write', 'socialplanner/review.readonly', 'socialplanner/review.write', 'socialplanner/rss.readonly', 'socialplanner/rss.write', 'socialplanner/search.readonly', 'socialplanner/setting.readonly', 'socialplanner/setting.write', 'socialplanner/stat.readonly', 'socialplanner/tag.readonly', 'socialplanner/tag.write', 'socialplanner/filters.readonly', 'socialplanner/medias.readonly', 'socialplanner/medias.write', 'socialplanner/watermarks.readonly', 'socialplanner/watermarks.write', 'socialplanner/metatag.readonly', 'socialplanner/facebook.readonly', 'socialplanner/linkedin.readonly', 'socialplanner/twitter.readonly', 'socialplanner/notification.readonly', 'socialplanner/notification.write', 'socialplanner/snapshot.readonly', 'socialplanner/snapshot.write', 'marketing/affiliate.write', 'blogs.write', 'membership.write', 'communities.write', 'gokollab.write', 'certificates.write', 'certificates.readonly', 'adPublishing.write', 'adPublishing.readonly', 'prospecting.write', 'prospecting.readonly', 'prospecting/reports.readonly', 'private-integration-account.readonly', 'private-integration-account.write', 'private-integration-company.readonly', 'private-integration-company.write', 'native-integrations.readonly', 'native-integrations.write', 'wordpress.write', 'wordpress.read', 'custom-menu-link.write', 'qrcodes.write', 'users/team-management.write', 'users/team-management.readonly', 'loginas.write', 'users-sso-login-management.write', 'users-sso-login-management.readonly', 'sso-config.write', 'snapshots/api.readonly', 'snapshots/api.create', 'snapshots/api.edit', 'snapshots/api.push', 'snapshots/api.refresh', 'snapshots/api.share', 'snapshots/api.delete', 'internaltools.account-transfer.write', 'internaltools.account-transfer.readonly', 'affiliateportal.write', 'affiliateportal.readonly', 'companies.write', 'internaltools.billing.write', 'internaltools.billing.readonly', 'internaltools.billing-common.readonly', 'internaltools.billing-common.write', 'voice-ai-agents.write', 'voice-ai-agents.readonly', 'voice-ai-common.readonly', 'voice-ai-common.write', 'voice-ai-agent-goals.readonly', 'voice-ai-agent-goals.write', 'voice-ai-dashboard.readonly', 'agency/launchpad.write', 'agency/launchpad.readonly', 'launchpad/account.write', 'launchpad/account.readonly', 'text-ai-agents.write', 'text-ai-agent-goals.readonly', 'text-ai-agent-goals.write', 'text-ai-agent-training.write', 'text-ai-agents-dashboard.readonly', 'accounts.create', 'accounts.delete', 'accounts.export.list', 'accounts.features-limits.manage', 'accounts.pause-resume', 'accounts.agency-accounts.manage', 'accounts.billing.manage', 'accounts.details.manage', 'audit-logs.readonly', 'audit-logs.export'
+</ResponseField>
+
+<ResponseField name="roles" type="object">
+<Expandable title="propiedades">
+<ResponseField name="type" type="string" default='account'>
+</ResponseField>
+
+<ResponseField name="role" type="string" default='admin'>
+</ResponseField>
+
+<ResponseField name="locationIds" type="string[]">
+</ResponseField>
+
+<ResponseField name="restrictSubAccount" type="boolean" default='True'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" default='False'>
+</ResponseField>
+
+<ResponseField name="lcPhone" type="object">
+LC Phone Inbound Phone Numbers
+</ResponseField>
+
+<ResponseField name="platformLanguage" type="string" default='en_US'>
+Platform language preference for the user Posibles valores: 'en_US', 'es', 'fr_CA', 'fr_FR', 'nl', 'de', 'pt_PT', 'pt_BR', 'it', 'sv', 'da', 'fi', 'no'
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="count" type="number" default='1231'>
+</ResponseField>
+
+```json
+{
+  "users": [
+    {
+      "id": "0IHuJvc2ofPAAA8GzTRi",
+      "name": "John Deo",
+      "firstName": "John",
+      "lastName": "Deo",
+      "email": "john@deo.com",
+      "phone": "+1 808-868-8888",
+      "extension": "",
+      "permissions": {
+        "campaignsEnabled": true,
+        "campaignsReadOnly": false,
+        "contactsEnabled": true,
+        "workflowsEnabled": true,
+        "workflowsReadOnly": true,
+        "triggersEnabled": true,
+        "funnelsEnabled": true,
+        "websitesEnabled": false,
+        "opportunitiesEnabled": true,
+        "dashboardStatsEnabled": true,
+        "bulkRequestsEnabled": true,
+        "appointmentsEnabled": true,
+        "reviewsEnabled": true,
+        "onlineListingsEnabled": true,
+        "phoneCallEnabled": true,
+        "conversationsEnabled": true,
+        "assignedDataOnly": false,
+        "adwordsReportingEnabled": false,
+        "membershipEnabled": false,
+        "facebookAdsReportingEnabled": false,
+        "attributionsReportingEnabled": false,
+        "settingsEnabled": true,
+        "tagsEnabled": true,
+        "leadValueEnabled": true,
+        "marketingEnabled": true,
+        "agentReportingEnabled": true,
+        "botService": false,
+        "socialPlanner": true,
+  // truncado: 29 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/users/search/filter-by-email' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "companyId": "5DP41231LkQsiKESj6rh",
+  "emails": "user1@example.com,user2@example.com",
+  "deleted": false,
+  "skip": "1",
+  "limit": "10",
+  "projection": "all"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/users/search/filter-by-email', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"companyId": "5DP41231LkQsiKESj6rh", "emails": "user1@example.com,user2@example.com", "deleted": false, "skip": "1", "limit": "10", "projection": "all"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/users/search/filter-by-email',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"companyId": "5DP41231LkQsiKESj6rh", "emails": "user1@example.com,user2@example.com", "deleted": false, "skip": "1", "limit": "10", "projection": "all"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/users/search/filter-by-email');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'companyId': '5DP41231LkQsiKESj6rh', 'emails': 'user1@example.com,user2@example.com', 'deleted': false, 'skip': '1', 'limit': '10', 'projection': 'all'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

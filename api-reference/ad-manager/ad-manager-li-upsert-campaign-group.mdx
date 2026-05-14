@@ -1,4 +1,335 @@
 ---
 title: 'Upsert ad campaign group'
-openapi: 'PUT /ad-publishing/linkedin/ads'
+description: 'Create or update a LinkedIn ad campaign group with campaigns and ads'
 ---
+
+Create or update a LinkedIn ad campaign group with campaigns and ads
+
+```http
+PUT https://services.leadconnectorhq.com/ad-publishing/linkedin/ads
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="id" type="string">
+</ParamField>
+
+<ParamField body="locationId" type="string" required>
+Account ID
+</ParamField>
+
+<ParamField body="budget" type="object">
+<Expandable title="propiedades">
+<ParamField body="budgetType" type="string">
+Posibles valores: 'DAILY', 'LIFETIME'
+</ParamField>
+
+<ParamField body="amount" type="number">
+</ParamField>
+
+<ParamField body="scheduleStartDate" type="string" default='2025-01-01'>
+Schedule start date (ISO 8601)
+</ParamField>
+
+<ParamField body="scheduleEndDate" type="string" default='2025-12-31'>
+Schedule end date (ISO 8601)
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="adCampaigns" type="object[]">
+<Expandable title="cada item">
+<ParamField body="id" type="string">
+</ParamField>
+
+<ParamField body="locale" type="object">
+Campaign locale
+</ParamField>
+
+<ParamField body="name" type="string">
+</ParamField>
+
+<ParamField body="publishingStatus" type="string">
+Posibles valores: 'DRAFT', 'SCHEDULED', 'PUBLISHED', 'PUBLISHING', 'FAILED', 'IN_REVIEW', 'PAUSED', 'ARCHIVED', 'WITH_ISSUES', 'REJECTED'
+</ParamField>
+
+<ParamField body="mediaType" type="string">
+Campaign audience targeting Posibles valores: 'STANDARD_UPDATE', 'SINGLE_VIDEO', 'CAROUSEL'
+</ParamField>
+
+<ParamField body="audience" type="object">
+Campaign audience targeting
+</ParamField>
+
+<ParamField body="unitCost" type="object">
+Bid unit cost
+</ParamField>
+
+<ParamField body="campaignType" type="string">
+</ParamField>
+
+<ParamField body="adCampaignGroupId" type="string">
+</ParamField>
+
+<ParamField body="adCampaignId" type="string">
+</ParamField>
+
+<ParamField body="ads" type="object[]">
+<Expandable title="cada item">
+<ParamField body="id" type="string">
+</ParamField>
+
+<ParamField body="name" type="string">
+</ParamField>
+
+<ParamField body="introductoryText" type="string">
+</ParamField>
+
+<ParamField body="destinationUrl" type="string">
+</ParamField>
+
+<ParamField body="callToActionLabel" type="string">
+</ParamField>
+
+<ParamField body="destinationFormId" type="string">
+</ParamField>
+
+<ParamField body="contentReferenceString" type="string">
+</ParamField>
+
+<ParamField body="media" type="object[]">
+<Expandable title="cada item">
+<ParamField body="type" type="string">
+Media type Posibles valores: 'video', 'image'
+</ParamField>
+
+<ParamField body="src" type="string">
+Media source URL
+</ParamField>
+
+<ParamField body="frames" type="string[]">
+Video frame URLs
+</ParamField>
+
+<ParamField body="selectedPoster" type="number">
+Selected poster frame index
+</ParamField>
+
+<ParamField body="thumbnailUrl" type="string">
+Thumbnail URL
+</ParamField>
+
+<ParamField body="name" type="string">
+Media name
+</ParamField>
+
+<ParamField body="headline" type="string">
+Media headline
+</ParamField>
+
+<ParamField body="destinationUrl" type="string">
+Click-through destination URL
+</ParamField>
+
+<ParamField body="fileSizeBytes" type="number">
+File size in bytes
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="adCampaignId" type="string">
+</ParamField>
+
+<ParamField body="adId" type="string">
+</ParamField>
+
+<ParamField body="headline" type="string">
+</ParamField>
+
+<ParamField body="publishingStatus" type="string">
+Posibles valores: 'DRAFT', 'SCHEDULED', 'PUBLISHED', 'PUBLISHING', 'FAILED', 'IN_REVIEW', 'PAUSED', 'ARCHIVED', 'WITH_ISSUES', 'REJECTED'
+</ParamField>
+
+<ParamField body="adCampaignGroupId" type="string">
+</ParamField>
+
+<ParamField body="description" type="string">
+</ParamField>
+
+<ParamField body="meta" type="object">
+</ParamField>
+
+<ParamField body="linkedInError" type="string">
+LinkedIn API error message
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="linkedInError" type="string">
+LinkedIn API error message
+</ParamField>
+
+<ParamField body="meta" type="object">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="adBudgetOptimization" type="string">
+Posibles valores: 'MAXIMUM_DELIVERY', 'COST_CAP'
+</ParamField>
+
+<ParamField body="objectiveType" type="string">
+Posibles valores: 'LEAD_GENERATION', 'WEBSITE_VISIT'
+</ParamField>
+
+<ParamField body="name" type="string">
+</ParamField>
+
+<ParamField body="adCampaignGroupId" type="string">
+</ParamField>
+
+<ParamField body="publishingStatus" type="string">
+Posibles valores: 'DRAFT', 'SCHEDULED', 'PUBLISHED', 'PUBLISHING', 'FAILED', 'IN_REVIEW', 'PAUSED', 'ARCHIVED', 'WITH_ISSUES', 'REJECTED'
+</ParamField>
+
+<ParamField body="linkedInAdAccountId" type="string">
+</ParamField>
+
+<ParamField body="unpublishedChanges" type="boolean">
+</ParamField>
+
+<ParamField body="meta" type="object">
+</ParamField>
+
+<ParamField body="linkedInError" type="string">
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Response">
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/ad-publishing/linkedin/ads' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": "string",
+  "locationId": "string",
+  "budget": {
+    "budgetType": "DAILY",
+    "amount": 0,
+    "scheduleStartDate": "2025-01-01",
+    "scheduleEndDate": "2025-12-31"
+  },
+  "adCampaigns": [
+    {
+      "id": "string",
+      "name": "string",
+      "publishingStatus": "DRAFT",
+      "mediaType": "STANDARD_UPDATE",
+      "campaignType": "string",
+      "adCampaignGroupId": "string",
+      "adCampaignId": "string",
+      "ads": [
+        {}
+      ],
+      "linkedInError": "string",
+      "meta": {}
+    }
+  ],
+  "adBudgetOptimization": "MAXIMUM_DELIVERY",
+  "objectiveType": "LEAD_GENERATION",
+  "name": "string",
+  "adCampaignGroupId": "string",
+  "publishingStatus": "DRAFT",
+  "linkedInAdAccountId": "string",
+  "unpublishedChanges": true,
+  "meta": {},
+  "linkedInError": "string"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/ad-publishing/linkedin/ads', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"id": "string", "locationId": "string", "budget": {"budgetType": "DAILY", "amount": 0, "scheduleStartDate": "2025-01-01", "scheduleEndDate": "2025-12-31"}, "adCampaigns": [{"id": "string", "name": "string", "publishingStatus": "DRAFT", "mediaType": "STANDARD_UPDATE", "campaignType": "string", "adCampaignGroupId": "string", "adCampaignId": "string", "ads": [{}], "linkedInError": "string", "meta": {}}], "adBudgetOptimization": "MAXIMUM_DELIVERY", "objectiveType": "LEAD_GENERATION", "name": "string", "adCampaignGroupId": "string", "publishingStatus": "DRAFT", "linkedInAdAccountId": "string", "unpublishedChanges": true, "meta": {}, "linkedInError": "string"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/ad-publishing/linkedin/ads',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"id": "string", "locationId": "string", "budget": {"budgetType": "DAILY", "amount": 0, "scheduleStartDate": "2025-01-01", "scheduleEndDate": "2025-12-31"}, "adCampaigns": [{"id": "string", "name": "string", "publishingStatus": "DRAFT", "mediaType": "STANDARD_UPDATE", "campaignType": "string", "adCampaignGroupId": "string", "adCampaignId": "string", "ads": [{}], "linkedInError": "string", "meta": {}}], "adBudgetOptimization": "MAXIMUM_DELIVERY", "objectiveType": "LEAD_GENERATION", "name": "string", "adCampaignGroupId": "string", "publishingStatus": "DRAFT", "linkedInAdAccountId": "string", "unpublishedChanges": true, "meta": {}, "linkedInError": "string"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/ad-publishing/linkedin/ads');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'id': 'string', 'locationId': 'string', 'budget': {'budgetType': 'DAILY', 'amount': 0, 'scheduleStartDate': '2025-01-01', 'scheduleEndDate': '2025-12-31'}, 'adCampaigns': [{'id': 'string', 'name': 'string', 'publishingStatus': 'DRAFT', 'mediaType': 'STANDARD_UPDATE', 'campaignType': 'string', 'adCampaignGroupId': 'string', 'adCampaignId': 'string', 'ads': [{}], 'linkedInError': 'string', 'meta': {}}], 'adBudgetOptimization': 'MAXIMUM_DELIVERY', 'objectiveType': 'LEAD_GENERATION', 'name': 'string', 'adCampaignGroupId': 'string', 'publishingStatus': 'DRAFT', 'linkedInAdAccountId': 'string', 'unpublishedChanges': true, 'meta': {}, 'linkedInError': 'string'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

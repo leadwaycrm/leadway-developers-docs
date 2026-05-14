@@ -1,4 +1,412 @@
 ---
 title: 'Create template'
-openapi: 'POST /invoices/template'
+description: 'API to create a template'
 ---
+
+API to create a template
+
+```http
+POST https://services.leadconnectorhq.com/invoices/template
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="altId" type="string" required default='6578278e879ad2646715ba9c'>
+account Id / company Id based on altType
+</ParamField>
+
+<ParamField body="altType" type="string" required default='account'>
+Alt Type Posibles valores: 'account'
+</ParamField>
+
+<ParamField body="internal" type="boolean">
+</ParamField>
+
+<ParamField body="name" type="string" required default='New Template'>
+Name of the template
+</ParamField>
+
+<ParamField body="businessDetails" type="object" required>
+<Expandable title="propiedades">
+<ParamField body="logoUrl" type="string" default='https://example.com/logo.png'>
+Business Logo URL
+</ParamField>
+
+<ParamField body="name" type="string" default='ABC Corp.'>
+Business Name
+</ParamField>
+
+<ParamField body="phoneNo" type="string" default='+1-214-559-6993'>
+Business Phone Number
+</ParamField>
+
+<ParamField body="address" type="object" default='9931 Beechwood, TX'>
+Business Address
+</ParamField>
+
+<ParamField body="website" type="string" default='wwww.example.com'>
+Business Website Link
+</ParamField>
+
+<ParamField body="customValues" type="string[]">
+Custom Values
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="currency" type="string" required>
+</ParamField>
+
+<ParamField body="items" type="object[]" required>
+<Expandable title="cada item">
+<ParamField body="name" type="string" required default='ABC Product'>
+Invoice Item Name
+</ParamField>
+
+<ParamField body="description" type="string" default='ABC Corp.'>
+Invoice descriptions
+</ParamField>
+
+<ParamField body="productId" type="string" default='6578278e879ad2646715ba9c'>
+Product Id
+</ParamField>
+
+<ParamField body="priceId" type="string" default='6578278e879ad2646715ba9c'>
+Price Id
+</ParamField>
+
+<ParamField body="currency" type="string" required default='USD'>
+Currency
+</ParamField>
+
+<ParamField body="amount" type="number" required default='999'>
+Product amount
+</ParamField>
+
+<ParamField body="qty" type="number" required default='1'>
+Product Quantity
+</ParamField>
+
+<ParamField body="taxes" type="object[]">
+Tax
+<Expandable title="cada item">
+<ParamField body="_id" type="string" required>
+</ParamField>
+
+<ParamField body="name" type="string" required>
+</ParamField>
+
+<ParamField body="rate" type="number" required>
+</ParamField>
+
+<ParamField body="calculation" type="string">
+Posibles valores: 'exclusive'
+</ParamField>
+
+<ParamField body="description" type="string">
+</ParamField>
+
+<ParamField body="taxId" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="automaticTaxCategoryId" type="string" default='6578278e879ad2646715ba9c'>
+Tax category id for calculating automatic tax
+</ParamField>
+
+<ParamField body="isSetupFeeItem" type="boolean">
+Setupfee item, only created when 1st invoice of recurring schedule is generated
+</ParamField>
+
+<ParamField body="type" type="string" default='one_time'>
+Price type of the item Posibles valores: 'one_time', 'recurring'
+</ParamField>
+
+<ParamField body="taxInclusive" type="boolean" default='True'>
+true if item amount is tax inclusive
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="automaticTaxesEnabled" type="boolean" default='True'>
+Automatic taxes enabled for the Invoice
+</ParamField>
+
+<ParamField body="discount" type="object">
+<Expandable title="propiedades">
+<ParamField body="value" type="number" default='10'>
+Discount Value
+</ParamField>
+
+<ParamField body="type" type="string" required default='percentage'>
+Discount type Posibles valores: 'percentage', 'fixed'
+</ParamField>
+
+<ParamField body="validOnProductIds" type="string[]" default='[ \'6579751d56f60276e5bd4154\' ]'>
+Product Ids on which discount is applicable
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="termsNotes" type="string">
+</ParamField>
+
+<ParamField body="title" type="string" default='New Template'>
+Template title
+</ParamField>
+
+<ParamField body="tipsConfiguration" type="object">
+Configuration for tips on invoices
+</ParamField>
+
+<ParamField body="lateFeesConfiguration" type="object">
+Late fees configuration for the invoices
+</ParamField>
+
+<ParamField body="invoiceNumberPrefix" type="string" default='INV-'>
+prefix for invoice number
+</ParamField>
+
+<ParamField body="paymentMethods" type="object">
+Payment Methods for Invoices
+</ParamField>
+
+<ParamField body="attachments" type="string[]">
+attachments for the invoice
+</ParamField>
+
+<ParamField body="miscellaneousCharges" type="object">
+miscellaneous charges for the invoice
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="_id" type="string" required default='6578278e879ad2646715ba9c'>
+Template Id
+</ResponseField>
+
+<ResponseField name="altId" type="string" required default='6578278e879ad2646715ba9c'>
+Account Id or Agency Id
+</ResponseField>
+
+<ResponseField name="altType" type="string" required>
+Posibles valores: 'account'
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='New Template'>
+Name of the Template
+</ResponseField>
+
+<ResponseField name="businessDetails" type="object" required>
+Business Details
+</ResponseField>
+
+<ResponseField name="currency" type="string" required default='USD'>
+Currency
+</ResponseField>
+
+<ResponseField name="discount" type="object">
+Discount
+</ResponseField>
+
+<ResponseField name="items" type="string[]" required>
+Invoice Items
+</ResponseField>
+
+<ResponseField name="invoiceNumberPrefix" type="string" default='INV-'>
+prefix for invoice number
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='999'>
+Total Amount
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-12-12T09:27:42.355Z'>
+created at
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2023-12-12T09:27:42.355Z'>
+updated at
+</ResponseField>
+
+```json
+{
+  "_id": "6578278e879ad2646715ba9c",
+  "altId": "6578278e879ad2646715ba9c",
+  "altType": "account",
+  "name": "New Template",
+  "businessDetails": {
+    "name": "Alex",
+    "address": {
+      "addressLine1": "9931 Beechwood",
+      "city": "St. Houston",
+      "state": "TX",
+      "countryCode": "USA",
+      "postalCode": "559-6993"
+    },
+    "phoneNo": "+1-214-559-6993",
+    "website": "www.example.com"
+  },
+  "currency": "USD",
+  "discount": {
+    "type": "percentage",
+    "value": 0
+  },
+  "items": [
+    {
+      "taxes": [],
+      "_id": "c6tZZU0rJBf30ZXx9Gli",
+      "productId": "c6tZZU0rJBf30ZXx9Gli",
+      "priceId": "c6tZZU0rJBf30ZXx9Gli",
+      "currency": "USD",
+      "name": "Macbook Pro",
+      "qty": 1,
+      "amount": 999
+    }
+  ],
+  "invoiceNumberPrefix": "INV-",
+  "total": 999,
+  "createdAt": "2023-12-12T09:27:42.355Z",
+  "updatedAt": "2023-12-12T09:27:42.355Z"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/invoices/template' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "altId": "6578278e879ad2646715ba9c",
+  "altType": "account",
+  "internal": true,
+  "name": "New Template",
+  "businessDetails": {
+    "logoUrl": "https://example.com/logo.png",
+    "name": "ABC Corp.",
+    "phoneNo": "+1-214-559-6993",
+    "address": "9931 Beechwood, TX",
+    "website": "wwww.example.com",
+    "customValues": [
+      "string"
+    ]
+  },
+  "currency": "string",
+  "items": [
+    {
+      "name": "ABC Product",
+      "description": "ABC Corp.",
+      "productId": "6578278e879ad2646715ba9c",
+      "priceId": "6578278e879ad2646715ba9c",
+      "currency": "USD",
+      "amount": 999,
+      "qty": 1,
+      "taxes": [
+        {}
+      ],
+      "automaticTaxCategoryId": "6578278e879ad2646715ba9c",
+      "isSetupFeeItem": true,
+      "type": "one_time",
+      "taxInclusive": true
+    }
+  ],
+  "automaticTaxesEnabled": true,
+  "discount": {
+    "value": 10,
+    "type": "percentage",
+    "validOnProductIds": "[ '6579751d56f60276e5bd4154' ]"
+  },
+  "termsNotes": "string",
+  "title": "New Template",
+  "invoiceNumberPrefix": "INV-",
+  "attachments": [
+    "string"
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/invoices/template', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"altId": "6578278e879ad2646715ba9c", "altType": "account", "internal": true, "name": "New Template", "businessDetails": {"logoUrl": "https://example.com/logo.png", "name": "ABC Corp.", "phoneNo": "+1-214-559-6993", "address": "9931 Beechwood, TX", "website": "wwww.example.com", "customValues": ["string"]}, "currency": "string", "items": [{"name": "ABC Product", "description": "ABC Corp.", "productId": "6578278e879ad2646715ba9c", "priceId": "6578278e879ad2646715ba9c", "currency": "USD", "amount": 999, "qty": 1, "taxes": [{}], "automaticTaxCategoryId": "6578278e879ad2646715ba9c", "isSetupFeeItem": true, "type": "one_time", "taxInclusive": true}], "automaticTaxesEnabled": true, "discount": {"value": 10, "type": "percentage", "validOnProductIds": "[ '6579751d56f60276e5bd4154' ]"}, "termsNotes": "string", "title": "New Template", "invoiceNumberPrefix": "INV-", "attachments": ["string"]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/invoices/template',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"altId": "6578278e879ad2646715ba9c", "altType": "account", "internal": true, "name": "New Template", "businessDetails": {"logoUrl": "https://example.com/logo.png", "name": "ABC Corp.", "phoneNo": "+1-214-559-6993", "address": "9931 Beechwood, TX", "website": "wwww.example.com", "customValues": ["string"]}, "currency": "string", "items": [{"name": "ABC Product", "description": "ABC Corp.", "productId": "6578278e879ad2646715ba9c", "priceId": "6578278e879ad2646715ba9c", "currency": "USD", "amount": 999, "qty": 1, "taxes": [{}], "automaticTaxCategoryId": "6578278e879ad2646715ba9c", "isSetupFeeItem": true, "type": "one_time", "taxInclusive": true}], "automaticTaxesEnabled": true, "discount": {"value": 10, "type": "percentage", "validOnProductIds": "[ '6579751d56f60276e5bd4154' ]"}, "termsNotes": "string", "title": "New Template", "invoiceNumberPrefix": "INV-", "attachments": ["string"]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/invoices/template');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'altId': '6578278e879ad2646715ba9c', 'altType': 'account', 'internal': true, 'name': 'New Template', 'businessDetails': {'logoUrl': 'https://example.com/logo.png', 'name': 'ABC Corp.', 'phoneNo': '+1-214-559-6993', 'address': '9931 Beechwood, TX', 'website': 'wwww.example.com', 'customValues': ['string']}, 'currency': 'string', 'items': [{'name': 'ABC Product', 'description': 'ABC Corp.', 'productId': '6578278e879ad2646715ba9c', 'priceId': '6578278e879ad2646715ba9c', 'currency': 'USD', 'amount': 999, 'qty': 1, 'taxes': [{}], 'automaticTaxCategoryId': '6578278e879ad2646715ba9c', 'isSetupFeeItem': true, 'type': 'one_time', 'taxInclusive': true}], 'automaticTaxesEnabled': true, 'discount': {'value': 10, 'type': 'percentage', 'validOnProductIds': '[ '6579751d56f60276e5bd4154' ]'}, 'termsNotes': 'string', 'title': 'New Template', 'invoiceNumberPrefix': 'INV-', 'attachments': ['string']}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

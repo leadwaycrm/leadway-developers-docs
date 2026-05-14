@@ -1,4 +1,96 @@
 ---
 title: 'Cancel a scheduled email message.'
-openapi: 'DELETE /conversations/messages/email/{emailMessageId}/schedule'
+description: 'Post the messageId for the API to delete a scheduled email message. <br />'
 ---
+
+Post the messageId for the API to delete a scheduled email message. &lt;br /&gt;
+
+```http
+DELETE https://services.leadconnectorhq.com/conversations/messages/email/{emailMessageId}/schedule
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="emailMessageId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+Email Message Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - The scheduled email message was cancelled successfully">
+<ResponseField name="status" type="number" required default='404'>
+HTTP Status code of the request
+</ResponseField>
+
+<ResponseField name="message" type="string" required default='Failed cancel the scheduled message'>
+Error message of the request
+</ResponseField>
+
+```json
+{
+  "status": 404,
+  "message": "Failed cancel the scheduled message"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X DELETE 'https://services.leadconnectorhq.com/conversations/messages/email/YOUR_emailMessageId/schedule' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/conversations/messages/email/YOUR_emailMessageId/schedule', {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'DELETE',
+    'https://services.leadconnectorhq.com/conversations/messages/email/YOUR_emailMessageId/schedule',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/conversations/messages/email/YOUR_emailMessageId/schedule');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'DELETE',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

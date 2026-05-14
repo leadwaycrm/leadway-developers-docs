@@ -1,4 +1,254 @@
 ---
 title: 'Update Appointment'
-openapi: 'PUT /calendars/events/appointments/{eventId}'
+description: 'Update appointment'
 ---
+
+Update appointment
+
+```http
+PUT https://services.leadconnectorhq.com/calendars/events/appointments/{eventId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="eventId" type="string" required>
+Event Id or Instance id. For recurring appointments send masterEventId to modify original series.
+</ParamField>
+
+## Body
+
+<ParamField body="title" type="string" default='Test Event'>
+Title
+</ParamField>
+
+<ParamField body="meetingLocationType" type="string" default='custom'>
+Meeting account type. 
+- If `address` is provided in the request body, the `meetingLocationType` defaults to **custom**. Posibles valores: 'custom', 'zoom', 'gmeet', 'phone', 'address', 'ms_teams', 'google'
+</ParamField>
+
+<ParamField body="meetingLocationId" type="string" default='custom_0'>
+The unique identifier for the meeting account.
+- This value can be found in `calendar.locationConfigurations`or `calendar.teamMembers[].locationConfigurations`
+</ParamField>
+
+<ParamField body="overrideLocationConfig" type="boolean" default='True'>
+Flag to override account config
+- **false** - If only `meetingLocationId` is provided
+- **true** - If only `meetingLocationType` is provided
+
+</ParamField>
+
+<ParamField body="appointmentStatus" type="string" default='confirmed'>
+Posibles valores: 'new', 'confirmed', 'cancelled', 'showed', 'noshow', 'invalid'
+</ParamField>
+
+<ParamField body="assignedUserId" type="string" default='0007BWpSzSwfiuSl0tR2'>
+Assigned User Id
+</ParamField>
+
+<ParamField body="description" type="string" default='Booking a call to discuss the project'>
+Appointment Description
+</ParamField>
+
+<ParamField body="address" type="string" default='Zoom'>
+Appointment Address
+</ParamField>
+
+<ParamField body="ignoreDateRange" type="boolean" default='False'>
+If set to true, the minimum scheduling notice and date range would be ignored
+</ParamField>
+
+<ParamField body="toNotify" type="boolean" default='False'>
+If set to false, the automations will not run
+</ParamField>
+
+<ParamField body="ignoreFreeSlotValidation" type="boolean" default='True'>
+If true the time slot validation would be avoided for any appointment creation (even the ignoreDateRange)
+</ParamField>
+
+<ParamField body="rrule" type="string">
+RRULE as per the iCalendar (RFC 5545) specification for recurring events. DTSTART is not required, instance ids are calculated on the basis of startTime of the event. The rrule only be applied if ignoreFreeSlotValidation is true.
+</ParamField>
+
+<ParamField body="calendarId" type="string" default='CVokAlI8fgw4WYWoCtQz'>
+Calendar Id
+</ParamField>
+
+<ParamField body="startTime" type="string" default='2021-06-23T03:30:00+05:30'>
+Start Time
+</ParamField>
+
+<ParamField body="endTime" type="string" default='2021-06-23T04:30:00+05:30'>
+End Time
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="calendarId" type="string" required default='CVokAlI8fgw4WYWoCtQz'>
+Calendar Id
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='C2QujeCh8ZnC7al2InWR'>
+Account Id
+</ResponseField>
+
+<ResponseField name="contactId" type="string" required default='0007BWpSzSwfiuSl0tR2'>
+Contact Id
+</ResponseField>
+
+<ResponseField name="startTime" type="string" default='2021-06-23T03:30:00+05:30'>
+Start Time
+</ResponseField>
+
+<ResponseField name="endTime" type="string" default='2021-06-23T04:30:00+05:30'>
+End Time
+</ResponseField>
+
+<ResponseField name="title" type="string" default='Test Event'>
+Title
+</ResponseField>
+
+<ResponseField name="meetingLocationType" type="string" default='custom'>
+Meeting Account Type
+</ResponseField>
+
+<ResponseField name="appointmentStatus" type="string" default='confirmed'>
+Posibles valores: 'new', 'confirmed', 'cancelled', 'showed', 'noshow', 'invalid', 'active', 'completed'
+</ResponseField>
+
+<ResponseField name="assignedUserId" type="string" default='0007BWpSzSwfiuSl0tR2'>
+Assigned User Id
+</ResponseField>
+
+<ResponseField name="address" type="string" default='Zoom'>
+Appointment Address
+</ResponseField>
+
+<ResponseField name="isRecurring" type="boolean" default='true'>
+true if the event is recurring otherwise false
+</ResponseField>
+
+<ResponseField name="rrule" type="string">
+RRULE as per the iCalendar (RFC 5545) specification for recurring events
+</ResponseField>
+
+<ResponseField name="id" type="string" required default='0TkCdp9PfvLeWKYRRvIz'>
+Id
+</ResponseField>
+
+```json
+{
+  "calendarId": "CVokAlI8fgw4WYWoCtQz",
+  "locationId": "C2QujeCh8ZnC7al2InWR",
+  "contactId": "0007BWpSzSwfiuSl0tR2",
+  "startTime": "2021-06-23T03:30:00+05:30",
+  "endTime": "2021-06-23T04:30:00+05:30",
+  "title": "Test Event",
+  "meetingLocationType": "custom",
+  "appointmentStatus": "confirmed",
+  "assignedUserId": "0007BWpSzSwfiuSl0tR2",
+  "address": "Zoom",
+  "isRecurring": "true",
+  "rrule": "string",
+  "id": "0TkCdp9PfvLeWKYRRvIz"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/calendars/events/appointments/YOUR_eventId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "title": "Test Event",
+  "meetingLocationType": "custom",
+  "meetingLocationId": "custom_0",
+  "overrideLocationConfig": true,
+  "appointmentStatus": "confirmed",
+  "assignedUserId": "0007BWpSzSwfiuSl0tR2",
+  "description": "Booking a call to discuss the project",
+  "address": "Zoom",
+  "ignoreDateRange": false,
+  "toNotify": false,
+  "ignoreFreeSlotValidation": true,
+  "rrule": "string",
+  "calendarId": "CVokAlI8fgw4WYWoCtQz",
+  "startTime": "2021-06-23T03:30:00+05:30",
+  "endTime": "2021-06-23T04:30:00+05:30"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/calendars/events/appointments/YOUR_eventId', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"title": "Test Event", "meetingLocationType": "custom", "meetingLocationId": "custom_0", "overrideLocationConfig": true, "appointmentStatus": "confirmed", "assignedUserId": "0007BWpSzSwfiuSl0tR2", "description": "Booking a call to discuss the project", "address": "Zoom", "ignoreDateRange": false, "toNotify": false, "ignoreFreeSlotValidation": true, "rrule": "string", "calendarId": "CVokAlI8fgw4WYWoCtQz", "startTime": "2021-06-23T03:30:00+05:30", "endTime": "2021-06-23T04:30:00+05:30"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/calendars/events/appointments/YOUR_eventId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"title": "Test Event", "meetingLocationType": "custom", "meetingLocationId": "custom_0", "overrideLocationConfig": true, "appointmentStatus": "confirmed", "assignedUserId": "0007BWpSzSwfiuSl0tR2", "description": "Booking a call to discuss the project", "address": "Zoom", "ignoreDateRange": false, "toNotify": false, "ignoreFreeSlotValidation": true, "rrule": "string", "calendarId": "CVokAlI8fgw4WYWoCtQz", "startTime": "2021-06-23T03:30:00+05:30", "endTime": "2021-06-23T04:30:00+05:30"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/calendars/events/appointments/YOUR_eventId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'title': 'Test Event', 'meetingLocationType': 'custom', 'meetingLocationId': 'custom_0', 'overrideLocationConfig': true, 'appointmentStatus': 'confirmed', 'assignedUserId': '0007BWpSzSwfiuSl0tR2', 'description': 'Booking a call to discuss the project', 'address': 'Zoom', 'ignoreDateRange': false, 'toNotify': false, 'ignoreFreeSlotValidation': true, 'rrule': 'string', 'calendarId': 'CVokAlI8fgw4WYWoCtQz', 'startTime': '2021-06-23T03:30:00+05:30', 'endTime': '2021-06-23T04:30:00+05:30'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,173 @@
 ---
 title: 'Update Contacts Tags'
-openapi: 'POST /contacts/bulk/tags/update/{type}'
+description: 'Allows you to update tags to multiple contacts at once, you can add or remove tags from the contacts'
 ---
+
+Allows you to update tags to multiple contacts at once, you can add or remove tags from the contacts
+
+```http
+POST https://services.leadconnectorhq.com/contacts/bulk/tags/update/{type}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="contacts" type="string[]" required>
+list of contact ids to be processed
+</ParamField>
+
+<ParamField body="tags" type="string[]" required>
+list of tags to be added or removed
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='asdrwHvLUxlfw5SqKVCN'>
+account id from where the bulk request is executed
+</ParamField>
+
+<ParamField body="removeAllTags" type="boolean" default='false'>
+Option to implement remove all tags. if true, all tags will be removed from the contacts. Can only be used with remove type.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="succeded" type="boolean" required default='True'>
+Indicates if the operation was successful
+</ResponseField>
+
+<ResponseField name="errorCount" type="number" required default='0'>
+Number of errors encountered during the operation
+</ResponseField>
+
+<ResponseField name="responses" type="string[]" required>
+Responses for each contact processed
+</ResponseField>
+
+```json
+{
+  "succeded": true,
+  "errorCount": 0,
+  "responses": [
+    {
+      "contactId": "qFSqySFkVvNzOSqgGqFi",
+      "message": "Tags updated",
+      "type": "success",
+      "oldTags": [
+        "tag-1",
+        "tag-2"
+      ],
+      "tagsAdded": [],
+      "tagsRemoved": []
+    },
+    {
+      "contactId": "abcdef",
+      "message": "contact id is not a valid firebase id",
+      "type": "error"
+    },
+    {
+      "contactId": "qFSqySFkVvNzOSqgGqFi",
+      "message": "contact is deleted",
+      "type": "error"
+    },
+    {
+      "contactId": "3ualbhnV7j3n3a9r2moD",
+      "message": "contact does not belong to account",
+      "type": "error"
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/contacts/bulk/tags/update/YOUR_type' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "contacts": [
+    "qFSqySFkVvNzOSqgGqFi",
+    "abcdef",
+    "qFSqySFkVvNzOSqgGqFi",
+    "3ualbhnV7j3n3a9r2moD"
+  ],
+  "tags": [
+    "tag-1",
+    "tag-2"
+  ],
+  "locationId": "asdrwHvLUxlfw5SqKVCN",
+  "removeAllTags": "false"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/bulk/tags/update/YOUR_type', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"contacts": ["qFSqySFkVvNzOSqgGqFi", "abcdef", "qFSqySFkVvNzOSqgGqFi", "3ualbhnV7j3n3a9r2moD"], "tags": ["tag-1", "tag-2"], "locationId": "asdrwHvLUxlfw5SqKVCN", "removeAllTags": "false"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/contacts/bulk/tags/update/YOUR_type',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"contacts": ["qFSqySFkVvNzOSqgGqFi", "abcdef", "qFSqySFkVvNzOSqgGqFi", "3ualbhnV7j3n3a9r2moD"], "tags": ["tag-1", "tag-2"], "locationId": "asdrwHvLUxlfw5SqKVCN", "removeAllTags": "false"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/bulk/tags/update/YOUR_type');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'contacts': ['qFSqySFkVvNzOSqgGqFi', 'abcdef', 'qFSqySFkVvNzOSqgGqFi', '3ualbhnV7j3n3a9r2moD'], 'tags': ['tag-1', 'tag-2'], 'locationId': 'asdrwHvLUxlfw5SqKVCN', 'removeAllTags': 'false'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,129 @@
 ---
 title: 'Add Tags'
-openapi: 'POST /contacts/{contactId}/tags'
+description: 'Add Tags'
 ---
+
+Add Tags
+
+```http
+POST https://services.leadconnectorhq.com/contacts/{contactId}/tags
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="contactId" type="string" required default='sx6wyHhbFdRXh302LLNR'>
+Contact Id
+</ParamField>
+
+## Body
+
+<ParamField body="tags" type="string[]" required>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="tags" type="string[]">
+</ResponseField>
+
+```json
+{
+  "tags": [
+    "minim",
+    "velit magna"
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tags' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "tags": [
+    "minim",
+    "velit magna"
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tags', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"tags": ["minim", "velit magna"]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tags',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"tags": ["minim", "velit magna"]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tags');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'tags': ['minim', 'velit magna']}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

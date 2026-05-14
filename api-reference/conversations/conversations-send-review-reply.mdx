@@ -1,4 +1,161 @@
 ---
 title: 'Send a review reply to Google My Business'
-openapi: 'POST /conversations/messages/review-reply'
+description: 'Post a reply to a customer review on Google My Business'
 ---
+
+Post a reply to a customer review on Google My Business
+
+```http
+POST https://services.leadconnectorhq.com/conversations/messages/review-reply
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="conversationId" type="string" required default='conv123'>
+Conversation ID (must have reviewId)
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='loc123'>
+Account ID
+</ParamField>
+
+<ParamField body="message" type="string" required default='Thank you for your review!'>
+Review reply message text
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Review reply sent successfully">
+<ResponseField name="conversationId" type="string" required default='ABC12h2F6uBrIkfXYazb'>
+Conversation ID.
+</ResponseField>
+
+<ResponseField name="emailMessageId" type="string" default='rnGyqh2F6uBrIkfhFo9A'>
+This contains the email message id (only for Email type). Use this ID to send inbound replies to GHL to create a threaded email.
+</ResponseField>
+
+<ResponseField name="messageId" type="string" required default='t22c6DQcTDf3MjRhwf77'>
+This is the main Message ID
+</ResponseField>
+
+<ResponseField name="messageIds" type="string[]">
+When sending via the GMB channel, we will be returning list of `messageIds` instead of single `messageId`.
+</ResponseField>
+
+<ResponseField name="msg" type="string" default='Message queued successfully.'>
+Additional response message when sending a workflow message
+</ResponseField>
+
+<ResponseField name="forwardData" type="object">
+Optional metadata for forwarded email
+</ResponseField>
+
+<ResponseField name="status" type="string" required default='delivered'>
+Message status Posibles valores: 'delivered', 'failed', 'pending', 'read'
+</ResponseField>
+
+```json
+{
+  "conversationId": "ABC12h2F6uBrIkfXYazb",
+  "emailMessageId": "rnGyqh2F6uBrIkfhFo9A",
+  "messageId": "t22c6DQcTDf3MjRhwf77",
+  "messageIds": [
+    "string"
+  ],
+  "msg": "Message queued successfully.",
+  "forwardData": {
+    "forwardWholeThread": false,
+    "messageId": "t22c6DQcTDf3MjRhwf77",
+    "emailMessageId": "rnGyqh2F6uBrIkfhFo9A",
+    "forwardToEmail": "recipient@example.com",
+    "recipientContactId": "DEF56h2F6uBrIkfXYacd"
+  },
+  "status": "delivered"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/conversations/messages/review-reply' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "conversationId": "conv123",
+  "locationId": "loc123",
+  "message": "Thank you for your review!"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/conversations/messages/review-reply', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"conversationId": "conv123", "locationId": "loc123", "message": "Thank you for your review!"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/conversations/messages/review-reply',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"conversationId": "conv123", "locationId": "loc123", "message": "Thank you for your review!"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/conversations/messages/review-reply');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'conversationId': 'conv123', 'locationId': 'loc123', 'message': 'Thank you for your review!'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

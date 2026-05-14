@@ -1,4 +1,234 @@
 ---
 title: 'Get Order by ID'
-openapi: 'GET /payments/orders/{orderId}'
+description: 'The "Get Order by ID" API allows to retrieve information for a specific order using its unique identifier. Use this endpoint to fetch details for a single order based on the provided order ID.'
 ---
+
+The "Get Order by ID" API allows to retrieve information for a specific order using its unique identifier. Use this endpoint to fetch details for a single order based on the provided order ID.
+
+```http
+GET https://services.leadconnectorhq.com/payments/orders/{orderId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="orderId" type="string" required default='653f5e0cde5a1314e62a837c'>
+ID of the order that needs to be returned
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" default='3SwdhCu3svxI8AKsPJt6'>
+LocationId is the id of the account.
+</ParamField>
+
+<ParamField query="altId" type="string" required default='3SwdhCu3svxI8AKsPJt6'>
+AltId is the unique identifier e.g: account id.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="_id" type="string" required default='653f5e0cde5a1314e62a837c'>
+The unique identifier for the order.
+</ResponseField>
+
+<ResponseField name="altId" type="string" required default='3SwdhCu3svxI8AKsPJt6'>
+AltId is the unique identifier eg: account id.
+</ResponseField>
+
+<ResponseField name="altType" type="string" required default='account'>
+AltType is the type of identifier.
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='XPLSw2SVagl12LMDeTmQ'>
+Contact id corresponding to the order.
+</ResponseField>
+
+<ResponseField name="currency" type="string" default='USD'>
+Currency in which order was created.
+</ResponseField>
+
+<ResponseField name="amount" type="number" default='100'>
+Order value.
+</ResponseField>
+
+<ResponseField name="status" type="string" required default='completed'>
+The status of the order (e.g., completed).
+</ResponseField>
+
+<ResponseField name="liveMode" type="boolean" default='false'>
+Order is in live / test mode.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-11-20T10:23:36.515Z'>
+The creation timestamp of the order.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2024-01-23T09:57:04.846Z'>
+The last update timestamp of the order.
+</ResponseField>
+
+<ResponseField name="fulfillmentStatus" type="string" default='unfulfilled'>
+Fulfillment status of the order.
+</ResponseField>
+
+<ResponseField name="contactSnapshot" type="object" default='{ last_name: "Mcclain", type: "lead", first_name_lower_case: "rogan", email: "anish+11@leadwaycrm.com", last_name_lower_case: "mcclain", location_id: "o6241QsiRwUIJHyjuhos", company_name: "Jordan and Cox Trading"}'>
+Contact details of the order.
+</ResponseField>
+
+<ResponseField name="amountSummary" type="object" default='{ subtotal: 100, discount: 5 }'>
+Amount details of the order.
+</ResponseField>
+
+<ResponseField name="source" type="object" default='{ type: "invoice", id: "61dd48ff65b013bc39bb09c6" }'>
+Source details of the order.
+</ResponseField>
+
+<ResponseField name="items" type="string[]" default='{ _id: 61dd33e88058b9f967ca79dc, authorizeAmount: 0, locationId: "SBAWb4yu7A4LSc0skQ6g", name: "Sample Product": price: {}, product: { name: "Testing product", productType: "SERVICE" }}'>
+Item details of the order.
+</ResponseField>
+
+<ResponseField name="coupon" type="object" default='{ code: "FEST10", _id: "63455e48901b43d4ef364a20" }'>
+Coupon details of the order.
+</ResponseField>
+
+<ResponseField name="trackingId" type="string" default='63319ef9-de0a-4c84-aebd-3585fb4a0cdf'>
+Tracking id of the order.
+</ResponseField>
+
+<ResponseField name="fingerprint" type="string" default='5d51db5a-42b0-4b04-ba88-2c046c982a3a'>
+Fingerprint id of the order.
+</ResponseField>
+
+<ResponseField name="meta" type="object" default='{ couponSessionExpired: true }'>
+Meta details of the order.
+</ResponseField>
+
+<ResponseField name="markAsTest" type="boolean" default='false'>
+Is test order.
+</ResponseField>
+
+<ResponseField name="traceId" type="string" default='d3b16a92-a8ed-4e6b-8467-844750f78ed5'>
+Trace id of the order.
+</ResponseField>
+
+<ResponseField name="automaticTaxesCalculated" type="boolean" default='True'>
+Automatic taxes applied for the Order
+</ResponseField>
+
+<ResponseField name="taxCalculationProvider" type="object" default='taxjar'>
+Provider name for automatic tax calculation
+</ResponseField>
+
+<ResponseField name="createdBy" type="string" default='user123'>
+User ID who created the order.
+</ResponseField>
+
+```json
+{
+  "_id": "653f5e0cde5a1314e62a837c",
+  "altId": "3SwdhCu3svxI8AKsPJt6",
+  "altType": "account",
+  "contactId": "XPLSw2SVagl12LMDeTmQ",
+  "currency": "USD",
+  "amount": "100",
+  "status": "completed",
+  "liveMode": "false",
+  "createdAt": "2023-11-20T10:23:36.515Z",
+  "updatedAt": "2024-01-23T09:57:04.846Z",
+  "fulfillmentStatus": "unfulfilled",
+  "contactSnapshot": "{ last_name: \"Mcclain\", type: \"lead\", first_name_lower_case: \"rogan\", email: \"anish+11@leadwaycrm.com\", last_name_lower_case: \"mcclain\", location_id: \"o6241QsiRwUIJHyjuhos\", company_name: \"Jordan and Cox Trading\"}",
+  "amountSummary": "{ subtotal: 100, discount: 5 }",
+  "source": "{ type: \"invoice\", id: \"61dd48ff65b013bc39bb09c6\" }",
+  "items": "{ _id: 61dd33e88058b9f967ca79dc, authorizeAmount: 0, locationId: \"SBAWb4yu7A4LSc0skQ6g\", name: \"Sample Product\": price: {}, product: { name: \"Testing product\", productType: \"SERVICE\" }}",
+  "coupon": "{ code: \"FEST10\", _id: \"63455e48901b43d4ef364a20\" }",
+  "trackingId": "63319ef9-de0a-4c84-aebd-3585fb4a0cdf",
+  "fingerprint": "5d51db5a-42b0-4b04-ba88-2c046c982a3a",
+  "meta": "{ couponSessionExpired: true }",
+  "markAsTest": "false",
+  "traceId": "d3b16a92-a8ed-4e6b-8467-844750f78ed5",
+  "automaticTaxesCalculated": true,
+  "taxCalculationProvider": "taxjar",
+  "createdBy": "user123"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Order not found">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/payments/orders/YOUR_orderId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/payments/orders/YOUR_orderId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/payments/orders/YOUR_orderId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/payments/orders/YOUR_orderId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

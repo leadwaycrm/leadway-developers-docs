@@ -1,4 +1,195 @@
 ---
 title: 'Update Calendar Resource'
-openapi: 'PUT /calendars/resources/{resourceType}/{id}'
+description: 'Update calendar resource by ID'
 ---
+
+Update calendar resource by ID
+
+```http
+PUT https://services.leadconnectorhq.com/calendars/resources/{resourceType}/{id}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="resourceType" type="string" required>
+Calendar Resource Type
+</ParamField>
+
+<ParamField path="id" type="string" required>
+Calendar Resource ID
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string">
+</ParamField>
+
+<ParamField body="name" type="string">
+</ParamField>
+
+<ParamField body="description" type="string">
+</ParamField>
+
+<ParamField body="quantity" type="number">
+Quantity of the equipment.
+</ParamField>
+
+<ParamField body="outOfService" type="number">
+Quantity of the out of service equipment.
+</ParamField>
+
+<ParamField body="capacity" type="number">
+Capacity of the room.
+</ParamField>
+
+<ParamField body="calendarIds" type="string[]">
+Service calendar IDs to be mapped with the resource.
+
+    One equipment can only be mapped with one service calendar.
+    
+One room can be mapped with multiple service calendars.
+</ParamField>
+
+<ParamField body="isActive" type="boolean">
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Calendar resource updated">
+<ResponseField name="locationId" type="string" required>
+Account ID of the resource
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='yoga room'>
+Name of the resource
+</ResponseField>
+
+<ResponseField name="resourceType" type="string" required>
+Posibles valores: 'equipments', 'rooms'
+</ResponseField>
+
+<ResponseField name="isActive" type="boolean" required>
+Whether the resource is active
+</ResponseField>
+
+<ResponseField name="description" type="string">
+Description of the resource
+</ResponseField>
+
+<ResponseField name="quantity" type="number">
+Quantity of the resource
+</ResponseField>
+
+<ResponseField name="outOfService" type="number" default='0'>
+Indicates if the resource is out of service
+</ResponseField>
+
+<ResponseField name="capacity" type="number" default='85'>
+Capacity of the resource
+</ResponseField>
+
+```json
+{
+  "locationId": "string",
+  "name": "yoga room",
+  "resourceType": "equipments",
+  "isActive": true,
+  "description": "string",
+  "quantity": 0,
+  "outOfService": 0,
+  "capacity": 85
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/calendars/resources/YOUR_resourceType/YOUR_id' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "string",
+  "name": "string",
+  "description": "string",
+  "quantity": 0,
+  "outOfService": 0,
+  "capacity": 0,
+  "calendarIds": [
+    "string"
+  ],
+  "isActive": true
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/calendars/resources/YOUR_resourceType/YOUR_id', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "string", "name": "string", "description": "string", "quantity": 0, "outOfService": 0, "capacity": 0, "calendarIds": ["string"], "isActive": true}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/calendars/resources/YOUR_resourceType/YOUR_id',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "string", "name": "string", "description": "string", "quantity": 0, "outOfService": 0, "capacity": 0, "calendarIds": ["string"], "isActive": true},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/calendars/resources/YOUR_resourceType/YOUR_id');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'string', 'name': 'string', 'description': 'string', 'quantity': 0, 'outOfService': 0, 'capacity': 0, 'calendarIds': ['string'], 'isActive': true}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

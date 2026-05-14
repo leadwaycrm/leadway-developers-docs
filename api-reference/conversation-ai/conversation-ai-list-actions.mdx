@@ -1,4 +1,142 @@
 ---
 title: 'List Actions for an Agent'
-openapi: 'GET /conversation-ai/agents/{agentId}/actions/list'
+description: 'List for actions for an agent'
 ---
+
+List for actions for an agent
+
+```http
+GET https://services.leadconnectorhq.com/conversation-ai/agents/{agentId}/actions/list
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="agentId" type="string" required>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Success">
+<ResponseField name="data" type="object[]" required>
+Grouped actions by type
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='actionId123'>
+Unique identifier for the action
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Trigger Workflow'>
+Name of the action
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='triggerWorkflow'>
+Type of the action Posibles valores: 'triggerWorkflow', 'updateContactField', 'appointmentBooking', 'stopBot', 'humanHandOver', 'advancedFollowup', 'transferBot'
+</ResponseField>
+
+<ResponseField name="agentId" type="string" default='agentId123'>
+Agent ID where the action belongs
+</ResponseField>
+
+<ResponseField name="details" type="object" required>
+Action-specific details. The structure depends on the action type. For TRIGGER_WORKFLOW use triggerWorkflowDto, for UPDATE_CONTACT_FIELD use updateContactFieldDto, for APPOINTMENT_BOOKING use appointmentBookingDto, for STOP_BOT use stopBotDto, for HUMAN_HAND_OVER use humanHandOverDto, for ADVANCED_FOLLOWUP use advancedFollowupDto, and for TRANSFER_BOT use transferBotDto.
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="success" type="boolean" required default='True'>
+Success status of the request
+</ResponseField>
+
+```json
+{
+  "data": [
+    {
+      "id": "actionId123",
+      "name": "Trigger Workflow",
+      "type": "triggerWorkflow",
+      "agentId": "agentId123"
+    }
+  ],
+  "success": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId/actions/list' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId/actions/list', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId/actions/list',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/conversation-ai/agents/YOUR_agentId/actions/list');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

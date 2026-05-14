@@ -1,4 +1,193 @@
 ---
 title: 'Fetch Coupon'
-openapi: 'GET /payments/coupon'
+description: 'The "Get Coupon Details" API enables you to retrieve comprehensive information about a specific coupon using either its unique identifier or promotional code. Use this endpoint to view coupon paramete'
 ---
+
+The "Get Coupon Details" API enables you to retrieve comprehensive information about a specific coupon using either its unique identifier or promotional code. Use this endpoint to view coupon parameters, usage statistics, validity periods, and other promotional details.
+
+```http
+GET https://services.leadconnectorhq.com/payments/coupon
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="altId" type="string" required default='BQdAwxa0ky1iK2sstLGJ'>
+Account Id
+</ParamField>
+
+<ParamField query="altType" type="string" required default='account'>
+Alt Type
+</ParamField>
+
+<ParamField query="id" type="string" required default='6241712be68f7a98102ba272'>
+Coupon id
+</ParamField>
+
+<ParamField query="code" type="string" required default='DEAL50'>
+Coupon code
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="_id" type="string" required default='67f6c132d9485f9dacd5f123'>
+Unique MongoDB identifier for the coupon
+</ResponseField>
+
+<ResponseField name="usageCount" type="number" required default='12'>
+Number of times the coupon has been used
+</ResponseField>
+
+<ResponseField name="limitPerCustomer" type="number" required default='5'>
+Maximum number of times a customer can use this coupon (0 for unlimited)
+</ResponseField>
+
+<ResponseField name="altId" type="string" required default='79t07PzK8Tvf73d12312'>
+Account Id
+</ResponseField>
+
+<ResponseField name="altType" type="string" required default='account'>
+Type of entity
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='NEWT6'>
+Display name of the coupon
+</ResponseField>
+
+<ResponseField name="code" type="string" required default='NEWT6'>
+Redemption code for the coupon
+</ResponseField>
+
+<ResponseField name="discountType" type="string" required default='percentage'>
+Type of discount (percentage or amount) Posibles valores: 'percentage', 'amount'
+</ResponseField>
+
+<ResponseField name="discountValue" type="number" required default='25'>
+Value of the discount (percentage or fixed amount)
+</ResponseField>
+
+<ResponseField name="status" type="string" required default='scheduled'>
+Current status of the coupon Posibles valores: 'scheduled', 'active', 'expired'
+</ResponseField>
+
+<ResponseField name="startDate" type="string" required default='2025-04-30T18:30:00.000Z'>
+Date when the coupon becomes active
+</ResponseField>
+
+<ResponseField name="endDate" type="string" default='2025-05-30T18:30:00.000Z'>
+End date when the coupon expires
+</ResponseField>
+
+<ResponseField name="applyToFuturePayments" type="boolean" required default='True'>
+Indicates if the coupon applies to future recurring payments
+</ResponseField>
+
+<ResponseField name="applyToFuturePaymentsConfig" type="object" required>
+Configuration for how the coupon applies to future payments
+</ResponseField>
+
+<ResponseField name="userId" type="string" default='q0m15dTLGeiGOXG123123'>
+User ID associated with the coupon (if applicable)
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2025-04-09T18:49:22.026Z'>
+Creation timestamp
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2025-04-09T18:49:22.026Z'>
+Last update timestamp
+</ResponseField>
+
+<ResponseField name="traceId" type="string" required default='c667b18d-8f5e-44cf-a914'>
+Unique identifier for tracing this API request
+</ResponseField>
+
+```json
+{
+  "_id": "67f6c132d9485f9dacd5f123",
+  "usageCount": 12,
+  "limitPerCustomer": 5,
+  "altId": "79t07PzK8Tvf73d12312",
+  "altType": "account",
+  "name": "NEWT6",
+  "code": "NEWT6",
+  "discountType": "percentage",
+  "discountValue": 25,
+  "status": "scheduled",
+  "startDate": "2025-04-30T18:30:00.000Z",
+  "endDate": "2025-05-30T18:30:00.000Z",
+  "applyToFuturePayments": true,
+  "userId": "q0m15dTLGeiGOXG123123",
+  "createdAt": "2025-04-09T18:49:22.026Z",
+  "updatedAt": "2025-04-09T18:49:22.026Z",
+  "traceId": "c667b18d-8f5e-44cf-a914"
+}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/payments/coupon' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/payments/coupon', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/payments/coupon',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/payments/coupon');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

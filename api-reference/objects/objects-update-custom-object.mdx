@@ -1,4 +1,202 @@
 ---
 title: 'Update Object Schema By Key / Id'
-openapi: 'PUT /objects/{key}'
+description: 'Update Custom Object Schema  or standard objects like contact, opportunity, business searchable fields. To understand objects and records, please have a look at the documentation here : https://doc.cl'
 ---
+
+Update Custom Object Schema  or standard object's like contact, opportunity, business searchable fields. To understand objects and records, please have a look at the documentation here : https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0
+
+```http
+PUT https://services.leadconnectorhq.com/objects/{key}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="key" type="string" required default='custom_objects.pet'>
+key of the custom or standard object. For custom objects, the key must include the prefix “custom_objects.”. This key can be found on the Object Details page under Settings in the UI.
+</ParamField>
+
+## Body
+
+<ParamField body="labels" type="object">
+This is how your custom object will  be  displayed
+</ParamField>
+
+<ParamField body="description" type="string" default='These are non vaccinated pets'>
+Pet Object`s description
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='632c34b4c9b7da3358ac9891'>
+account id
+</ParamField>
+
+<ParamField body="searchableProperties" type="string[]" required>
+Searchable Fields: Provide the field key of your object that you want to search on, using the format (custom_object.&lt;object_name&gt;.&lt;field_key&gt;).
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="object" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" required default='661c06b4ffde146bdb469442'>
+id of the custom / standard object schema
+</ResponseField>
+
+<ResponseField name="standard" type="boolean" required default='False'>
+false in case of custom objects and true in case of standard objects like contacts and opportunities 
+</ResponseField>
+
+<ResponseField name="key" type="string" required default='custom_objects.pet'>
+key that would be used to refer the custom / standard Object internally (lowercase + underscore_separated). For custom objects, 'custom_objects.' would be added as prefix by default
+</ResponseField>
+
+<ResponseField name="labels" type="object" required>
+This is what your custom / standard  object will be called. These labels will be used to display your custom object on the UI
+</ResponseField>
+
+<ResponseField name="description" type="string" default='These are non vaccinated pets'>
+Custom / Standard  Object Descriptions for example , Pet Object`s description
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='Q9DT3OAqEXDLYuob1G32'>
+account's id
+</ResponseField>
+
+<ResponseField name="primaryDisplayProperty" type="string" required default='custom_objects.pet.name'>
+Primary property for the custom / standard  Object. This would be used as primary data when rendering the UI. 'custom_objects.&#123;&#123;object_key&#125;&#125; or business.&#123;&#123;object_key&#125;&#125; (for company)' would be added as prefix by default for all the custom / standard objects
+</ResponseField>
+
+<ResponseField name="dateAdded" type="string" required>
+Date and time when the object was added
+</ResponseField>
+
+<ResponseField name="dateUpdated" type="string" required>
+Date and time when the object was last updated
+</ResponseField>
+
+<ResponseField name="type" type="object" default='The Object type can either USER_DEFINED or SYSTEM_DEFINED'>
+Object`s Type
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "object": {
+    "id": "661c06b4ffde146bdb469442",
+    "standard": false,
+    "key": "custom_objects.pet",
+    "labels": {
+      "singular": "Pet",
+      "plural": "Pets"
+    },
+    "description": "These are non vaccinated pets",
+    "locationId": "Q9DT3OAqEXDLYuob1G32",
+    "primaryDisplayProperty": "custom_objects.pet.name",
+    "dateAdded": "2024-01-15T10:30:00Z",
+    "dateUpdated": "2024-01-15T10:30:00Z",
+    "type": "The Object type can either USER_DEFINED or SYSTEM_DEFINED"
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/objects/YOUR_key' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "labels": {
+    "singular": "Pet",
+    "plural": "Pets"
+  },
+  "description": "These are non vaccinated pets",
+  "locationId": "632c34b4c9b7da3358ac9891",
+  "searchableProperties": [
+    "custom_objects.mad.mad",
+    "custom_objects.mad.record_1",
+    "custom_objects.mad.nn"
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/objects/YOUR_key', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"labels": {"singular": "Pet", "plural": "Pets"}, "description": "These are non vaccinated pets", "locationId": "632c34b4c9b7da3358ac9891", "searchableProperties": ["custom_objects.mad.mad", "custom_objects.mad.record_1", "custom_objects.mad.nn"]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/objects/YOUR_key',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"labels": {"singular": "Pet", "plural": "Pets"}, "description": "These are non vaccinated pets", "locationId": "632c34b4c9b7da3358ac9891", "searchableProperties": ["custom_objects.mad.mad", "custom_objects.mad.record_1", "custom_objects.mad.nn"]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/objects/YOUR_key');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'labels': {'singular': 'Pet', 'plural': 'Pets'}, 'description': 'These are non vaccinated pets', 'locationId': '632c34b4c9b7da3358ac9891', 'searchableProperties': ['custom_objects.mad.mad', 'custom_objects.mad.record_1', 'custom_objects.mad.nn']}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

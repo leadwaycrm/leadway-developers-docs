@@ -1,4 +1,317 @@
 ---
 title: 'List active numbers'
-openapi: 'GET /phone-system/numbers/location/{locationId}'
+description: 'Retrieve a paginated list of active phone numbers for a specific account. Supports filtering, pagination, and optional exclusion of number pool assignments.'
 ---
+
+Retrieve a paginated list of active phone numbers for a specific account. Supports filtering, pagination, and optional exclusion of number pool assignments.
+
+```http
+GET https://services.leadconnectorhq.com/phone-system/numbers/location/{locationId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="locationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+The unique identifier of the account
+</ParamField>
+
+## Query parameters
+
+<ParamField query="pageSize" type="number" default='100'>
+How many resources to return in each list page. The default is 50, and the maximum is 1000.
+</ParamField>
+
+<ParamField query="page" type="number">
+The page index for pagination. The default is 0.
+</ParamField>
+
+<ParamField query="searchFilter" type="string" default='+91'>
+Filter numbers by phone number pattern. Supports partial matching (e.g., "+91" to find all Indian numbers).
+</ParamField>
+
+<ParamField query="skipNumberPool" type="boolean" default='True'>
+Whether to exclude numbers that are assigned to number pools. Default is true.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successfully retrieved list of active numbers">
+<ResponseField name="numbers" type="object[]" required>
+Array of phone number objects with detailed configuration
+<Expandable title="cada item">
+<ResponseField name="phoneNumber" type="string" required default='+14155552671'>
+E.164 formatted phone number
+</ResponseField>
+
+<ResponseField name="friendlyName" type="string" default='Sales Line 1'>
+Human-readable name assigned to the number
+</ResponseField>
+
+<ResponseField name="sid" type="string" required default='PN1234567890abcdef1234567890abcde'>
+Phone number SID (unique identifier)
+</ResponseField>
+
+<ResponseField name="countryCode" type="string" required default='US'>
+ISO 3166-1 alpha-2 country code
+</ResponseField>
+
+<ResponseField name="capabilities" type="object" required>
+Communication capabilities supported by this number
+<Expandable title="propiedades">
+<ResponseField name="voice" type="boolean" default='True'>
+Whether the number supports voice calls
+</ResponseField>
+
+<ResponseField name="sms" type="boolean" default='True'>
+Whether the number supports SMS messaging
+</ResponseField>
+
+<ResponseField name="mms" type="boolean" default='True'>
+Whether the number supports MMS messaging
+</ResponseField>
+
+<ResponseField name="fax" type="boolean" default='False'>
+Whether the number supports fax transmission
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='local'>
+Type of phone number (local, toll-free, mobile, etc.) Posibles valores: 'local', 'toll-free', 'mobile', 'national'
+</ResponseField>
+
+<ResponseField name="isDefaultNumber" type="boolean" required default='False'>
+Whether this is the default outbound number for the account
+</ResponseField>
+
+<ResponseField name="linkedUser" type="string" default='user_123456789'>
+User ID of the user assigned to this number
+</ResponseField>
+
+<ResponseField name="linkedRingAllUsers" type="string[]" required>
+Array of user IDs that should ring when this number is called
+</ResponseField>
+
+<ResponseField name="inboundCallService" type="object">
+Configuration for inbound call handling service
+<Expandable title="propiedades">
+<ResponseField name="type" type="string" default='voice_ai'>
+Type of inbound call service Posibles valores: 'voice_ai', 'ivr', 'forward'
+</ResponseField>
+
+<ResponseField name="value" type="string" default='68e381b296a83800a27cd1'>
+Service configuration value or ID
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="forwardingNumber" type="string" default='+14155552672'>
+Phone number to forward calls to
+</ResponseField>
+
+<ResponseField name="isGroupConversationEnabled" type="boolean" required default='True'>
+Whether group conversations are enabled for this number (US/CA numbers with SMS/MMS only)
+</ResponseField>
+
+<ResponseField name="addressSid" type="string" default='AD1234567890abcdef1234567890abcde'>
+Address SID for compliance purposes
+</ResponseField>
+
+<ResponseField name="bundleSid" type="string" default='BU1234567890abcdef1234567890abcde'>
+Bundle SID for regulatory compliance
+</ResponseField>
+
+<ResponseField name="dateAdded" type="string" default='2023-01-15T10:30:00Z'>
+When the number was originally purchased/added
+</ResponseField>
+
+<ResponseField name="dateUpdated" type="string" default='2023-02-20T14:45:00Z'>
+When the number configuration was last updated
+</ResponseField>
+
+<ResponseField name="origin" type="string" default='twilio'>
+Source or origin of the phone number Posibles valores: 'twilio', 'hosted', 'ported'
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="isUnderGhl" type="boolean" required default='True'>
+Whether this account is manged by LeadconnectorHQ
+</ResponseField>
+
+<ResponseField name="pageSize" type="number" required default='100'>
+Number of items requested per page
+</ResponseField>
+
+<ResponseField name="page" type="number" required default='0'>
+Current page index (0-based)
+</ResponseField>
+
+<ResponseField name="accountStatus" type="string" required default='active'>
+Current status of the account Posibles valores: 'active', 'suspended', 'closed'
+</ResponseField>
+
+```json
+{
+  "numbers": [
+    {
+      "phoneNumber": "+14155552671",
+      "friendlyName": "Sales Line 1",
+      "sid": "PN1234567890abcdef1234567890abcde",
+      "countryCode": "US",
+      "capabilities": {
+        "voice": true,
+        "sms": true,
+        "mms": true,
+        "fax": false
+      },
+      "type": "local",
+      "isDefaultNumber": true,
+      "linkedUser": "user_123456789",
+      "linkedRingAllUsers": [
+        "user_123",
+        "user_456"
+      ],
+      "inboundCallService": {
+        "type": "voice_ai",
+        "value": "68e381b296a83800a27cd1"
+      },
+      "forwardingNumber": "+14155552672",
+      "isGroupConversationEnabled": true,
+      "addressSid": "AD1234567890abcdef1234567890abcde",
+      "bundleSid": "BU1234567890abcdef1234567890abcde",
+      "dateAdded": "2023-01-15T10:30:00Z",
+      "dateUpdated": "2023-02-20T14:45:00Z",
+      "origin": "twilio"
+    },
+    {
+      "phoneNumber": "+18005551234",
+      "friendlyName": "Support Toll-Free",
+      "sid": "PN9876543210fedcba9876543210fedcb",
+      "countryCode": "US",
+      "capabilities": {
+        "voice": true,
+  // truncado: 26 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad request - Invalid parameters">
+<ResponseField name="message" type="string" default='Invalid locationId format or pagination parameters'>
+</ResponseField>
+
+<ResponseField name="error" type="string" default='Bad Request'>
+</ResponseField>
+
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+```json
+{
+  "message": "Invalid locationId format or pagination parameters",
+  "error": "Bad Request",
+  "statusCode": 400
+}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="404 - Phone system not connected">
+<ResponseField name="message" type="string" default='Phone system is not connected to this account'>
+</ResponseField>
+
+<ResponseField name="statusCode" type="number" default='404'>
+</ResponseField>
+
+```json
+{
+  "message": "Phone system is not connected to this account",
+  "statusCode": 404
+}
+```
+</Accordion>
+
+<Accordion title="500 - Internal server error">
+<ResponseField name="msg" type="string" default='Internal server error'>
+</ResponseField>
+
+<ResponseField name="accountStatus" type="string" default='suspended'>
+Account status when error occurs
+</ResponseField>
+
+```json
+{
+  "msg": "Internal server error",
+  "accountStatus": "suspended"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

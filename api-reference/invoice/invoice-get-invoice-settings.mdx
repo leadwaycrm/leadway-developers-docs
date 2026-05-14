@@ -1,4 +1,202 @@
 ---
 title: 'Get Invoice Settings'
-openapi: 'GET /invoices/settings'
+description: 'Get the invoice settings for the given account'
 ---
+
+Get the invoice settings for the given account
+
+```http
+GET https://services.leadconnectorhq.com/invoices/settings
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="altId" type="string" required default='6578278e879ad2646715ba9c'>
+Account Id or Agency Id
+</ParamField>
+
+<ParamField query="altType" type="string" required>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="altId" type="string" default='6578278e879ad2646715ba9c'>
+Account Id
+</ResponseField>
+
+<ResponseField name="altType" type="string" default='account'>
+Alt Type Posibles valores: 'account'
+</ResponseField>
+
+<ResponseField name="termsNote" type="string" default='Payment is due within 30 days.'>
+Terms and conditions for invoices
+</ResponseField>
+
+<ResponseField name="estimatesTermsNote" type="string" default='This estimate is valid for 30 days.'>
+Terms and conditions for estimates
+</ResponseField>
+
+<ResponseField name="title" type="string" default='INVOICE'>
+Title for invoices
+</ResponseField>
+
+<ResponseField name="estimatesTitle" type="string" default='ESTIMATE'>
+Title for estimates
+</ResponseField>
+
+<ResponseField name="invoiceNumberPrefix" type="string" default='INV-'>
+Prefix for invoice numbers
+</ResponseField>
+
+<ResponseField name="estimateNumberPrefix" type="string" default='EST-'>
+Prefix for estimate numbers
+</ResponseField>
+
+<ResponseField name="dueAfterXDays" type="number" default='30'>
+Number of days after which invoice is due
+</ResponseField>
+
+<ResponseField name="estimatesExpireAfterXDays" type="number" default='30'>
+Number of days after which estimate expires
+</ResponseField>
+
+<ResponseField name="minimumPercentagePartialPayment" type="number" default='25'>
+Minimum percentage for partial payment
+</ResponseField>
+
+<ResponseField name="customFields" type="string[]">
+Custom fields array
+</ResponseField>
+
+<ResponseField name="customNotification" type="object">
+Custom notification settings
+</ResponseField>
+
+<ResponseField name="businessDetails" type="object">
+Business details
+</ResponseField>
+
+<ResponseField name="senderConfiguration" type="object">
+Sender configuration
+</ResponseField>
+
+<ResponseField name="productSettings" type="object">
+Product settings
+</ResponseField>
+
+<ResponseField name="reminderSettings" type="object">
+Reminder settings
+</ResponseField>
+
+<ResponseField name="lateFeesConfiguration" type="object">
+Late fees configuration
+</ResponseField>
+
+<ResponseField name="tipsConfiguration" type="object">
+Tips configuration
+</ResponseField>
+
+<ResponseField name="paymentMethods" type="object">
+Payment methods configuration
+</ResponseField>
+
+```json
+{
+  "altId": "6578278e879ad2646715ba9c",
+  "altType": "account",
+  "termsNote": "Payment is due within 30 days.",
+  "estimatesTermsNote": "This estimate is valid for 30 days.",
+  "title": "INVOICE",
+  "estimatesTitle": "ESTIMATE",
+  "invoiceNumberPrefix": "INV-",
+  "estimateNumberPrefix": "EST-",
+  "dueAfterXDays": 30,
+  "estimatesExpireAfterXDays": 30,
+  "minimumPercentagePartialPayment": 25,
+  "customFields": [
+    "6578278e879ad2646715baxc",
+    "6901e9fb77ac4d701ba0b996"
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/invoices/settings' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/invoices/settings', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/invoices/settings',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/invoices/settings');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

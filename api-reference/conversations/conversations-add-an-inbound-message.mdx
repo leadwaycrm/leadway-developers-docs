@@ -1,4 +1,228 @@
 ---
 title: 'Add an inbound message'
-openapi: 'POST /conversations/messages/inbound'
+description: 'Post the necessary fields for the API to add a new inbound message. <br />'
 ---
+
+Post the necessary fields for the API to add a new inbound message. &lt;br /&gt;
+
+```http
+POST https://services.leadconnectorhq.com/conversations/messages/inbound
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="type" type="string" required default='SMS'>
+Message Type Posibles valores: 'SMS', 'RCS', 'Email', 'WhatsApp', 'GMB', 'IG', 'FB', 'Custom', 'WebChat', 'Live_Chat', 'Call', 'IVR_Call', 'Campaign_Call', 'Campaign_VoiceMail', 'TIKTOK', 'ALL_IN_ONE_CHAT', 'FORM_SUBMISSION'
+</ParamField>
+
+<ParamField body="attachments" type="string[]">
+Array of attachments
+</ParamField>
+
+<ParamField body="message" type="string">
+Message Body
+</ParamField>
+
+<ParamField body="conversationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+Conversation Id
+</ParamField>
+
+<ParamField body="contactId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+Contact Id
+</ParamField>
+
+<ParamField body="conversationProviderId" type="string" required default='61d6d1f9cdac7612faf80753'>
+Conversation Provider Id
+</ParamField>
+
+<ParamField body="html" type="string">
+HTML Body of Email
+</ParamField>
+
+<ParamField body="subject" type="string">
+Subject of the Email
+</ParamField>
+
+<ParamField body="emailFrom" type="string" default='sender@company.com'>
+Email address to send from. This field is associated with the contact record and cannot be dynamically changed.
+</ParamField>
+
+<ParamField body="emailTo" type="string">
+Recipient email address. This field is associated with the contact record and cannot be dynamically changed.
+</ParamField>
+
+<ParamField body="emailCc" type="string[]">
+List of email address to CC
+</ParamField>
+
+<ParamField body="emailBcc" type="string[]">
+List of email address to BCC
+</ParamField>
+
+<ParamField body="emailMessageId" type="string">
+Send the email message id for which this email should be threaded. This is for replying to a specific email
+</ParamField>
+
+<ParamField body="altId" type="string" default='61d6d1f9cdac7612faf80753'>
+external mail provider's message id
+</ParamField>
+
+<ParamField body="direction" type="object">
+Message direction, if required can be set manually, default is outbound
+</ParamField>
+
+<ParamField body="date" type="string">
+Date of the inbound message
+</ParamField>
+
+<ParamField body="call" type="object">
+Phone call dialer and receiver information
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Created the message">
+<ResponseField name="success" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="conversationId" type="string" required default='ABC12h2F6uBrIkfXYazb'>
+Conversation ID.
+</ResponseField>
+
+<ResponseField name="messageId" type="string" required default='t22c6DQcTDf3MjRhwf77'>
+This is the main Message ID
+</ResponseField>
+
+<ResponseField name="message" type="string" required>
+</ResponseField>
+
+<ResponseField name="contactId" type="string">
+</ResponseField>
+
+<ResponseField name="dateAdded" type="string">
+</ResponseField>
+
+<ResponseField name="emailMessageId" type="string">
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "conversationId": "ABC12h2F6uBrIkfXYazb",
+  "messageId": "t22c6DQcTDf3MjRhwf77",
+  "message": "string",
+  "contactId": "string",
+  "dateAdded": "2024-01-15T10:30:00Z",
+  "emailMessageId": "string"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/conversations/messages/inbound' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "type": "SMS",
+  "attachments": [
+    "string"
+  ],
+  "message": "string",
+  "conversationId": "ve9EPM428h8vShlRW1KT",
+  "contactId": "ve9EPM428h8vShlRW1KT",
+  "conversationProviderId": "61d6d1f9cdac7612faf80753",
+  "html": "string",
+  "subject": "string",
+  "emailFrom": "sender@company.com",
+  "emailTo": "string",
+  "emailCc": [
+    "john1@doe.com",
+    "john2@doe.com"
+  ],
+  "emailBcc": [
+    "john1@doe.com",
+    "john2@doe.com"
+  ],
+  "emailMessageId": "string",
+  "altId": "61d6d1f9cdac7612faf80753",
+  "direction": [
+    "outbound",
+    "inbound"
+  ],
+  "date": "2024-01-15T10:30:00Z"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/conversations/messages/inbound', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"type": "SMS", "attachments": ["string"], "message": "string", "conversationId": "ve9EPM428h8vShlRW1KT", "contactId": "ve9EPM428h8vShlRW1KT", "conversationProviderId": "61d6d1f9cdac7612faf80753", "html": "string", "subject": "string", "emailFrom": "sender@company.com", "emailTo": "string", "emailCc": ["john1@doe.com", "john2@doe.com"], "emailBcc": ["john1@doe.com", "john2@doe.com"], "emailMessageId": "string", "altId": "61d6d1f9cdac7612faf80753", "direction": ["outbound", "inbound"], "date": "2024-01-15T10:30:00Z"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/conversations/messages/inbound',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"type": "SMS", "attachments": ["string"], "message": "string", "conversationId": "ve9EPM428h8vShlRW1KT", "contactId": "ve9EPM428h8vShlRW1KT", "conversationProviderId": "61d6d1f9cdac7612faf80753", "html": "string", "subject": "string", "emailFrom": "sender@company.com", "emailTo": "string", "emailCc": ["john1@doe.com", "john2@doe.com"], "emailBcc": ["john1@doe.com", "john2@doe.com"], "emailMessageId": "string", "altId": "61d6d1f9cdac7612faf80753", "direction": ["outbound", "inbound"], "date": "2024-01-15T10:30:00Z"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/conversations/messages/inbound');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'type': 'SMS', 'attachments': ['string'], 'message': 'string', 'conversationId': 've9EPM428h8vShlRW1KT', 'contactId': 've9EPM428h8vShlRW1KT', 'conversationProviderId': '61d6d1f9cdac7612faf80753', 'html': 'string', 'subject': 'string', 'emailFrom': 'sender@company.com', 'emailTo': 'string', 'emailCc': ['john1@doe.com', 'john2@doe.com'], 'emailBcc': ['john1@doe.com', 'john2@doe.com'], 'emailMessageId': 'string', 'altId': '61d6d1f9cdac7612faf80753', 'direction': ['outbound', 'inbound'], 'date': '2024-01-15T10:30:00Z'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,186 @@
 ---
 title: 'Get Agent (Deprecated)'
-openapi: 'GET /agent-studio/public-api/agents/{agentId}'
+description: '**Deprecated endpoint - use GET /agent/:agentId instead.**  Gets a specific agent by its ID for the specified account with all its versions. locationId is required parameter. The agent must have activ'
 ---
+
+**Deprecated endpoint - use GET /agent/:agentId instead.**
+
+Gets a specific agent by its ID for the specified account with all its versions. locationId is required parameter. The agent must have active status.
+
+```http
+GET https://services.leadconnectorhq.com/agent-studio/public-api/agents/{agentId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="agentId" type="string" required default='p1q2r3s4t5u6v7w8x9y0z1a2'>
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='C2QujeCh8ZnC7al2InWR'>
+</ParamField>
+
+<ParamField query="source" type="string" default='api'>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Agent retrieved successfully">
+<ResponseField name="success" type="boolean" required default='True'>
+Success status
+</ResponseField>
+
+<ResponseField name="message" type="string" required default='Agent retrieved successfully'>
+Response message
+</ResponseField>
+
+<ResponseField name="agent" type="object" required>
+Agent metadata with all active versions
+</ResponseField>
+
+<ResponseField name="traceId" type="string" default='22dbda99-13d3-4b4d-a30e-c468334e2178'>
+Request trace ID for debugging
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "message": "Agent retrieved successfully",
+  "agent": {
+    "id": "d6a6792d-0d50-4e8f-9c3b-ecd8096d0bdd",
+    "agentId": "AgfS2JXWsSN8aXb5c4d2",
+    "name": "Customer Support Agent",
+    "description": "AI agent for customer support",
+    "agencyId": "5DP4iH6HLkQsiKESj6rh",
+    "locationId": "C2QujeCh8ZnC7al2InWR",
+    "productSlug": "agent_studio",
+    "productId": "agent_studio",
+    "authorId": "usr_123",
+    "status": "active",
+    "folderId": "vEoIigWSAw1BQA9DEchD",
+    "folderName": "Default Agents",
+    "createdAt": "2026-03-06T10:37:01.013Z",
+    "updatedAt": "2026-03-06T10:37:01.014Z",
+    "deleted": false,
+    "productionVersion": {
+      "versionId": "Ver1K8sSF2nC7al5InWz",
+      "versionName": "Content Creation Agent v1",
+      "isPublished": true,
+      "inputVariables": [],
+      "updatedAt": "2026-03-02T06:53:40.570Z"
+    },
+    "versions": [
+      {
+        "id": "3f9d9ab7-5ca4-4e64-8472-eab9e77a0fe3",
+        "versionId": "Ver1K8sSF2nC7al5InWz",
+        "agentId": "AgfS2JXWsSN8aXb5c4d2",
+        "agencyId": "5DP4iH6HLkQsiKESj6rh",
+        "locationId": "C2QujeCh8ZnC7al2InWR",
+        "versionName": "v1",
+        "description": "AI agent for customer support",
+        "state": "staging",
+        "isPublished": false,
+        "scopes": [],
+        "nodes": [],
+  // truncado: 22 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request - locationId is required">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="404 - Agent not found or not available">
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="500 - Internal Server Error">
+<ResponseField name="statusCode" type="number" default='500'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Internal Server Error'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

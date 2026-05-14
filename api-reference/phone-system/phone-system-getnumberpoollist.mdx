@@ -1,4 +1,209 @@
 ---
 title: 'List Number Pools'
-openapi: 'GET /phone-system/number-pools'
+description: 'Get list of number pools'
 ---
+
+Get list of number pools
+
+```http
+GET https://services.leadconnectorhq.com/phone-system/number-pools
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" default='ve9EPM428h8vShlRW1KT'>
+Account ID to filter pools
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successfully retrieved number pools list">
+<ResponseField name="success" type="boolean" default='True'>
+Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object[]">
+Array of number pool objects
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='ve9EPM428h8vShlRW1KT'>
+Unique identifier for the number pool
+</ResponseField>
+
+<ResponseField name="name" type="string" default='Sales Team Pool'>
+Human-readable name of the number pool
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='loc123'>
+Account ID this pool belongs to
+</ResponseField>
+
+<ResponseField name="numbers" type="object[]">
+Phone numbers in this pool
+<Expandable title="cada item">
+<ResponseField name="phoneNumber" type="string" default='+14155552671'>
+E.164 formatted phone number
+</ResponseField>
+
+<ResponseField name="friendlyName" type="string" default='Sales Line 1'>
+Human-readable name for the number
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="forwardingNumber" type="string" default='+14155552671'>
+Number to forward calls to
+</ResponseField>
+
+<ResponseField name="whisper" type="boolean" default='True'>
+Whether whisper is enabled
+</ResponseField>
+
+<ResponseField name="whisperMessage" type="string" default='Incoming call from sales line'>
+Message played during whisper
+</ResponseField>
+
+<ResponseField name="callRecording" type="boolean" default='True'>
+Whether call recording is enabled
+</ResponseField>
+
+<ResponseField name="isActive" type="boolean" default='True'>
+Whether the number pool is active
+</ResponseField>
+
+<ResponseField name="inboundCallService" type="object">
+Inbound call service configuration
+<Expandable title="propiedades">
+<ResponseField name="type" type="string" default='voice_ai'>
+Type of inbound call service
+</ResponseField>
+
+<ResponseField name="value" type="string" default='68e381b296a83800a27cd1'>
+Service configuration value/ID
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="number" default='5'>
+Total number of pools returned
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "ve9EPM428h8vShlRW1KT",
+      "name": "Sales Team Pool",
+      "locationId": "loc123",
+      "numbers": [
+        {
+          "phoneNumber": "+14155552671",
+          "friendlyName": "Sales Line 1"
+        }
+      ],
+      "forwardingNumber": "+14155552671",
+      "whisper": true,
+      "whisperMessage": "Incoming call from sales line",
+      "callRecording": true,
+      "isActive": true,
+      "inboundCallService": {
+        "type": "voice_ai",
+        "value": "68e381b296a83800a27cd1"
+      }
+    }
+  ],
+  "total": 1
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad request - Invalid account ID or parameters">
+<ResponseField name="message" type="string" default='Invalid locationId format'>
+</ResponseField>
+
+<ResponseField name="error" type="string" default='Bad Request'>
+</ResponseField>
+
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+```json
+{
+  "message": "Invalid locationId format",
+  "error": "Bad Request",
+  "statusCode": 400
+}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized - Invalid or missing authentication token">
+</Accordion>
+
+<Accordion title="403 - Forbidden - Insufficient permissions for this account">
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/phone-system/number-pools' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/phone-system/number-pools', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/phone-system/number-pools',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/phone-system/number-pools');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,153 @@
 ---
 title: 'Bulk Delete Social Planner Posts'
-openapi: 'POST /social-media-posting/{locationId}/posts/bulk-delete'
+description: 'Deletes multiple posts based on the provided list of post IDs.                    This operation is useful for clearing up large numbers of posts efficiently.                     Note:                '
 ---
+
+Deletes multiple posts based on the provided list of post IDs. 
+                  This operation is useful for clearing up large numbers of posts efficiently. 
+                  
+Note: 
+                  
+1.The maximum number of posts that can be deleted in a single request is '50'.
+                  
+2.However, It will only get deleted in Leadway database but still
+                   it is recommended to be cautious of this operation.
+
+```http
+POST https://services.leadconnectorhq.com/social-media-posting/{locationId}/posts/bulk-delete
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="postIds" type="string[]">
+Requested Results
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Posts deleted successfully">
+<ResponseField name="success" type="boolean" required default='True'>
+Success or Failure
+</ResponseField>
+
+<ResponseField name="statusCode" type="number" required default='201'>
+Status Code
+</ResponseField>
+
+<ResponseField name="message" type="string" required default='Posts Deleted Successfully'>
+Message
+</ResponseField>
+
+<ResponseField name="results" type="object" required>
+Message and deleted count
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "statusCode": 201,
+  "message": "Posts Deleted Successfully",
+  "results": {
+    "message": "Posts deleted successfully",
+    "deletedCount": 10
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Cannot delete more than 50 posts at a time.">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="404 - No posts found with the given IDs.">
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="500 - An error occurred while trying to delete the posts. Please try again later.">
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/social-media-posting/YOUR_locationId/posts/bulk-delete' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "postIds": [
+    "662791ee3f216822d7da0c8c"
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/social-media-posting/YOUR_locationId/posts/bulk-delete', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"postIds": ["662791ee3f216822d7da0c8c"]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/social-media-posting/YOUR_locationId/posts/bulk-delete',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"postIds": ["662791ee3f216822d7da0c8c"]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/social-media-posting/YOUR_locationId/posts/bulk-delete');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'postIds': ['662791ee3f216822d7da0c8c']}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

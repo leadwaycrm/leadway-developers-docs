@@ -1,4 +1,348 @@
 ---
 title: 'Search Opportunity'
-openapi: 'GET /opportunities/search'
+description: 'Search Opportunity'
 ---
+
+Search Opportunity
+
+```http
+GET https://services.leadconnectorhq.com/opportunities/search
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="q" type="string" default='john@deo.com'>
+</ParamField>
+
+<ParamField query="location_id" type="string" required default='i2SpAtBVHSVea1sL6oah'>
+Account Id
+</ParamField>
+
+<ParamField query="pipeline_id" type="string" default='bCkKGpDsyPP4peuKowkG'>
+Pipeline Id
+</ParamField>
+
+<ParamField query="pipeline_stage_id" type="string" default='7915dedc-8f18-44d5-8bc3-77c04e994a10'>
+stage Id
+</ParamField>
+
+<ParamField query="contact_id" type="string" default='WFwVrSSjZ2CNHbZThQX2'>
+Contact Id
+</ParamField>
+
+<ParamField query="status" type="string">
+</ParamField>
+
+<ParamField query="assigned_to" type="string" default='082goXVW3lIExEQPOnd3'>
+</ParamField>
+
+<ParamField query="campaignId" type="string" default='Y2I9XM7aO1hncuSOlc9L'>
+Campaign Id
+</ParamField>
+
+<ParamField query="id" type="string" default='123akv4LFn6C9frZoy3e'>
+Opportunity Id
+</ParamField>
+
+<ParamField query="order" type="string" default='added_asc'>
+</ParamField>
+
+<ParamField query="endDate" type="string" default='mm-dd-yyyy'>
+End date
+</ParamField>
+
+<ParamField query="startAfter" type="string" default='1628008053263'>
+Start After
+</ParamField>
+
+<ParamField query="startAfterId" type="string" default='UIaE1WjAwWKdlyD7osQI'>
+Start After Id
+</ParamField>
+
+<ParamField query="date" type="string" default='mm-dd-yyyy'>
+Start date
+</ParamField>
+
+<ParamField query="country" type="string" default='US'>
+</ParamField>
+
+<ParamField query="page" type="number">
+</ParamField>
+
+<ParamField query="limit" type="number">
+Limit Per Page records count. will allow maximum up to 100 and default will be 20
+</ParamField>
+
+<ParamField query="getTasks" type="boolean" default='False'>
+get Tasks in contact
+</ParamField>
+
+<ParamField query="getNotes" type="boolean" default='False'>
+get Notes in contact
+</ParamField>
+
+<ParamField query="getCalendarEvents" type="boolean" default='False'>
+get Calender event in contact
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="opportunities" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='yWQobCRIhRguQtD2llvk'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='testing'>
+</ResponseField>
+
+<ResponseField name="monetaryValue" type="number" default='500'>
+</ResponseField>
+
+<ResponseField name="pipelineId" type="string" default='VDm7RPYC2GLUvdpKmBfC'>
+</ResponseField>
+
+<ResponseField name="pipelineStageId" type="string" default='e93ba61a-53b3-45e7-985a-c7732dbcdb69'>
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="status" type="string" default='open'>
+</ResponseField>
+
+<ResponseField name="source" type="string" default=''>
+</ResponseField>
+
+<ResponseField name="lastStatusChangeAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="lastStageChangeAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="lastActionDate" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="indexVersion" type="string" default='1'>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='zT46WSCPbudrq4zhW'>
+</ResponseField>
+
+<ResponseField name="contact" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='byMEV0NQinDhq8ZfiOi2'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='John Deo'>
+</ResponseField>
+
+<ResponseField name="companyName" type="string" default='Tesla Inc'>
+</ResponseField>
+
+<ResponseField name="email" type="string" default='john@deo.com'>
+</ResponseField>
+
+<ResponseField name="phone" type="string" default='+1202-555-0107'>
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="notes" type="array[]">
+</ResponseField>
+
+<ResponseField name="tasks" type="array[]">
+</ResponseField>
+
+<ResponseField name="calendarEvents" type="array[]">
+</ResponseField>
+
+<ResponseField name="lostReasonId" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="customFields" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='MgobCB14YMVKuE4Ka8p1'>
+</ResponseField>
+
+<ResponseField name="fieldValue" type="object" required>
+The value of the custom field
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="followers" type="array[]">
+</ResponseField>
+
+<ResponseField name="externalObjectId" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+<Expandable title="propiedades">
+<ResponseField name="total" type="number" default='1'>
+</ResponseField>
+
+<ResponseField name="nextPageUrl" type="string" default='http://localhost:5066/opportunities/search?q=&location_id=ve9EPM428h8vShlRW1KT&pipeline_id=&pipeline_stage_id=&status=&assigned_to+=&campaignId=&id=&order=&endDate=&startAfter=1625203104328&startAfterId=yWQobCRIhRguQtD2llvk&date=&limit=1&country=&page=1'>
+</ResponseField>
+
+<ResponseField name="startAfterId" type="string" default='yWQobCRIhRguQtD2llvk'>
+</ResponseField>
+
+<ResponseField name="startAfter" type="number" default='1625203104328'>
+</ResponseField>
+
+<ResponseField name="currentPage" type="number" default='2'>
+</ResponseField>
+
+<ResponseField name="nextPage" type="number" default='3'>
+</ResponseField>
+
+<ResponseField name="prevPage" type="number" default='1'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="aggregations" type="object">
+</ResponseField>
+
+```json
+{
+  "opportunities": [
+    {
+      "id": "yWQobCRIhRguQtD2llvk",
+      "name": "testing",
+      "monetaryValue": 500,
+      "pipelineId": "VDm7RPYC2GLUvdpKmBfC",
+      "pipelineStageId": "e93ba61a-53b3-45e7-985a-c7732dbcdb69",
+      "assignedTo": "zT46WSCPbudrq4zhWMk6",
+      "status": "open",
+      "source": "",
+      "lastStatusChangeAt": "2021-08-03T04:55:17.355Z",
+      "lastStageChangeAt": "2021-08-03T04:55:17.355Z",
+      "lastActionDate": "2021-08-03T04:55:17.355Z",
+      "indexVersion": 1,
+      "createdAt": "2021-08-03T04:55:17.355Z",
+      "updatedAt": "2021-08-03T04:55:17.355Z",
+      "contactId": "zT46WSCPbudrq4zhWMk6",
+      "locationId": "zT46WSCPbudrq4zhW",
+      "contact": {
+        "id": "byMEV0NQinDhq8ZfiOi2",
+        "name": "John Deo",
+        "companyName": "Tesla Inc",
+        "email": "john@deo.com",
+        "phone": "+1202-555-0107",
+        "tags": []
+      },
+      "notes": [
+        []
+      ],
+      "tasks": [
+        []
+      ],
+      "calendarEvents": [
+        []
+      ],
+      "lostReasonId": "zT46WSCPbudrq4zhWMk6",
+      "customFields": [
+        {}
+  // truncado: 18 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/opportunities/search' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/opportunities/search', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/opportunities/search',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/opportunities/search');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

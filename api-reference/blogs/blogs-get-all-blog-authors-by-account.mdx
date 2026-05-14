@@ -1,4 +1,142 @@
 ---
 title: 'Get all authors'
-openapi: 'GET /blogs/authors'
+description: 'The "Get all authors" Api return the blog authors for a given account ID. Please use "blogs/author.readonly"'
 ---
+
+The "Get all authors" Api return the blog authors for a given account ID. Please use "blogs/author.readonly"
+
+```http
+GET https://services.leadconnectorhq.com/blogs/authors
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+Account Id
+</ParamField>
+
+<ParamField query="limit" type="number" required default='5'>
+Number of authors to show in the listing
+</ParamField>
+
+<ParamField query="offset" type="number" required>
+Number of authors to skip in listing
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="authors" type="object[]" required>
+Array of authors
+<Expandable title="cada item">
+<ResponseField name="_id" type="string" required default='lMOzIQZne5m6zQ528sT6'>
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Leadway'>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='lMOzIQZne5m6zQ528sT6'>
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2025-01-03T11:06:35.822Z'>
+</ResponseField>
+
+<ResponseField name="canonicalLink" type="string" required default='https://tryghl.blog/post/technology'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "authors": [
+    {
+      "_id": "lMOzIQZne5m6zQ528sT6",
+      "name": "Leadway",
+      "locationId": "lMOzIQZne5m6zQ528sT6",
+      "updatedAt": "2025-01-03T11:06:35.822Z",
+      "canonicalLink": "https://tryghl.blog/post/technology"
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/blogs/authors' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/blogs/authors', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/blogs/authors',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/blogs/authors');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,120 @@
 ---
 title: 'Get reporting data'
-openapi: 'GET /ad-publishing/google/reporting'
+description: 'Retrieve aggregated Google Ads reporting metrics for a account'
 ---
+
+Retrieve aggregated Google Ads reporting metrics for a account
+
+```http
+GET https://services.leadconnectorhq.com/ad-publishing/google/reporting
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='fRMewNQIxSyZ5R4nQyit'>
+Account identifier
+</ParamField>
+
+<ParamField query="groupBy" type="string" default='month'>
+Group by period
+</ParamField>
+
+<ParamField query="startDate" type="string" required default='2022-01-11'>
+Report start date
+</ParamField>
+
+<ParamField query="endDate" type="string" required default='2022-01-31'>
+Report end date
+</ParamField>
+
+<ParamField query="type" type="string" required default='AD_MANAGER or INTEGRATION'>
+Integration type
+</ParamField>
+
+<ParamField query="fields" type="string[]" required>
+Comma-separated reporting fields
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Response">
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/ad-publishing/google/reporting' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/ad-publishing/google/reporting', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/ad-publishing/google/reporting',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/ad-publishing/google/reporting');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

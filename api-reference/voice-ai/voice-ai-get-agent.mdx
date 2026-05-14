@@ -1,4 +1,271 @@
 ---
 title: 'Get Agent'
-openapi: 'GET /voice-ai/agents/{agentId}'
+description: 'Retrieve detailed configuration and settings for a specific voice AI agent'
 ---
+
+Retrieve detailed configuration and settings for a specific voice AI agent
+
+```http
+GET https://services.leadconnectorhq.com/voice-ai/agents/{agentId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="agentId" type="string" required default='507f1f77bcf86cd799439011'>
+Unique agent identifier
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='LOC123456789ABCDEF'>
+Account ID
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Agent details retrieved successfully">
+<ResponseField name="id" type="string" required default='507f1f77bcf86cd799439011'>
+Unique identifier for the created agent
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='LOC123456789ABCDEF'>
+Unique identifier for the account where this agent operates
+</ResponseField>
+
+<ResponseField name="agentName" type="string" required default='Customer Support Agent'>
+Display name of the voice AI agent
+</ResponseField>
+
+<ResponseField name="businessName" type="string" required default='Acme Corporation'>
+Name of the business this agent represents
+</ResponseField>
+
+<ResponseField name="welcomeMessage" type="string" required default='Hello! Thank you for calling. How can I assist you today?'>
+Greeting message spoken when the agent answers calls
+</ResponseField>
+
+<ResponseField name="agentPrompt" type="string" required default='You are a helpful customer service representative.'>
+Custom instructions defining the agent's behavior
+</ResponseField>
+
+<ResponseField name="voiceId" type="string" required default='507f1f77bcf86cd799439011'>
+Identifier for the speech synthesis voice being used
+</ResponseField>
+
+<ResponseField name="language" type="string" required default='en-US'>
+Language code for the agent's speech and understanding
+</ResponseField>
+
+<ResponseField name="patienceLevel" type="string" required default='medium'>
+Current tolerance level for caller response delays
+</ResponseField>
+
+<ResponseField name="maxCallDuration" type="number" required default='600'>
+Maximum call duration in seconds, between 180-900
+</ResponseField>
+
+<ResponseField name="sendUserIdleReminders" type="boolean" required default='True'>
+Indicates whether automatic idle reminders are enabled
+</ResponseField>
+
+<ResponseField name="reminderAfterIdleTimeSeconds" type="number" required default='5'>
+Seconds to wait before sending idle reminders, between 1-20
+</ResponseField>
+
+<ResponseField name="inboundNumber" type="string" default='+1234567890'>
+Phone number for receiving inbound calls
+</ResponseField>
+
+<ResponseField name="numberPoolId" type="string" default='pool_507f1f77bcf86cd799439011'>
+Identifier for the number pool managing this agent's phone allocation
+</ResponseField>
+
+<ResponseField name="callEndWorkflowIds" type="string[]">
+Array of workflow IDs triggered automatically when calls end
+</ResponseField>
+
+<ResponseField name="sendPostCallNotificationTo" type="object">
+Current post-call notification settings including recipient configuration
+</ResponseField>
+
+<ResponseField name="agentWorkingHours" type="object[]">
+Time intervals when the agent accepts calls, organized by day of week
+<Expandable title="cada item">
+<ResponseField name="dayOfTheWeek" type="number" required default='1'>
+Day of the week for this working hours configuration (Monday=1 to Sunday=7) Posibles valores: 1, 2, 3, 4, 5, 6, 7
+</ResponseField>
+
+<ResponseField name="intervals" type="object[]" required>
+Array of time intervals when the agent is available on this day
+<Expandable title="cada item">
+<ResponseField name="startHour" type="number" required default='9'>
+Starting hour of the working interval in 24-hour format (0-23)
+</ResponseField>
+
+<ResponseField name="endHour" type="number" required default='17'>
+Ending hour of the working interval in 24-hour format (0-23)
+</ResponseField>
+
+<ResponseField name="startMinute" type="number" required default='0'>
+Starting minute of the working interval (0-59)
+</ResponseField>
+
+<ResponseField name="endMinute" type="number" required default='30'>
+Ending minute of the working interval (0-59)
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="timezone" type="string" required default='America/New_York'>
+IANA timezone identifier for working hours and scheduling
+</ResponseField>
+
+<ResponseField name="isAgentAsBackupDisabled" type="boolean" required default='False'>
+Indicates whether this agent is excluded from backup scenarios
+</ResponseField>
+
+<ResponseField name="translation" type="object">
+Current language translation settings including enablement status and target language
+</ResponseField>
+
+<ResponseField name="actions" type="object[]" required>
+Raw actions configured for this agent with complete actionParameters structure
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='507f1f77bcf86cd799439011'>
+Unique identifier for this action
+</ResponseField>
+
+<ResponseField name="actionType" type="string" required default='CALL_TRANSFER'>
+Type of action Posibles valores: 'CALL_TRANSFER', 'DATA_EXTRACTION', 'IN_CALL_DATA_EXTRACTION', 'WORKFLOW_TRIGGER', 'SMS', 'APPOINTMENT_BOOKING', 'CUSTOM_ACTION', 'KNOWLEDGE_BASE'
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Transfer to Manager'>
+Human-readable name for this action
+</ResponseField>
+
+<ResponseField name="actionParameters" type="object" required>
+Action parameters - structure varies by actionType
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "id": "507f1f77bcf86cd799439011",
+  "locationId": "LOC123456789ABCDEF",
+  "agentName": "Customer Support Agent",
+  "businessName": "Acme Corporation",
+  "welcomeMessage": "Hello! Thank you for calling. How can I assist you today?",
+  "agentPrompt": "You are a helpful customer service representative.",
+  "voiceId": "507f1f77bcf86cd799439011",
+  "language": "en-US",
+  "patienceLevel": "medium",
+  "maxCallDuration": 600,
+  "sendUserIdleReminders": true,
+  "reminderAfterIdleTimeSeconds": 5,
+  "inboundNumber": "+1234567890",
+  "numberPoolId": "pool_507f1f77bcf86cd799439011",
+  "callEndWorkflowIds": [],
+  "agentWorkingHours": [],
+  "timezone": "America/New_York",
+  "isAgentAsBackupDisabled": false,
+  "actions": [
+    {
+      "_id": "507f1f77bcf86cd799439011",
+      "actionType": "CALL_TRANSFER",
+      "name": "Transfer to Manager",
+      "actionParameters": {
+        "triggerPrompt": "When caller asks for manager",
+        "triggerMessage": "Let me transfer you",
+        "transferToType": "number",
+        "transferToValue": "+1234567890"
+      }
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/voice-ai/agents/YOUR_agentId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/voice-ai/agents/YOUR_agentId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/voice-ai/agents/YOUR_agentId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/voice-ai/agents/YOUR_agentId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

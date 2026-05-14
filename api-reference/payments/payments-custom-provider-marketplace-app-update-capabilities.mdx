@@ -1,4 +1,129 @@
 ---
 title: 'Custom-provider marketplace app update capabilities'
-openapi: 'PUT /payments/custom-provider/capabilities'
+description: 'Toggle capabilities for the marketplace app tied to the OAuth client'
 ---
+
+Toggle capabilities for the marketplace app tied to the OAuth client
+
+```http
+PUT https://services.leadconnectorhq.com/payments/custom-provider/capabilities
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="supportsSubscriptionSchedules" type="boolean" required default='True'>
+Whether the marketplace app supports subscription schedules or not
+</ParamField>
+
+<ParamField body="companyId" type="string" default='Yjnwuduw83e8x30sm0'>
+Company id. Mandatory if locationId is not provided
+</ParamField>
+
+<ParamField body="locationId" type="string" default='Yjnwuduw83e8x30sm0'>
+Account / Account id. Mandatory if companyId is not provided
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="success" type="boolean" required default='true'>
+Whether the custom provider capabilities are updated or not. true represents capabilities are updated
+</ResponseField>
+
+```json
+{
+  "success": "true"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/payments/custom-provider/capabilities' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "supportsSubscriptionSchedules": true,
+  "companyId": "Yjnwuduw83e8x30sm0",
+  "locationId": "Yjnwuduw83e8x30sm0"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/payments/custom-provider/capabilities', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"supportsSubscriptionSchedules": true, "companyId": "Yjnwuduw83e8x30sm0", "locationId": "Yjnwuduw83e8x30sm0"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/payments/custom-provider/capabilities',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"supportsSubscriptionSchedules": true, "companyId": "Yjnwuduw83e8x30sm0", "locationId": "Yjnwuduw83e8x30sm0"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/payments/custom-provider/capabilities');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'supportsSubscriptionSchedules': true, 'companyId': 'Yjnwuduw83e8x30sm0', 'locationId': 'Yjnwuduw83e8x30sm0'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

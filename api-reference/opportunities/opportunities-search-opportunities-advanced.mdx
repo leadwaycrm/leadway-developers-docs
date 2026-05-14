@@ -1,4 +1,306 @@
 ---
 title: 'Search Opportunities'
-openapi: 'POST /opportunities/search'
+description: 'Search Opportunities based on combinations of advanced filters. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-424216/7bf11bc9b94f80f'
 ---
+
+Search Opportunities based on combinations of advanced filters. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-424216/7bf11bc9b94f80f
+
+```http
+POST https://services.leadconnectorhq.com/opportunities/search
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='i2SpAtBVHSVea1sL6oah'>
+Account Id
+</ParamField>
+
+<ParamField body="query" type="string" required>
+</ParamField>
+
+<ParamField body="limit" type="number" required>
+</ParamField>
+
+<ParamField body="page" type="number" required>
+</ParamField>
+
+<ParamField body="searchAfter" type="string[]" required>
+</ParamField>
+
+<ParamField body="additionalDetails" type="object" required>
+<Expandable title="propiedades">
+<ParamField body="notes" type="boolean" required>
+</ParamField>
+
+<ParamField body="tasks" type="boolean" required>
+</ParamField>
+
+<ParamField body="calendarEvents" type="boolean" required>
+</ParamField>
+
+<ParamField body="unReadConversations" type="boolean" required>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="opportunities" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='yWQobCRIhRguQtD2llvk'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='testing'>
+</ResponseField>
+
+<ResponseField name="monetaryValue" type="number" default='500'>
+</ResponseField>
+
+<ResponseField name="pipelineId" type="string" default='VDm7RPYC2GLUvdpKmBfC'>
+</ResponseField>
+
+<ResponseField name="pipelineStageId" type="string" default='e93ba61a-53b3-45e7-985a-c7732dbcdb69'>
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="status" type="string" default='open'>
+</ResponseField>
+
+<ResponseField name="source" type="string" default=''>
+</ResponseField>
+
+<ResponseField name="lastStatusChangeAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="lastStageChangeAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="lastActionDate" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="indexVersion" type="string" default='1'>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" default='2021-08-03T04:55:17.355Z'>
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='zT46WSCPbudrq4zhW'>
+</ResponseField>
+
+<ResponseField name="contact" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='byMEV0NQinDhq8ZfiOi2'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='John Deo'>
+</ResponseField>
+
+<ResponseField name="companyName" type="string" default='Tesla Inc'>
+</ResponseField>
+
+<ResponseField name="email" type="string" default='john@deo.com'>
+</ResponseField>
+
+<ResponseField name="phone" type="string" default='+1202-555-0107'>
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="notes" type="array[]">
+</ResponseField>
+
+<ResponseField name="tasks" type="array[]">
+</ResponseField>
+
+<ResponseField name="calendarEvents" type="array[]">
+</ResponseField>
+
+<ResponseField name="lostReasonId" type="string" default='zT46WSCPbudrq4zhWMk6'>
+</ResponseField>
+
+<ResponseField name="customFields" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='MgobCB14YMVKuE4Ka8p1'>
+</ResponseField>
+
+<ResponseField name="fieldValue" type="object" required>
+The value of the custom field
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="followers" type="array[]">
+</ResponseField>
+
+<ResponseField name="externalObjectId" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='100'>
+</ResponseField>
+
+<ResponseField name="aggregations" type="object">
+</ResponseField>
+
+```json
+{
+  "opportunities": [
+    {
+      "id": "yWQobCRIhRguQtD2llvk",
+      "name": "testing",
+      "monetaryValue": 500,
+      "pipelineId": "VDm7RPYC2GLUvdpKmBfC",
+      "pipelineStageId": "e93ba61a-53b3-45e7-985a-c7732dbcdb69",
+      "assignedTo": "zT46WSCPbudrq4zhWMk6",
+      "status": "open",
+      "source": "",
+      "lastStatusChangeAt": "2021-08-03T04:55:17.355Z",
+      "lastStageChangeAt": "2021-08-03T04:55:17.355Z",
+      "lastActionDate": "2021-08-03T04:55:17.355Z",
+      "indexVersion": 1,
+      "createdAt": "2021-08-03T04:55:17.355Z",
+      "updatedAt": "2021-08-03T04:55:17.355Z",
+      "contactId": "zT46WSCPbudrq4zhWMk6",
+      "locationId": "zT46WSCPbudrq4zhW",
+      "contact": {
+        "id": "byMEV0NQinDhq8ZfiOi2",
+        "name": "John Deo",
+        "companyName": "Tesla Inc",
+        "email": "john@deo.com",
+        "phone": "+1202-555-0107",
+        "tags": []
+      },
+      "notes": [
+        []
+      ],
+      "tasks": [
+        []
+      ],
+      "calendarEvents": [
+        []
+      ],
+      "lostReasonId": "zT46WSCPbudrq4zhWMk6",
+      "customFields": [
+        {}
+  // truncado: 10 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/opportunities/search' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "i2SpAtBVHSVea1sL6oah",
+  "query": "string",
+  "limit": 0,
+  "page": 0,
+  "searchAfter": [
+    "string"
+  ],
+  "additionalDetails": {
+    "notes": true,
+    "tasks": true,
+    "calendarEvents": true,
+    "unReadConversations": true
+  }
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/opportunities/search', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "i2SpAtBVHSVea1sL6oah", "query": "string", "limit": 0, "page": 0, "searchAfter": ["string"], "additionalDetails": {"notes": true, "tasks": true, "calendarEvents": true, "unReadConversations": true}}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/opportunities/search',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "i2SpAtBVHSVea1sL6oah", "query": "string", "limit": 0, "page": 0, "searchAfter": ["string"], "additionalDetails": {"notes": true, "tasks": true, "calendarEvents": true, "unReadConversations": true}},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/opportunities/search');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'i2SpAtBVHSVea1sL6oah', 'query': 'string', 'limit': 0, 'page': 0, 'searchAfter': ['string'], 'additionalDetails': {'notes': true, 'tasks': true, 'calendarEvents': true, 'unReadConversations': true}}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

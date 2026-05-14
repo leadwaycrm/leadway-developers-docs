@@ -1,4 +1,202 @@
 ---
 title: 'Get notification'
-openapi: 'GET /calendars/{calendarId}/notifications/{notificationId}'
+description: 'Find Event notification by notificationId'
 ---
+
+Find Event notification by notificationId
+
+```http
+GET https://services.leadconnectorhq.com/calendars/{calendarId}/notifications/{notificationId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="calendarId" type="string" required>
+</ParamField>
+
+<ParamField path="notificationId" type="string" required>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="_id" type="string">
+Notification ID
+</ResponseField>
+
+<ResponseField name="receiverType" type="string" default='contact'>
+Posibles valores: 'contact', 'guest', 'assignedUser', 'emails', 'phoneNumbers', 'business'
+</ResponseField>
+
+<ResponseField name="additionalEmailIds" type="string[]">
+</ResponseField>
+
+<ResponseField name="additionalPhoneNumbers" type="string[]">
+</ResponseField>
+
+<ResponseField name="channel" type="string" default='email'>
+Posibles valores: 'email', 'inApp', 'sms', 'whatsapp'
+</ResponseField>
+
+<ResponseField name="notificationType" type="string" default='confirmation'>
+Posibles valores: 'booked', 'confirmation', 'cancellation', 'reminder', 'followup', 'reschedule'
+</ResponseField>
+
+<ResponseField name="isActive" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="additionalWhatsappNumbers" type="string[]">
+</ResponseField>
+
+<ResponseField name="templateId" type="string" default='0as9d8as0d'>
+</ResponseField>
+
+<ResponseField name="body" type="string" default='This is a test notification'>
+</ResponseField>
+
+<ResponseField name="subject" type="string" default='Test Notification'>
+</ResponseField>
+
+<ResponseField name="afterTime" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="timeOffset" type="number">
+</ResponseField>
+
+<ResponseField name="unit" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="beforeTime" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="timeOffset" type="number">
+</ResponseField>
+
+<ResponseField name="unit" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="selectedUsers" type="string[]">
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" default='False'>
+</ResponseField>
+
+```json
+{
+  "_id": "string",
+  "receiverType": "contact",
+  "additionalEmailIds": [
+    "example1@email.com",
+    "example2@email.com"
+  ],
+  "additionalPhoneNumbers": [
+    "+919876744444",
+    "+919876744445"
+  ],
+  "channel": "email",
+  "notificationType": "confirmation",
+  "isActive": true,
+  "additionalWhatsappNumbers": [
+    "+919876744444",
+    "+919876744445"
+  ],
+  "templateId": "0as9d8as0d",
+  "body": "This is a test notification",
+  "subject": "Test Notification",
+  "afterTime": [
+    {
+      "timeOffset": 1,
+      "unit": "hours"
+    }
+  ],
+  "beforeTime": [
+    {
+      "timeOffset": 1,
+      "unit": "hours"
+    }
+  ],
+  "selectedUsers": [
+    "user1",
+    "user2"
+  ],
+  "deleted": false
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

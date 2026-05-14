@@ -1,4 +1,168 @@
 ---
 title: 'Create Shipping Carrier'
-openapi: 'POST /store/shipping-carrier'
+description: 'The "Create Shipping Carrier" API allows adding a new shipping carrier.'
 ---
+
+The "Create Shipping Carrier" API allows adding a new shipping carrier.
+
+```http
+POST https://services.leadconnectorhq.com/store/shipping-carrier
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="altId" type="string" required default='6578278e879ad2646715ba9c'>
+Account Id or Agency Id
+</ParamField>
+
+<ParamField body="altType" type="string" required>
+Posibles valores: 'account'
+</ParamField>
+
+<ParamField body="name" type="string" required default='FedEx'>
+Name of the shipping carrier
+</ParamField>
+
+<ParamField body="callbackUrl" type="string" required default='https://example.com/get-shipping-rates'>
+The URL endpoint that GHL needs to retrieve shipping rates. This must be a public URL.
+</ParamField>
+
+<ParamField body="services" type="object[]">
+An array of available shipping carrier services
+<Expandable title="cada item">
+<ParamField body="name" type="string" required default='Priority Mail Express International'>
+Name of the shipping carrier service
+</ParamField>
+
+<ParamField body="value" type="string" required default='PriorityMailExpressInternational'>
+Value of the shipping carrier service
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="allowsMultipleServiceSelection" type="boolean" default='True'>
+The seller can choose multiple services while creating shipping rates if this is true.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="status" type="boolean" required default='True'>
+Status of api action
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Successfully created'>
+Success message
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+Shipping carrier data
+</ResponseField>
+
+```json
+{
+  "status": true,
+  "message": "Successfully created"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/store/shipping-carrier' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "altId": "6578278e879ad2646715ba9c",
+  "altType": "account",
+  "name": "FedEx",
+  "callbackUrl": "https://example.com/get-shipping-rates",
+  "services": [
+    {
+      "name": "Priority Mail Express International",
+      "value": "PriorityMailExpressInternational"
+    }
+  ],
+  "allowsMultipleServiceSelection": true
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/store/shipping-carrier', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"altId": "6578278e879ad2646715ba9c", "altType": "account", "name": "FedEx", "callbackUrl": "https://example.com/get-shipping-rates", "services": [{"name": "Priority Mail Express International", "value": "PriorityMailExpressInternational"}], "allowsMultipleServiceSelection": true}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/store/shipping-carrier',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"altId": "6578278e879ad2646715ba9c", "altType": "account", "name": "FedEx", "callbackUrl": "https://example.com/get-shipping-rates", "services": [{"name": "Priority Mail Express International", "value": "PriorityMailExpressInternational"}], "allowsMultipleServiceSelection": true},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/store/shipping-carrier');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'altId': '6578278e879ad2646715ba9c', 'altType': 'account', 'name': 'FedEx', 'callbackUrl': 'https://example.com/get-shipping-rates', 'services': [{'name': 'Priority Mail Express International', 'value': 'PriorityMailExpressInternational'}], 'allowsMultipleServiceSelection': true}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

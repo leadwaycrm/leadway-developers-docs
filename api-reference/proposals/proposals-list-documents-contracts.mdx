@@ -1,4 +1,404 @@
 ---
 title: 'List documents'
-openapi: 'GET /proposals/document'
+description: 'List documents for a account'
 ---
+
+List documents for a account
+
+```http
+GET https://services.leadconnectorhq.com/proposals/document
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='hTlkh7t8gujsahgg93'>
+Account Id
+</ParamField>
+
+<ParamField query="status" type="string" default='draft'>
+Document status, pass as comma separated values
+</ParamField>
+
+<ParamField query="paymentStatus" type="string" default='paid'>
+Payment status, pass as comma separated values
+</ParamField>
+
+<ParamField query="limit" type="number" default='10'>
+Limit to fetch number of records
+</ParamField>
+
+<ParamField query="skip" type="number" default='0'>
+Skip number of records
+</ParamField>
+
+<ParamField query="query" type="string" default='document'>
+Search string
+</ParamField>
+
+<ParamField query="dateFrom" type="string" default='2025-02-03T18:30:00.000Z'>
+Date start from (ISO 8601), dateFrom & DateTo must be provided together
+</ParamField>
+
+<ParamField query="dateTo" type="string" default='2025-02-14T18:29:59.999Z'>
+Date to (ISO 8601), dateFrom & DateTo must be provided together
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Document fetched successfully">
+<ResponseField name="documents" type="object[]" required>
+List of documents
+<Expandable title="cada item">
+<ResponseField name="locationId" type="string" required default='hTlkh7t8gujsahgg93'>
+Account Id
+</ResponseField>
+
+<ResponseField name="documentId" type="string" required default='hTlkh7t8gujsahgg93'>
+Document Id
+</ResponseField>
+
+<ResponseField name="_id" type="string" required default='67ac9a51106ee8311e911XXXX'>
+Unique identifier
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Document Name'>
+Name of the document
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='proposal'>
+Type of the document
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Whether the document is deleted
+</ResponseField>
+
+<ResponseField name="isExpired" type="boolean" required default='False'>
+Whether the document is expired
+</ResponseField>
+
+<ResponseField name="documentRevision" type="number" required default='1'>
+Number of times document is moved to draft state
+</ResponseField>
+
+<ResponseField name="fillableFields" type="object[]" required>
+Fillable fields
+<Expandable title="cada item">
+<ResponseField name="fieldId" type="string" required default='text_field_1'>
+Field Id
+</ResponseField>
+
+<ResponseField name="isRequired" type="boolean" required default='True'>
+Is the field required
+</ResponseField>
+
+<ResponseField name="hasCompleted" type="boolean" required default='True'>
+Has the field been completed
+</ResponseField>
+
+<ResponseField name="recipient" type="string" required default='John Doe'>
+Recipient
+</ResponseField>
+
+<ResponseField name="entityType" type="string" required>
+Entity type Posibles valores: 'contacts', 'users'
+</ResponseField>
+
+<ResponseField name="id" type="string" required default='2d0a6fe1-d519-4198-8785-3da1d7cab925'>
+Id
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+Element type Posibles valores: 'Page', 'Text', 'Image', 'Video', 'Table', 'ProductList', 'PageBreak', 'Signature', 'PaymentDetails', 'TextField', 'DateField', 'InitialsField', 'Checkbox', 'Row', 'Column'
+</ResponseField>
+
+<ResponseField name="value" type="string" required default='John Doe'>
+Value of the field
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="grandTotal" type="object" required>
+Grand total object of the document
+</ResponseField>
+
+<ResponseField name="locale" type="string" required default='en-US'>
+Locale of the account
+</ResponseField>
+
+<ResponseField name="status" type="string[]" required default='draft'>
+Document status
+</ResponseField>
+
+<ResponseField name="paymentStatus" type="string[]" required default='paid'>
+Payment status
+</ResponseField>
+
+<ResponseField name="recipients" type="object[]" required>
+Recipients
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='u240JcS0E5qE0ziHnwMm'>
+Recipient Id
+</ResponseField>
+
+<ResponseField name="firstName" type="string" default='Jim'>
+Recipient First Name
+</ResponseField>
+
+<ResponseField name="lastName" type="string" default='Anton'>
+Recipient Last Name
+</ResponseField>
+
+<ResponseField name="email" type="string" required default='jim@gmail.com'>
+Recipient Email
+</ResponseField>
+
+<ResponseField name="phoneNumber" type="string" default='+1234567890'>
+Recipient Phone Number
+</ResponseField>
+
+<ResponseField name="phone" type="string" default='1234567890'>
+Recipient Phone
+</ResponseField>
+
+<ResponseField name="hasCompleted" type="boolean" required default='True'>
+Recipient has completed the document
+</ResponseField>
+
+<ResponseField name="role" type="string" required default='signer'>
+Recipient role Posibles valores: 'user', 'signer'
+</ResponseField>
+
+<ResponseField name="isPrimary" type="boolean" required default='True'>
+Recipient is primary
+</ResponseField>
+
+<ResponseField name="signingOrder" type="number" required default='1'>
+Recipient signing order
+</ResponseField>
+
+<ResponseField name="imgUrl" type="string" default='base64 image url'>
+Recipient image url
+</ResponseField>
+
+<ResponseField name="ip" type="string" default='123.123.123.123'>
+Recipient ip
+</ResponseField>
+
+<ResponseField name="userAgent" type="string" default='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'>
+Recipient user agent
+</ResponseField>
+
+<ResponseField name="signedDate" type="string" default='2025-02-03T18:30:00.000Z'>
+Recipient signed date
+</ResponseField>
+
+<ResponseField name="contactName" type="string" default='Jim Anton'>
+Recipient contact name
+</ResponseField>
+
+<ResponseField name="country" type="string" default='United States'>
+Recipient country
+</ResponseField>
+
+<ResponseField name="entityName" type="string" default='Jim Anton'>
+Recipient entity name
+</ResponseField>
+
+<ResponseField name="initialsImgUrl" type="string" default='base64 image url'>
+Recipient initials image url
+</ResponseField>
+
+<ResponseField name="lastViewedAt" type="string" default='2025-02-03T18:30:00.000Z'>
+Recipient last viewed date
+</ResponseField>
+
+<ResponseField name="shareLink" type="string" default='https://www.google.com'>
+Share link
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="links" type="object[]" required>
+Links for the document if its sent
+<Expandable title="cada item">
+<ResponseField name="referenceId" type="string" required default='550e8400-e29b-41d4-a716-446655440000'>
+Reference ID
+</ResponseField>
+
+<ResponseField name="documentId" type="string" required default='c1e87a91-93b2-4b78-821f-85cf0e1f925b'>
+Document ID
+</ResponseField>
+
+<ResponseField name="recipientId" type="string" required default='u240JcS0E5qE0ziHnwMm'>
+Recipient ID
+</ResponseField>
+
+<ResponseField name="entityName" type="string" required default='contacts'>
+Entity name that the recipient belongs to Posibles valores: 'contacts', 'users'
+</ResponseField>
+
+<ResponseField name="recipientCategory" type="string" required default='recipient'>
+Recipient category (recipient, cc, or bcc) Posibles valores: 'recipient', 'cc', 'bcc'
+</ResponseField>
+
+<ResponseField name="documentRevision" type="number" required default='1'>
+Document revision number
+</ResponseField>
+
+<ResponseField name="createdBy" type="string" required default='b6d8fa28-1112-4dc7-b9d2-f22b75a477ea'>
+Created by user ID
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Whether the document is deleted
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2025-02-03T18:30:00.000Z'>
+Date start from (ISO 8601)
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2025-02-14T18:29:59.999Z'>
+Date to (ISO 8601)
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='10'>
+Total records available
+</ResponseField>
+
+<ResponseField name="whiteLabelBaseUrl" type="number" default='https://example.com'>
+WhiteLabel url for document
+</ResponseField>
+
+<ResponseField name="whiteLabelBaseUrlForInvoice" type="number" default='https://example.com'>
+WhiteLabel url for invoice
+</ResponseField>
+
+```json
+{
+  "documents": [
+    {
+      "locationId": "hTlkh7t8gujsahgg93",
+      "documentId": "hTlkh7t8gujsahgg93",
+      "_id": "67ac9a51106ee8311e911XXXX",
+      "name": "Document Name",
+      "type": "proposal",
+      "deleted": false,
+      "isExpired": false,
+      "documentRevision": 1,
+      "fillableFields": [
+        {}
+      ],
+      "locale": "en-US",
+      "status": "draft",
+      "paymentStatus": "paid",
+      "recipients": [
+        {
+          "id": "u240JcS0E5qE0ziHnwMm",
+          "email": "jim@gmail.com",
+          "imageUrl": "",
+          "contactName": "Jim Anton",
+          "firstName": "Jim",
+          "lastName": "Anton",
+          "role": "signer",
+          "hasCompleted": true,
+          "signingOrder": 1,
+          "imgUrl": "base64 image url",
+          "ip": "123.123.123.123"
+        }
+      ],
+      "links": [
+        {}
+      ],
+      "updatedAt": "2025-02-03T18:30:00.000Z",
+      "createdAt": "2025-02-14T18:29:59.999Z"
+    }
+  ],
+  // truncado: 4 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Unprocessable Entity">
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Bad Request'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 400,
+  "message": "Bad Request"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/proposals/document' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/proposals/document', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/proposals/document',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/proposals/document');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

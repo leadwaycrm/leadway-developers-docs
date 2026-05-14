@@ -1,4 +1,186 @@
 ---
 title: 'Train discovered website pages and ingest into the knowledge base'
-openapi: 'POST /knowledge-bases/crawler/train'
 ---
+
+```http
+POST https://services.leadconnectorhq.com/knowledge-bases/crawler/train
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='tDtDnQdgm2LXpyiqYvZ6'>
+Account ID as string
+</ParamField>
+
+<ParamField body="urlIds" type="string[]" required>
+List of Object ids of the discovered urls
+</ParamField>
+
+<ParamField body="knowledgeBaseId" type="string" required default='jjkkxftgvbhjmn,'>
+knowledge base id
+</ParamField>
+
+<ParamField body="operationId" type="string" required default='688b640bcb02d498102a13f0,'>
+operation id as string
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Pages trained successfully">
+<ResponseField name="success" type="boolean" required default='True'>
+Indicates if the operation was successful
+</ResponseField>
+
+```json
+{
+  "success": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Bad Request'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 400,
+  "message": "Bad Request"
+}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+<ResponseField name="statusCode" type="number" default='401'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Invalid token: access token is invalid'>
+</ResponseField>
+
+<ResponseField name="error" type="string" default='Unauthorized'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 401,
+  "message": "Invalid token: access token is invalid",
+  "error": "Unauthorized"
+}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+<ResponseField name="statusCode" type="number" default='422'>
+</ResponseField>
+
+<ResponseField name="message" type="string[]">
+</ResponseField>
+
+<ResponseField name="error" type="string" default='Unprocessable Entity'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 422,
+  "message": [
+    "Unprocessable Entity"
+  ],
+  "error": "Unprocessable Entity"
+}
+```
+</Accordion>
+
+<Accordion title="500 - Internal Server Error">
+<ResponseField name="statusCode" type="number" default='500'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Internal Server Error'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/knowledge-bases/crawler/train' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "tDtDnQdgm2LXpyiqYvZ6",
+  "urlIds": [
+    "688b640bcb02d498102a13ec",
+    "688b640bcb02d498102a13ea"
+  ],
+  "knowledgeBaseId": "jjkkxftgvbhjmn,",
+  "operationId": "688b640bcb02d498102a13f0,"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/knowledge-bases/crawler/train', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "tDtDnQdgm2LXpyiqYvZ6", "urlIds": ["688b640bcb02d498102a13ec", "688b640bcb02d498102a13ea"], "knowledgeBaseId": "jjkkxftgvbhjmn,", "operationId": "688b640bcb02d498102a13f0,"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/knowledge-bases/crawler/train',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "tDtDnQdgm2LXpyiqYvZ6", "urlIds": ["688b640bcb02d498102a13ec", "688b640bcb02d498102a13ea"], "knowledgeBaseId": "jjkkxftgvbhjmn,", "operationId": "688b640bcb02d498102a13f0,"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/knowledge-bases/crawler/train');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'tDtDnQdgm2LXpyiqYvZ6', 'urlIds': ['688b640bcb02d498102a13ec', '688b640bcb02d498102a13ea'], 'knowledgeBaseId': 'jjkkxftgvbhjmn,', 'operationId': '688b640bcb02d498102a13f0,'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

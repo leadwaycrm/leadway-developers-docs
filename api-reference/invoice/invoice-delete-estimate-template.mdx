@@ -1,4 +1,266 @@
 ---
 title: 'Delete Estimate Template'
-openapi: 'DELETE /invoices/estimate/template/{templateId}'
+description: 'Delete an existing estimate template'
 ---
+
+Delete an existing estimate template
+
+```http
+DELETE https://services.leadconnectorhq.com/invoices/estimate/template/{templateId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="templateId" type="string" required default='5f9d6d8b1b2d2c001f2d9e4b'>
+Template Id
+</ParamField>
+
+## Body
+
+<ParamField body="altId" type="string" required default='6578278e879ad2646715ba9c'>
+Account Id or Agency Id
+</ParamField>
+
+<ParamField body="altType" type="string" required>
+Posibles valores: 'account'
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successfully deleted">
+<ResponseField name="altId" type="string" required default='6578278e879ad2646715ba9c'>
+Account Id or Agency Id
+</ResponseField>
+
+<ResponseField name="altType" type="string" required>
+Posibles valores: 'account'
+</ResponseField>
+
+<ResponseField name="_id" type="string" required default='67ac9a51106ee8311e911XXXX'>
+Unique identifier
+</ResponseField>
+
+<ResponseField name="liveMode" type="boolean" required default='True'>
+Indicates if it is in live mode
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Indicates if deleted
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Estimate Name'>
+Name
+</ResponseField>
+
+<ResponseField name="currency" type="string" required default='USD'>
+Currency code
+</ResponseField>
+
+<ResponseField name="businessDetails" type="object" required>
+Business details associated with the estimate
+</ResponseField>
+
+<ResponseField name="items" type="array[]" required>
+An array of items
+</ResponseField>
+
+<ResponseField name="discount" type="object" required>
+Discount details for the estimate template
+</ResponseField>
+
+<ResponseField name="title" type="string" default='ESTIMATE'>
+Title
+</ResponseField>
+
+<ResponseField name="estimateNumberPrefix" type="string" default='EST-'>
+Estimate number prefix
+</ResponseField>
+
+<ResponseField name="attachments" type="object[]">
+Attachments
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='6241712be68f7a98102ba272'>
+Id of the file selected
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Electronics.pdf'>
+Name of the file 
+</ResponseField>
+
+<ResponseField name="url" type="string" required default='https://example.com/digital-delivery'>
+URL of the file
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+Type of the file
+</ResponseField>
+
+<ResponseField name="size" type="number" required default='10000'>
+Size of the file
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string" default='3HIpOF9NIc5ltriQXXXX'>
+User Id of who last updated
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='1222.03'>
+Total amount
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2025-02-12T13:17:47.416Z'>
+Timestamp when created
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2025-02-12T13:17:47.416Z'>
+Timestamp when last updated
+</ResponseField>
+
+<ResponseField name="__v" type="number" required default='0'>
+Version number
+</ResponseField>
+
+<ResponseField name="automaticTaxesEnabled" type="boolean" required default='False'>
+Indicates if automatic taxes are enabled for this estimate
+</ResponseField>
+
+<ResponseField name="termsNotes" type="string" default='<p>All services are subject to availability.</p>'>
+Terms and conditions for the estimate, supports HTML markup
+</ResponseField>
+
+```json
+{
+  "altId": "6578278e879ad2646715ba9c",
+  "altType": "account",
+  "_id": "67ac9a51106ee8311e911XXXX",
+  "liveMode": true,
+  "deleted": false,
+  "name": "Estimate Name",
+  "currency": "USD",
+  "businessDetails": {
+    "logoUrl": "your_image-url",
+    "name": "Business name",
+    "address": {
+      "addressLine1": "address line 1",
+      "city": "Test City",
+      "state": "State Name",
+      "countryCode": "US",
+      "postalCode": "12345"
+    },
+    "phoneNo": "+1 1234567890",
+    "website": "www.example.com",
+    "customValues": [
+      {
+        "name": "Test",
+        "fieldKey": "{{custom_values.test}}",
+        "id": "5DYTWoiQvWiIJZXX44XXX",
+        "value": "Test's Custom Value"
+      }
+    ]
+  },
+  "items": [
+    {
+      "taxes": [],
+      "taxInclusive": false,
+      "_id": "67ac9a51106ee8311e911XXXX",
+      "description": "<p>Futuristic anti-gravity racing</p>",
+      "currency": "USD",
+      "productId": "67ac9a51106ee8311e911XXXX",
+      "priceId": "67ac9a51106ee8311e911XXXX",
+      "amount": 9.99,
+  // truncado: 48 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X DELETE 'https://services.leadconnectorhq.com/invoices/estimate/template/YOUR_templateId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "altId": "6578278e879ad2646715ba9c",
+  "altType": "account"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/invoices/estimate/template/YOUR_templateId', {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"altId": "6578278e879ad2646715ba9c", "altType": "account"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'DELETE',
+    'https://services.leadconnectorhq.com/invoices/estimate/template/YOUR_templateId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"altId": "6578278e879ad2646715ba9c", "altType": "account"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/invoices/estimate/template/YOUR_templateId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'DELETE',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'altId': '6578278e879ad2646715ba9c', 'altType': 'account'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

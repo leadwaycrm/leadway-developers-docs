@@ -1,4 +1,268 @@
 ---
 title: 'Get Transaction by ID'
-openapi: 'GET /payments/transactions/{transactionId}'
+description: 'The "Get Transaction by ID" API allows to retrieve information for a specific transaction using its unique identifier. Use this endpoint to fetch details for a single transaction based on the provided'
 ---
+
+The "Get Transaction by ID" API allows to retrieve information for a specific transaction using its unique identifier. Use this endpoint to fetch details for a single transaction based on the provided transaction ID.
+
+```http
+GET https://services.leadconnectorhq.com/payments/transactions/{transactionId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="transactionId" type="string" required default='61dd0feac077f72010f78804'>
+ID of the transaction that needs to be returned
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" default='3SwdhCu3svxI8AKsPJt6'>
+LocationId is the id of the account.
+</ParamField>
+
+<ParamField query="altId" type="string" required default='3SwdhCu3svxI8AKsPJt6'>
+AltId is the unique identifier e.g: account id.
+</ParamField>
+
+<ParamField query="altType" type="string" required default='account'>
+AltType is the type of identifier.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="_id" type="string" required default='61dd0feac077f72010f78804'>
+The unique identifier for the transaction.
+</ResponseField>
+
+<ResponseField name="altType" type="string" required default='account'>
+AltType is the type of identifier.
+</ResponseField>
+
+<ResponseField name="altId" type="string" required default='3SwdhCu3svxI8AKsPJt6'>
+AltId is the unique identifier eg: account id.
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='XPLSw2SVagl12LMDeTmQ'>
+Contact id corresponding to the transaction.
+</ResponseField>
+
+<ResponseField name="contactSnapshot" type="object" default='{ last_name: "Mcclain", type: "lead", first_name_lower_case: "rogan", email: "anish+11@leadwaycrm.com", last_name_lower_case: "mcclain", location_id: "o6241QsiRwUIJHyjuhos", company_name: "Jordan and Cox Trading"}'>
+Contact details of the transaction.
+</ResponseField>
+
+<ResponseField name="currency" type="string" default='USD'>
+Currency in which transaction was made.
+</ResponseField>
+
+<ResponseField name="amount" type="number" default='100'>
+Transaction value.
+</ResponseField>
+
+<ResponseField name="status" type="object" default='succeeded'>
+Transaction status.
+</ResponseField>
+
+<ResponseField name="liveMode" type="boolean" default='false'>
+Transaction is in live / test mode.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-11-20T10:23:36.515Z'>
+The creation timestamp of the transaction.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2024-01-23T09:57:04.846Z'>
+The last update timestamp of the transaction.
+</ResponseField>
+
+<ResponseField name="entityType" type="string" default='order'>
+Entity type of transaction (eg: order).
+</ResponseField>
+
+<ResponseField name="entityId" type="string" default='61dd0fe9c077f73e67f78803'>
+Entity id for the transaction. e.g: order id
+</ResponseField>
+
+<ResponseField name="entitySource" type="object" default='{ type: "funnel", id: "BDBMEghdIUaqMPEsK349", subType: "two_step_order_form", name: "new funnel" }'>
+Entity source details for the transaction.
+</ResponseField>
+
+<ResponseField name="chargeId" type="string" default='in_1KGcXDCScnf89tZohCsmImwE'>
+Charge id for transaction.
+</ResponseField>
+
+<ResponseField name="chargeSnapshot" type="object" default='{ id: "in_1KGcXDCScnf89tZohCsmImwE", object: "invoice", account_country: "US",  account_name:  "GHL-Testing" }'>
+Charge snapshot of transaction.
+</ResponseField>
+
+<ResponseField name="invoiceId" type="string" default='in_1KGcXDCScnf89tZohCsmImwE'>
+Invoice id for the transaction.
+</ResponseField>
+
+<ResponseField name="subscriptionId" type="string" default='sub_1KGcXDCScnf89tZoVkoEMCEL'>
+Subscription id for transaction.
+</ResponseField>
+
+<ResponseField name="paymentProvider" type="object" default='{ type: "stripe", connectedAccount: { _id: "612ca676b484b241fef9d962", accountId: "acct_1Ihw53CScnf89tZo" } }'>
+Payment provider details of the transaction.
+</ResponseField>
+
+<ResponseField name="ipAddress" type="string" default='107.178.194.224'>
+Ip address from where transaction was initiated.
+</ResponseField>
+
+<ResponseField name="meta" type="object" default='{ stepId: "af7c731e-e36f-4152-bd1a-3f69a31d6d6d", pageId: "A8ltotc2jZxurJba4e3Y", pageUrl: "/v2/preview/A8ltotc2jZxurJba4e3Y" }'>
+Meta details of the transaction.
+</ResponseField>
+
+<ResponseField name="markAsTest" type="boolean" default='false'>
+Is test transaction.
+</ResponseField>
+
+<ResponseField name="isParent" type="boolean" default='false'>
+Is parent transaction.
+</ResponseField>
+
+<ResponseField name="amountRefunded" type="number" default='10'>
+Transaction amount refunded.
+</ResponseField>
+
+<ResponseField name="receiptId" type="string" default='6492fbea489bc07892c6defb'>
+Receipt id for transaction.
+</ResponseField>
+
+<ResponseField name="qboSynced" type="boolean" default='false'>
+Is transaction qbo synced.
+</ResponseField>
+
+<ResponseField name="qboResponse" type="object" default='{ domain: "QBO", sparse: false, Id: "180", SyncToken: "0", TotalAmt: 25 }'>
+Qbo details of the transaction.
+</ResponseField>
+
+<ResponseField name="traceId" type="string" default='d3b16a92-a8ed-4e6b-8467-844750f78ed5'>
+Trace id of the transaction.
+</ResponseField>
+
+<ResponseField name="mergedFromContactId" type="string" default='XPLSw2SVagl12LMDeTmQ'>
+ID of the contact that was merged from.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string" default='user123'>
+User ID who created the transaction.
+</ResponseField>
+
+```json
+{
+  "_id": "61dd0feac077f72010f78804",
+  "altType": "account",
+  "altId": "3SwdhCu3svxI8AKsPJt6",
+  "contactId": "XPLSw2SVagl12LMDeTmQ",
+  "contactSnapshot": "{ last_name: \"Mcclain\", type: \"lead\", first_name_lower_case: \"rogan\", email: \"anish+11@leadwaycrm.com\", last_name_lower_case: \"mcclain\", location_id: \"o6241QsiRwUIJHyjuhos\", company_name: \"Jordan and Cox Trading\"}",
+  "currency": "USD",
+  "amount": "100",
+  "status": "succeeded",
+  "liveMode": "false",
+  "createdAt": "2023-11-20T10:23:36.515Z",
+  "updatedAt": "2024-01-23T09:57:04.846Z",
+  "entityType": "order",
+  "entityId": "61dd0fe9c077f73e67f78803",
+  "entitySource": "{ type: \"funnel\", id: \"BDBMEghdIUaqMPEsK349\", subType: \"two_step_order_form\", name: \"new funnel\" }",
+  "chargeId": "in_1KGcXDCScnf89tZohCsmImwE",
+  "chargeSnapshot": "{ id: \"in_1KGcXDCScnf89tZohCsmImwE\", object: \"invoice\", account_country: \"US\",  account_name:  \"GHL-Testing\" }",
+  "invoiceId": "in_1KGcXDCScnf89tZohCsmImwE",
+  "subscriptionId": "sub_1KGcXDCScnf89tZoVkoEMCEL",
+  "paymentProvider": "{ type: \"stripe\", connectedAccount: { _id: \"612ca676b484b241fef9d962\", accountId: \"acct_1Ihw53CScnf89tZo\" } }",
+  "ipAddress": "107.178.194.224",
+  "meta": "{ stepId: \"af7c731e-e36f-4152-bd1a-3f69a31d6d6d\", pageId: \"A8ltotc2jZxurJba4e3Y\", pageUrl: \"/v2/preview/A8ltotc2jZxurJba4e3Y\" }",
+  "markAsTest": "false",
+  "isParent": "false",
+  "amountRefunded": "10",
+  "receiptId": "6492fbea489bc07892c6defb",
+  "qboSynced": "false",
+  "qboResponse": "{ domain: \"QBO\", sparse: false, Id: \"180\", SyncToken: \"0\", TotalAmt: 25 }",
+  "traceId": "d3b16a92-a8ed-4e6b-8467-844750f78ed5",
+  "mergedFromContactId": "XPLSw2SVagl12LMDeTmQ",
+  "createdBy": "user123"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Transaction not found">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/payments/transactions/YOUR_transactionId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/payments/transactions/YOUR_transactionId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/payments/transactions/YOUR_transactionId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/payments/transactions/YOUR_transactionId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

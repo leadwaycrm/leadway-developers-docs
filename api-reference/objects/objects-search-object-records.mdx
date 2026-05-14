@@ -1,4 +1,232 @@
 ---
 title: 'Search Object Records'
-openapi: 'POST /objects/{schemaKey}/records/search'
+description: 'Supported Objects are custom objects and standard objects like "business". Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0/87cpx-379336'
 ---
+
+Supported Objects are custom objects and standard objects like "business". Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0/87cpx-379336
+
+```http
+POST https://services.leadconnectorhq.com/objects/{schemaKey}/records/search
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="schemaKey" type="string" default='632c34b4c9b7da3358ac9891'>
+custom object key
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+Account Id
+</ParamField>
+
+<ParamField body="page" type="number" required default='1'>
+Page
+</ParamField>
+
+<ParamField body="pageLimit" type="number" required default='10'>
+Page Limit
+</ParamField>
+
+<ParamField body="query" type="string" required default='Buddy'>
+Pass this query parameter to search using your searchable properties. For example, if you have a custom object called “Pets” and have configured “name” as a searchable property, you can pass name:Buddy to search for pets with the name “Buddy.”
+</ParamField>
+
+<ParamField body="searchAfter" type="string[]" required>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="records" type="object[]">
+Records
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='661c06b4ffde146bdb469442'>
+id of the record
+</ResponseField>
+
+<ResponseField name="owner" type="string[]" required>
+Owner (User's id). Limited to 1 for now . Only supported for custom objects for now
+</ResponseField>
+
+<ResponseField name="followers" type="string[]" required>
+Follower (User's ids). Limited to 10 and supported for custom objects for now
+</ResponseField>
+
+<ResponseField name="properties" type="string" required>
+Properties of the record
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required>
+Date and time when the object was added
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required>
+Date and time when the object was last updated
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+Account Id
+</ResponseField>
+
+<ResponseField name="objectId" type="string" required default='6d6f6e676f5f6576656e7473'>
+ObjectId Id
+</ResponseField>
+
+<ResponseField name="objectKey" type="string" required default='custom_objects.pet'>
+ObjectId key
+</ResponseField>
+
+<ResponseField name="createdBy" type="object" required>
+Created By Meta
+</ResponseField>
+
+<ResponseField name="lastUpdatedBy" type="object" required>
+Last Updated By Meta
+</ResponseField>
+
+<ResponseField name="searchAfter" type="number[]" required>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='20'>
+Total Number of records
+</ResponseField>
+
+```json
+{
+  "records": [
+    {
+      "id": "661c06b4ffde146bdb469442",
+      "owner": [
+        "sx6wyHhbFdRXh302Lunr"
+      ],
+      "followers": [
+        "sx6wyHhbFdRXh302Lunr",
+        "v5cEPM428h8vShlRW1KT"
+      ],
+      "properties": {
+        "customer_number": 1424,
+        "ticket_name": "Customer not able login",
+        "phone_number": "+917000000000",
+        "money": {
+          "currency": "default",
+          "value": 100
+        },
+        "type_of_ticket": "doubt",
+        "section_of_app": [
+          "contacts",
+          "smartlist"
+        ],
+        "recieved_on": "2024-07-11",
+        "my_files": [
+          {
+            "url": "---url_of_file---"
+          }
+        ],
+        "my_textbox_list.option_a": "Value 1",
+        "my_textbox_list.option_b": "Value 2"
+      },
+      "createdAt": "2024-01-15T10:30:00Z",
+      "updatedAt": "2024-01-15T10:30:00Z",
+      "locationId": "ve9EPM428h8vShlRW1KT",
+      "objectId": "6d6f6e676f5f6576656e7473",
+      "objectKey": "custom_objects.pet",
+      "searchAfter": [
+  // truncado: 7 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/objects/YOUR_schemaKey/records/search' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "ve9EPM428h8vShlRW1KT",
+  "page": 1,
+  "pageLimit": 10,
+  "query": "Buddy",
+  "searchAfter": [
+    "sx6wyHhbFdRXh302Lunr",
+    "sx6wyHhbFdRXh302Lunr"
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/objects/YOUR_schemaKey/records/search', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "ve9EPM428h8vShlRW1KT", "page": 1, "pageLimit": 10, "query": "Buddy", "searchAfter": ["sx6wyHhbFdRXh302Lunr", "sx6wyHhbFdRXh302Lunr"]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/objects/YOUR_schemaKey/records/search',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "ve9EPM428h8vShlRW1KT", "page": 1, "pageLimit": 10, "query": "Buddy", "searchAfter": ["sx6wyHhbFdRXh302Lunr", "sx6wyHhbFdRXh302Lunr"]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/objects/YOUR_schemaKey/records/search');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 've9EPM428h8vShlRW1KT', 'page': 1, 'pageLimit': 10, 'query': 'Buddy', 'searchAfter': ['sx6wyHhbFdRXh302Lunr', 'sx6wyHhbFdRXh302Lunr']}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

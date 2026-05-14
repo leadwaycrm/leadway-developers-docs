@@ -1,4 +1,137 @@
 ---
 title: 'Get Task'
-openapi: 'GET /contacts/{contactId}/tasks/{taskId}'
+description: 'Get Task'
 ---
+
+Get Task
+
+```http
+GET https://services.leadconnectorhq.com/contacts/{contactId}/tasks/{taskId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="contactId" type="string" required default='sx6wyHhbFdRXh302LLNR'>
+Contact Id
+</ParamField>
+
+<ParamField path="taskId" type="string" required default='ocQHyuzHvysMo5N5VsXc'>
+Task Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="task" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='lJpzYrWdpkC2hX6t2yue'>
+</ResponseField>
+
+<ResponseField name="title" type="string" default='test'>
+</ResponseField>
+
+<ResponseField name="body" type="string" default='testing'>
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='tesTUcmRxWrjqzJS8EjkxNKting'>
+</ResponseField>
+
+<ResponseField name="dueDate" type="string" default='2021-07-08T02:30:00.000Z'>
+</ResponseField>
+
+<ResponseField name="completed" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='lJpzYrWdpkC2hX6t2yue'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "task": {
+    "id": "lJpzYrWdpkC2hX6t2yue",
+    "title": "test",
+    "body": "testing",
+    "assignedTo": "tesTUcmRxWrjqzJS8EjkxNKting",
+    "dueDate": "2021-07-08T02:30:00.000Z",
+    "completed": true,
+    "contactId": "lJpzYrWdpkC2hX6t2yue"
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

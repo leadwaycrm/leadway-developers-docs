@@ -1,4 +1,218 @@
 ---
 title: 'List templates'
-openapi: 'GET /proposals/templates'
+description: 'List document contract templates for a account'
 ---
+
+List document contract templates for a account
+
+```http
+GET https://services.leadconnectorhq.com/proposals/templates
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='jhg64gjhb436fv'>
+Account Id
+</ParamField>
+
+<ParamField query="dateFrom" type="string" default='2025-02-03T18:30:00.000Z'>
+Date start from (ISO 8601)
+</ParamField>
+
+<ParamField query="dateTo" type="string" default='2025-02-14T18:29:59.999Z'>
+Date to (ISO 8601)
+</ParamField>
+
+<ParamField query="type" type="string" default='proposal,estimate'>
+Comma-separated template types. Valid values: proposal, estimate, contentLibrary
+</ParamField>
+
+<ParamField query="name" type="string" default='Template Name'>
+Template Name
+</ParamField>
+
+<ParamField query="isPublicDocument" type="boolean" default='False'>
+If the docForm is a DocForm
+</ParamField>
+
+<ParamField query="userId" type="string" default='1234567890'>
+User Id, required when isPublicDocument is true
+</ParamField>
+
+<ParamField query="limit" type="string" default='10'>
+Limit
+</ParamField>
+
+<ParamField query="skip" type="string" default='0'>
+Skip
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Templates fetched successfully">
+<ResponseField name="data" type="object[]" required>
+Array of templates
+<Expandable title="cada item">
+<ResponseField name="_id" type="string" required default='685d11c371c22e636e9c04b2'>
+Template ID
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Whether the template is deleted
+</ResponseField>
+
+<ResponseField name="version" type="number" required default='2'>
+Template version
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='New Template'>
+Template name
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='5rORm9p7RtxWQPzBIbTG'>
+Account ID
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='proposal'>
+Template type Posibles valores: 'proposal', 'estimate', 'contentLibrary'
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string" required default='K9PSPnWjfNoE8DCf5LJZ'>
+User ID who last updated the template
+</ResponseField>
+
+<ResponseField name="isPublicDocument" type="boolean" required default='True'>
+Whether the template is a public document
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2025-06-26T09:24:19.305Z'>
+Template creation date
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2025-06-26T09:27:32.119Z'>
+Template last update date
+</ResponseField>
+
+<ResponseField name="id" type="string" required default='685d11c371c22e636e9c04b2'>
+Template ID (alias for _id)
+</ResponseField>
+
+<ResponseField name="documentCount" type="number" default='0'>
+Document count (only present when isPublicDocument is true)
+</ResponseField>
+
+<ResponseField name="docFormUrl" type="string" default='https://staging.sendlink.co/documents/doc-form/685d11c371c22e636e9c04b2?locale=en_US'>
+Document form URL (only present when isPublicDocument is true)
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='2'>
+Total number of templates
+</ResponseField>
+
+<ResponseField name="traceId" type="string" default='d5656876-86a5-46fb-84df-788f1da7937a'>
+Trace ID for request tracking
+</ResponseField>
+
+```json
+{
+  "data": [
+    {
+      "_id": "685d11c371c22e636e9c04b2",
+      "deleted": false,
+      "version": 2,
+      "name": "New Template",
+      "locationId": "5rORm9p7RtxWQPzBIbTG",
+      "type": "proposal",
+      "updatedBy": "K9PSPnWjfNoE8DCf5LJZ",
+      "isPublicDocument": true,
+      "createdAt": "2025-06-26T09:24:19.305Z",
+      "updatedAt": "2025-06-26T09:27:32.119Z",
+      "id": "685d11c371c22e636e9c04b2",
+      "documentCount": 0,
+      "docFormUrl": "https://staging.sendlink.co/documents/doc-form/685d11c371c22e636e9c04b2?locale=en_US"
+    }
+  ],
+  "total": 2,
+  "traceId": "d5656876-86a5-46fb-84df-788f1da7937a"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Unprocessable Entity">
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Bad Request'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 400,
+  "message": "Bad Request"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/proposals/templates' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/proposals/templates', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/proposals/templates',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/proposals/templates');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

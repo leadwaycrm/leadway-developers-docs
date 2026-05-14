@@ -1,4 +1,371 @@
 ---
 title: 'Create Agent'
-openapi: 'POST /voice-ai/agents'
+description: 'Create a new voice AI agent configuration and settings'
 ---
+
+Create a new voice AI agent configuration and settings
+
+```http
+POST https://services.leadconnectorhq.com/voice-ai/agents
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='LOC123456789ABCDEF'>
+Unique identifier for the account where this agent will operate
+</ParamField>
+
+<ParamField body="agentName" type="string" default='Customer Support Agent'>
+Display name for the voice AI agent, between 1-40 characters. Default: "My Agent &#123;random 3 digit number&#125;"
+</ParamField>
+
+<ParamField body="businessName" type="string" default='Acme Corporation'>
+Name of the business this agent represents. Default: Uses account name
+</ParamField>
+
+<ParamField body="welcomeMessage" type="string" default='Hello! Thank you for calling Acme Corporation. How can I assist you today?'>
+Initial greeting spoken when the agent answers calls. Default: Auto generated
+</ParamField>
+
+<ParamField body="agentPrompt" type="string" default='You are a helpful customer service representative. Always be polite and professional.'>
+Custom instructions defining the agent's behavior and personality. Default: Basic prompt generated automatically
+</ParamField>
+
+<ParamField body="voiceId" type="string" default='507f1f77bcf86cd799439011'>
+Identifier for the speech synthesis voice from available voice options. Default: Auto generated
+</ParamField>
+
+<ParamField body="language" type="string">
+Language code for the agent's speech and understanding. Default: "en-US" Posibles valores: 'en-US', 'pt-BR', 'es', 'fr', 'de', 'it', 'nl-NL', 'multi'
+</ParamField>
+
+<ParamField body="patienceLevel" type="string">
+Tolerance level for caller response delays. Default: "high" Posibles valores: 'low', 'medium', 'high'
+</ParamField>
+
+<ParamField body="maxCallDuration" type="number" default='600'>
+Maximum call duration in seconds, between 180-900 (3-15 minutes). Default: 300 seconds (5 minutes)
+</ParamField>
+
+<ParamField body="sendUserIdleReminders" type="boolean" default='True'>
+Enables automatic reminders when callers are silent. Default: true
+</ParamField>
+
+<ParamField body="reminderAfterIdleTimeSeconds" type="number" default='5'>
+Seconds to wait before sending idle reminders, between 1-20. Default: 8 seconds
+</ParamField>
+
+<ParamField body="inboundNumber" type="string" default='+1234567890'>
+Phone number for receiving inbound calls to this agent. Default: null
+</ParamField>
+
+<ParamField body="numberPoolId" type="string" default='pool_507f1f77bcf86cd799439011'>
+Identifier for the number pool managing phone number allocation. Default: null
+</ParamField>
+
+<ParamField body="callEndWorkflowIds" type="string[]">
+Array of workflow IDs to trigger automatically when calls end. Default: []
+</ParamField>
+
+<ParamField body="sendPostCallNotificationTo" type="object">
+Configuration for post-call email notifications to various recipients. Default: []
+</ParamField>
+
+<ParamField body="agentWorkingHours" type="object[]">
+Time intervals defining when the agent accepts calls, organized by day of week. Default: [] (available 24/7)
+<Expandable title="cada item">
+<ParamField body="dayOfTheWeek" type="number" required default='1'>
+Day of the week for this working hours configuration (Monday=1 to Sunday=7) Posibles valores: 1, 2, 3, 4, 5, 6, 7
+</ParamField>
+
+<ParamField body="intervals" type="object[]" required>
+Array of time intervals when the agent is available on this day
+<Expandable title="cada item">
+<ParamField body="startHour" type="number" required default='9'>
+Starting hour of the working interval in 24-hour format (0-23)
+</ParamField>
+
+<ParamField body="endHour" type="number" required default='17'>
+Ending hour of the working interval in 24-hour format (0-23)
+</ParamField>
+
+<ParamField body="startMinute" type="number" required default='0'>
+Starting minute of the working interval (0-59)
+</ParamField>
+
+<ParamField body="endMinute" type="number" required default='30'>
+Ending minute of the working interval (0-59)
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="timezone" type="string" default='America/New_York'>
+IANA timezone identifier affecting working hours and scheduling. Default: Account timezone
+</ParamField>
+
+<ParamField body="isAgentAsBackupDisabled" type="boolean" default='False'>
+Prevents this agent from being used as a fallback option. Default: false (Available as backup agent)
+</ParamField>
+
+<ParamField body="translation" type="object">
+Language translation settings including enablement flag and target language code. Rules: (1) translation.enabled can only be true if the agent's language is not en-US; (2) when enabled, translation.language must be either the agent's language or en-US; (3) when enabled, translation.language is required.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Agent created successfully">
+<ResponseField name="id" type="string" required default='507f1f77bcf86cd799439011'>
+Unique identifier for the created agent
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='LOC123456789ABCDEF'>
+Unique identifier for the account where this agent operates
+</ResponseField>
+
+<ResponseField name="agentName" type="string" required default='Customer Support Agent'>
+Display name of the voice AI agent
+</ResponseField>
+
+<ResponseField name="businessName" type="string" required default='Acme Corporation'>
+Name of the business this agent represents
+</ResponseField>
+
+<ResponseField name="welcomeMessage" type="string" required default='Hello! Thank you for calling. How can I assist you today?'>
+Greeting message spoken when the agent answers calls
+</ResponseField>
+
+<ResponseField name="agentPrompt" type="string" required default='You are a helpful customer service representative.'>
+Custom instructions defining the agent's behavior
+</ResponseField>
+
+<ResponseField name="voiceId" type="string" required default='507f1f77bcf86cd799439011'>
+Identifier for the speech synthesis voice being used
+</ResponseField>
+
+<ResponseField name="language" type="string" required default='en-US'>
+Language code for the agent's speech and understanding
+</ResponseField>
+
+<ResponseField name="patienceLevel" type="string" required default='medium'>
+Current tolerance level for caller response delays
+</ResponseField>
+
+<ResponseField name="maxCallDuration" type="number" required default='600'>
+Maximum call duration in seconds, between 180-900
+</ResponseField>
+
+<ResponseField name="sendUserIdleReminders" type="boolean" required default='True'>
+Indicates whether automatic idle reminders are enabled
+</ResponseField>
+
+<ResponseField name="reminderAfterIdleTimeSeconds" type="number" required default='5'>
+Seconds to wait before sending idle reminders, between 1-20
+</ResponseField>
+
+<ResponseField name="inboundNumber" type="string" default='+1234567890'>
+Phone number for receiving inbound calls
+</ResponseField>
+
+<ResponseField name="numberPoolId" type="string" default='pool_507f1f77bcf86cd799439011'>
+Identifier for the number pool managing this agent's phone allocation
+</ResponseField>
+
+<ResponseField name="callEndWorkflowIds" type="string[]">
+Array of workflow IDs triggered automatically when calls end
+</ResponseField>
+
+<ResponseField name="sendPostCallNotificationTo" type="object">
+Current post-call notification settings including recipient configuration
+</ResponseField>
+
+<ResponseField name="agentWorkingHours" type="object[]">
+Time intervals when the agent accepts calls, organized by day of week
+<Expandable title="cada item">
+<ResponseField name="dayOfTheWeek" type="number" required default='1'>
+Day of the week for this working hours configuration (Monday=1 to Sunday=7) Posibles valores: 1, 2, 3, 4, 5, 6, 7
+</ResponseField>
+
+<ResponseField name="intervals" type="object[]" required>
+Array of time intervals when the agent is available on this day
+<Expandable title="cada item">
+<ResponseField name="startHour" type="number" required default='9'>
+Starting hour of the working interval in 24-hour format (0-23)
+</ResponseField>
+
+<ResponseField name="endHour" type="number" required default='17'>
+Ending hour of the working interval in 24-hour format (0-23)
+</ResponseField>
+
+<ResponseField name="startMinute" type="number" required default='0'>
+Starting minute of the working interval (0-59)
+</ResponseField>
+
+<ResponseField name="endMinute" type="number" required default='30'>
+Ending minute of the working interval (0-59)
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="timezone" type="string" required default='America/New_York'>
+IANA timezone identifier for working hours and scheduling
+</ResponseField>
+
+<ResponseField name="isAgentAsBackupDisabled" type="boolean" required default='False'>
+Indicates whether this agent is excluded from backup scenarios
+</ResponseField>
+
+<ResponseField name="translation" type="object">
+Current language translation settings including enablement status and target language
+</ResponseField>
+
+```json
+{
+  "id": "507f1f77bcf86cd799439011",
+  "locationId": "LOC123456789ABCDEF",
+  "agentName": "Customer Support Agent",
+  "businessName": "Acme Corporation",
+  "welcomeMessage": "Hello! Thank you for calling. How can I assist you today?",
+  "agentPrompt": "You are a helpful customer service representative.",
+  "voiceId": "507f1f77bcf86cd799439011",
+  "language": "en-US",
+  "patienceLevel": "medium",
+  "maxCallDuration": 600,
+  "sendUserIdleReminders": true,
+  "reminderAfterIdleTimeSeconds": 5,
+  "inboundNumber": "+1234567890",
+  "numberPoolId": "pool_507f1f77bcf86cd799439011",
+  "callEndWorkflowIds": [],
+  "agentWorkingHours": [],
+  "timezone": "America/New_York",
+  "isAgentAsBackupDisabled": false
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/voice-ai/agents' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "LOC123456789ABCDEF",
+  "agentName": "Customer Support Agent",
+  "businessName": "Acme Corporation",
+  "welcomeMessage": "Hello! Thank you for calling Acme Corporation. How can I assist you today?",
+  "agentPrompt": "You are a helpful customer service representative. Always be polite and professional.",
+  "voiceId": "507f1f77bcf86cd799439011",
+  "language": "en-US",
+  "patienceLevel": "low",
+  "maxCallDuration": 600,
+  "sendUserIdleReminders": true,
+  "reminderAfterIdleTimeSeconds": 5,
+  "inboundNumber": "+1234567890",
+  "numberPoolId": "pool_507f1f77bcf86cd799439011",
+  "callEndWorkflowIds": [
+    "wf_507f1f77bcf86cd799439011",
+    "wf_507f1f77bcf86cd799439012"
+  ],
+  "agentWorkingHours": [
+    {
+      "dayOfTheWeek": 1,
+      "intervals": [
+        {
+          "startHour": 9,
+          "startMinute": 0,
+          "endHour": 17,
+          "endMinute": 30
+        }
+      ]
+    }
+  ],
+  "timezone": "America/New_York",
+  "isAgentAsBackupDisabled": false
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/voice-ai/agents', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "LOC123456789ABCDEF", "agentName": "Customer Support Agent", "businessName": "Acme Corporation", "welcomeMessage": "Hello! Thank you for calling Acme Corporation. How can I assist you today?", "agentPrompt": "You are a helpful customer service representative. Always be polite and professional.", "voiceId": "507f1f77bcf86cd799439011", "language": "en-US", "patienceLevel": "low", "maxCallDuration": 600, "sendUserIdleReminders": true, "reminderAfterIdleTimeSeconds": 5, "inboundNumber": "+1234567890", "numberPoolId": "pool_507f1f77bcf86cd799439011", "callEndWorkflowIds": ["wf_507f1f77bcf86cd799439011", "wf_507f1f77bcf86cd799439012"], "agentWorkingHours": [{"dayOfTheWeek": 1, "intervals": [{"startHour": 9, "startMinute": 0, "endHour": 17, "endMinute": 30}]}], "timezone": "America/New_York", "isAgentAsBackupDisabled": false}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/voice-ai/agents',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "LOC123456789ABCDEF", "agentName": "Customer Support Agent", "businessName": "Acme Corporation", "welcomeMessage": "Hello! Thank you for calling Acme Corporation. How can I assist you today?", "agentPrompt": "You are a helpful customer service representative. Always be polite and professional.", "voiceId": "507f1f77bcf86cd799439011", "language": "en-US", "patienceLevel": "low", "maxCallDuration": 600, "sendUserIdleReminders": true, "reminderAfterIdleTimeSeconds": 5, "inboundNumber": "+1234567890", "numberPoolId": "pool_507f1f77bcf86cd799439011", "callEndWorkflowIds": ["wf_507f1f77bcf86cd799439011", "wf_507f1f77bcf86cd799439012"], "agentWorkingHours": [{"dayOfTheWeek": 1, "intervals": [{"startHour": 9, "startMinute": 0, "endHour": 17, "endMinute": 30}]}], "timezone": "America/New_York", "isAgentAsBackupDisabled": false},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/voice-ai/agents');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'LOC123456789ABCDEF', 'agentName': 'Customer Support Agent', 'businessName': 'Acme Corporation', 'welcomeMessage': 'Hello! Thank you for calling Acme Corporation. How can I assist you today?', 'agentPrompt': 'You are a helpful customer service representative. Always be polite and professional.', 'voiceId': '507f1f77bcf86cd799439011', 'language': 'en-US', 'patienceLevel': 'low', 'maxCallDuration': 600, 'sendUserIdleReminders': true, 'reminderAfterIdleTimeSeconds': 5, 'inboundNumber': '+1234567890', 'numberPoolId': 'pool_507f1f77bcf86cd799439011', 'callEndWorkflowIds': ['wf_507f1f77bcf86cd799439011', 'wf_507f1f77bcf86cd799439012'], 'agentWorkingHours': [{'dayOfTheWeek': 1, 'intervals': [{'startHour': 9, 'startMinute': 0, 'endHour': 17, 'endMinute': 30}]}], 'timezone': 'America/New_York', 'isAgentAsBackupDisabled': false}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

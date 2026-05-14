@@ -1,4 +1,107 @@
 ---
 title: 'Get Custom Menu Link'
-openapi: 'GET /custom-menus/{customMenuId}'
+description: 'Fetches a single custom menus based on id. This endpoint allows clients to retrieve custom menu configurations, which may include menu items, categories, and associated metadata'
 ---
+
+Fetches a single custom menus based on id. This endpoint allows clients to retrieve custom menu configurations, which may include menu items, categories, and associated metadata
+
+```http
+GET https://services.leadconnectorhq.com/custom-menus/{customMenuId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="customMenuId" type="string" required default='62e589c1-c456-47e1-a9a7-cb8900014311'>
+Unique identifier of the custom menu
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successfully retrieved custom menu. Returns a single custom menu object, potentially including its structure, items, and relevant metadata.">
+<ResponseField name="customMenu" type="object">
+Single Custom menu link object
+</ResponseField>
+
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request. Invalid query parameters provided.">
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="403 - Forbidden. The client does not have necessary permissions to access custom menu.">
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

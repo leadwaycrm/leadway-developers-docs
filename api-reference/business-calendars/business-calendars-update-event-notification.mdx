@@ -1,4 +1,232 @@
 ---
 title: 'Update notification'
-openapi: 'PUT /calendars/{calendarId}/notifications/{notificationId}'
+description: 'Update Event notification by id'
 ---
+
+Update Event notification by id
+
+```http
+PUT https://services.leadconnectorhq.com/calendars/{calendarId}/notifications/{notificationId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="calendarId" type="string" required>
+</ParamField>
+
+<ParamField path="notificationId" type="string" required>
+</ParamField>
+
+## Body
+
+<ParamField body="receiverType" type="string">
+Notification recipient type Posibles valores: 'contact', 'guest', 'assignedUser', 'emails', 'phoneNumbers', 'business'
+</ParamField>
+
+<ParamField body="additionalEmailIds" type="string[]">
+Additional email addresses to receive notifications.
+</ParamField>
+
+<ParamField body="additionalPhoneNumbers" type="string[]">
+Additional phone numbers to receive notifications.
+</ParamField>
+
+<ParamField body="selectedUsers" type="string[]">
+Selected users for in-App and business email notifications. Supports user IDs and special keyword "sub_account_admin"
+</ParamField>
+
+<ParamField body="channel" type="string">
+Notification channel Posibles valores: 'email', 'inApp', 'sms', 'whatsapp'
+</ParamField>
+
+<ParamField body="notificationType" type="string">
+Notification type Posibles valores: 'booked', 'confirmation', 'cancellation', 'reminder', 'followup', 'reschedule'
+</ParamField>
+
+<ParamField body="isActive" type="boolean">
+Is the notification active
+</ParamField>
+
+<ParamField body="deleted" type="boolean">
+Marks the notification as deleted (soft delete)
+</ParamField>
+
+<ParamField body="templateId" type="string">
+Template ID for email notification
+</ParamField>
+
+<ParamField body="body" type="string">
+Body  for email notification. Not necessary for in-App notification
+</ParamField>
+
+<ParamField body="subject" type="string">
+Subject  for email notification. Not necessary for in-App notification
+</ParamField>
+
+<ParamField body="afterTime" type="object[]">
+Specifies the time after which the follow-up notification should be sent. This is not required for other notification types.
+<Expandable title="cada item">
+<ParamField body="timeOffset" type="number">
+</ParamField>
+
+<ParamField body="unit" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="beforeTime" type="object[]">
+Specifies the time before which the reminder notification should be sent. This is not required for other notification types.
+<Expandable title="cada item">
+<ParamField body="timeOffset" type="number">
+</ParamField>
+
+<ParamField body="unit" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="fromAddress" type="string">
+From address for email notification
+</ParamField>
+
+<ParamField body="fromNumber" type="string">
+from number for sms notification
+</ParamField>
+
+<ParamField body="fromName" type="string">
+From name for email/sms notification
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="message" type="string" required>
+Result of delete/update operation
+</ResponseField>
+
+```json
+{
+  "message": "string"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "receiverType": "contact",
+  "additionalEmailIds": [
+    "example1@email.com",
+    "example2@email.com"
+  ],
+  "additionalPhoneNumbers": [
+    "+919876744444",
+    "+919876744445"
+  ],
+  "selectedUsers": [
+    "userId1",
+    "userId2",
+    "sub_account_admin"
+  ],
+  "channel": "email",
+  "notificationType": "booked",
+  "isActive": true,
+  "deleted": false,
+  "templateId": "string",
+  "body": "string",
+  "subject": "string",
+  "afterTime": [
+    {
+      "timeOffset": 1,
+      "unit": "hours"
+    }
+  ],
+  "beforeTime": [
+    {
+      "timeOffset": 1,
+      "unit": "hours"
+    }
+  ],
+  "fromAddress": "string",
+  "fromNumber": "string",
+  "fromName": "string"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"receiverType": "contact", "additionalEmailIds": ["example1@email.com", "example2@email.com"], "additionalPhoneNumbers": ["+919876744444", "+919876744445"], "selectedUsers": ["userId1", "userId2", "sub_account_admin"], "channel": "email", "notificationType": "booked", "isActive": true, "deleted": false, "templateId": "string", "body": "string", "subject": "string", "afterTime": [{"timeOffset": 1, "unit": "hours"}], "beforeTime": [{"timeOffset": 1, "unit": "hours"}], "fromAddress": "string", "fromNumber": "string", "fromName": "string"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"receiverType": "contact", "additionalEmailIds": ["example1@email.com", "example2@email.com"], "additionalPhoneNumbers": ["+919876744444", "+919876744445"], "selectedUsers": ["userId1", "userId2", "sub_account_admin"], "channel": "email", "notificationType": "booked", "isActive": true, "deleted": false, "templateId": "string", "body": "string", "subject": "string", "afterTime": [{"timeOffset": 1, "unit": "hours"}], "beforeTime": [{"timeOffset": 1, "unit": "hours"}], "fromAddress": "string", "fromNumber": "string", "fromName": "string"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/calendars/YOUR_calendarId/notifications/YOUR_notificationId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'receiverType': 'contact', 'additionalEmailIds': ['example1@email.com', 'example2@email.com'], 'additionalPhoneNumbers': ['+919876744444', '+919876744445'], 'selectedUsers': ['userId1', 'userId2', 'sub_account_admin'], 'channel': 'email', 'notificationType': 'booked', 'isActive': true, 'deleted': false, 'templateId': 'string', 'body': 'string', 'subject': 'string', 'afterTime': [{'timeOffset': 1, 'unit': 'hours'}], 'beforeTime': [{'timeOffset': 1, 'unit': 'hours'}], 'fromAddress': 'string', 'fromNumber': 'string', 'fromName': 'string'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

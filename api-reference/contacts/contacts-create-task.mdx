@@ -1,4 +1,170 @@
 ---
 title: 'Create Task'
-openapi: 'POST /contacts/{contactId}/tasks'
+description: 'Create Task'
 ---
+
+Create Task
+
+```http
+POST https://services.leadconnectorhq.com/contacts/{contactId}/tasks
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="contactId" type="string" required default='sx6wyHhbFdRXh302LLNR'>
+Contact Id
+</ParamField>
+
+## Body
+
+<ParamField body="title" type="string" required default='First Task'>
+</ParamField>
+
+<ParamField body="body" type="string" default='loram ipsum'>
+</ParamField>
+
+<ParamField body="dueDate" type="string" required default='2020-10-25T11:00:00Z'>
+</ParamField>
+
+<ParamField body="completed" type="boolean" required default='True'>
+</ParamField>
+
+<ParamField body="assignedTo" type="string" default='hxHGVRb1YJUscrCB8eXK'>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="task" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='lJpzYrWdpkC2hX6t2yue'>
+</ResponseField>
+
+<ResponseField name="title" type="string" default='test'>
+</ResponseField>
+
+<ResponseField name="body" type="string" default='testing'>
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='tesTUcmRxWrjqzJS8EjkxNKting'>
+</ResponseField>
+
+<ResponseField name="dueDate" type="string" default='2021-07-08T02:30:00.000Z'>
+</ResponseField>
+
+<ResponseField name="completed" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='lJpzYrWdpkC2hX6t2yue'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "task": {
+    "id": "lJpzYrWdpkC2hX6t2yue",
+    "title": "test",
+    "body": "testing",
+    "assignedTo": "tesTUcmRxWrjqzJS8EjkxNKting",
+    "dueDate": "2021-07-08T02:30:00.000Z",
+    "completed": true,
+    "contactId": "lJpzYrWdpkC2hX6t2yue"
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "title": "First Task",
+  "body": "loram ipsum",
+  "dueDate": "2020-10-25T11:00:00Z",
+  "completed": true,
+  "assignedTo": "hxHGVRb1YJUscrCB8eXK"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"title": "First Task", "body": "loram ipsum", "dueDate": "2020-10-25T11:00:00Z", "completed": true, "assignedTo": "hxHGVRb1YJUscrCB8eXK"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"title": "First Task", "body": "loram ipsum", "dueDate": "2020-10-25T11:00:00Z", "completed": true, "assignedTo": "hxHGVRb1YJUscrCB8eXK"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'title': 'First Task', 'body': 'loram ipsum', 'dueDate': '2020-10-25T11:00:00Z', 'completed': true, 'assignedTo': 'hxHGVRb1YJUscrCB8eXK'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,309 @@
 ---
 title: 'List invoices'
-openapi: 'GET /invoices/'
+description: 'API to get list of invoices'
 ---
+
+API to get list of invoices
+
+```http
+GET https://services.leadconnectorhq.com/invoices/
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="altId" type="string" required default='6578278e879ad2646715ba9c'>
+account Id / company Id based on altType
+</ParamField>
+
+<ParamField query="altType" type="string" required default='account'>
+Alt Type
+</ParamField>
+
+<ParamField query="status" type="string">
+status to be filtered
+</ParamField>
+
+<ParamField query="startAt" type="string" default='2023-01-01'>
+startAt in YYYY-MM-DD format
+</ParamField>
+
+<ParamField query="endAt" type="string" default='2023-01-01'>
+endAt in YYYY-MM-DD format
+</ParamField>
+
+<ParamField query="search" type="string" default='Alex'>
+To search for an invoice by id / name / email / phoneNo
+</ParamField>
+
+<ParamField query="paymentMode" type="string" default='live'>
+payment mode
+</ParamField>
+
+<ParamField query="contactId" type="string" default='AmuzcoPBpgKeccNsFlib'>
+Contact ID for the invoice
+</ParamField>
+
+<ParamField query="limit" type="string" required default='10'>
+Limit the number of items to return
+</ParamField>
+
+<ParamField query="offset" type="string" required default='10'>
+Number of items to skip
+</ParamField>
+
+<ParamField query="sortField" type="string" default='issueDate'>
+The field on which sorting should be applied
+</ParamField>
+
+<ParamField query="sortOrder" type="string" default='descend'>
+The order of sort which should be applied for the sortField
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="invoices" type="object[]" required>
+<Expandable title="cada item">
+<ResponseField name="_id" type="string" required default='6578278e879ad2646715ba9c'>
+Invoice Id
+</ResponseField>
+
+<ResponseField name="status" type="string" required default='draft'>
+Invoice Status Posibles valores: 'draft', 'sent', 'payment_processing', 'paid', 'void', 'partially_paid'
+</ResponseField>
+
+<ResponseField name="liveMode" type="boolean" required default='False'>
+Live Mode
+</ResponseField>
+
+<ResponseField name="amountPaid" type="number" required default='0'>
+Amount Paid
+</ResponseField>
+
+<ResponseField name="altId" type="string" required default='6578278e879ad2646715ba9c'>
+Account Id or Agency Id
+</ResponseField>
+
+<ResponseField name="altType" type="string" required>
+Posibles valores: 'account'
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='New Invoice'>
+Name of the invoice
+</ResponseField>
+
+<ResponseField name="businessDetails" type="object" required>
+Business Details
+</ResponseField>
+
+<ResponseField name="invoiceNumber" type="number" required default='19'>
+Invoice Number
+</ResponseField>
+
+<ResponseField name="currency" type="string" required default='USD'>
+Currency
+</ResponseField>
+
+<ResponseField name="contactDetails" type="object" required>
+Contact Details
+</ResponseField>
+
+<ResponseField name="issueDate" type="string" required default='2023-01-01'>
+Issue date in YYYY-MM-DD format
+</ResponseField>
+
+<ResponseField name="dueDate" type="string" required default='2023-01-01'>
+Due date in YYYY-MM-DD format
+</ResponseField>
+
+<ResponseField name="discount" type="object">
+Discount
+</ResponseField>
+
+<ResponseField name="invoiceItems" type="string[]" required>
+Invoice Items
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='999'>
+Total Amount
+</ResponseField>
+
+<ResponseField name="title" type="string" required default='INVOICE'>
+Title
+</ResponseField>
+
+<ResponseField name="amountDue" type="number" required default='999'>
+Total Amount Due
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-12-12T09:27:42.355Z'>
+created at
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2023-12-12T09:27:42.355Z'>
+updated at
+</ResponseField>
+
+<ResponseField name="automaticTaxesEnabled" type="boolean" default='True'>
+Automatic taxes enabled for the Invoice
+</ResponseField>
+
+<ResponseField name="automaticTaxesCalculated" type="boolean" default='True'>
+Is Automatic taxes calculated for the Invoice items
+</ResponseField>
+
+<ResponseField name="paymentSchedule" type="object">
+split invoice into payment schedule summing up to full invoice amount
+</ResponseField>
+
+<ResponseField name="totalSummary" type="object" required>
+<Expandable title="propiedades">
+<ResponseField name="subTotal" type="number" required default='999'>
+subTotal
+</ResponseField>
+
+<ResponseField name="discount" type="number" required default='0'>
+discount
+</ResponseField>
+
+<ResponseField name="tax" type="number" required default='0'>
+tax
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="remindersConfiguration" type="object">
+Reminders Configuration
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='100'>
+Total number of invoices
+</ResponseField>
+
+```json
+{
+  "invoices": [
+    {
+      "_id": "6578278e879ad2646715ba9c",
+      "status": "draft",
+      "liveMode": false,
+      "amountPaid": 0,
+      "altId": "6578278e879ad2646715ba9c",
+      "altType": "account",
+      "name": "New Invoice",
+      "businessDetails": {
+        "name": "Alex",
+        "address": {
+          "addressLine1": "9931 Beechwood",
+          "city": "St. Houston",
+          "state": "TX",
+          "countryCode": "USA",
+          "postalCode": "559-6993"
+        },
+        "phoneNo": "+1-214-559-6993",
+        "website": "www.example.com"
+      },
+      "invoiceNumber": "19",
+      "currency": "USD",
+      "contactDetails": {
+        "id": "c6tZZU0rJBf30ZXx9Gli",
+        "phoneNo": "+1-214-559-6993",
+        "email": "alex@example.com",
+        "customFields": [],
+        "name": "Alex",
+        "address": {
+          "countryCode": "US"
+        }
+      },
+      "issueDate": "2023-01-01",
+      "dueDate": "2023-01-01",
+      "discount": {
+        "type": "percentage",
+        "value": 0
+  // truncado: 30 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/invoices/' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/invoices/', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/invoices/',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/invoices/');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

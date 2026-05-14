@@ -1,4 +1,323 @@
 ---
 title: 'Record a manual payment for an invoice'
-openapi: 'POST /invoices/{invoiceId}/record-payment'
+description: 'API to record manual payment for an invoice by invoice id'
 ---
+
+API to record manual payment for an invoice by invoice id
+
+```http
+POST https://services.leadconnectorhq.com/invoices/{invoiceId}/record-payment
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="invoiceId" type="string" required default='6578278e879ad2646715ba9c'>
+Invoice Id
+</ParamField>
+
+## Body
+
+<ParamField body="altId" type="string" required default='6578278e879ad2646715ba9c'>
+account Id / company Id based on altType
+</ParamField>
+
+<ParamField body="altType" type="string" required default='account'>
+Alt Type Posibles valores: 'account'
+</ParamField>
+
+<ParamField body="mode" type="string" required default='card'>
+manual payment method Posibles valores: 'cash', 'card', 'cheque', 'bank_transfer', 'other'
+</ParamField>
+
+<ParamField body="card" type="object" required>
+<Expandable title="propiedades">
+<ParamField body="brand" type="string" required>
+</ParamField>
+
+<ParamField body="last4" type="string" required>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="cheque" type="object" required>
+<Expandable title="propiedades">
+<ParamField body="number" type="string" required default='129-129-129-912'>
+check number
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="notes" type="string" required default='This was a direct payment'>
+Any note to be recorded with the transaction
+</ParamField>
+
+<ParamField body="amount" type="number" default='999'>
+Amount to be paid against the invoice.
+</ParamField>
+
+<ParamField body="meta" type="object">
+</ParamField>
+
+<ParamField body="paymentScheduleIds" type="string[]">
+Payment Schedule Ids to be recorded against the invoice.
+</ParamField>
+
+<ParamField body="fulfilledAt" type="string" default='2025-03-19T05:03:00.000Z'>
+Updated At to be recorded against the invoice.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="success" type="boolean" required default='True'>
+status
+</ResponseField>
+
+<ResponseField name="invoice" type="object" required>
+<Expandable title="propiedades">
+<ResponseField name="_id" type="string" required default='6578278e879ad2646715ba9c'>
+Invoice Id
+</ResponseField>
+
+<ResponseField name="status" type="string" required default='draft'>
+Invoice Status Posibles valores: 'draft', 'sent', 'payment_processing', 'paid', 'void', 'partially_paid'
+</ResponseField>
+
+<ResponseField name="liveMode" type="boolean" required default='False'>
+Live Mode
+</ResponseField>
+
+<ResponseField name="amountPaid" type="number" required default='0'>
+Amount Paid
+</ResponseField>
+
+<ResponseField name="altId" type="string" required default='6578278e879ad2646715ba9c'>
+Account Id or Agency Id
+</ResponseField>
+
+<ResponseField name="altType" type="string" required>
+Posibles valores: 'account'
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='New Invoice'>
+Name of the invoice
+</ResponseField>
+
+<ResponseField name="businessDetails" type="object" required>
+Business Details
+</ResponseField>
+
+<ResponseField name="invoiceNumber" type="number" required default='19'>
+Invoice Number
+</ResponseField>
+
+<ResponseField name="currency" type="string" required default='USD'>
+Currency
+</ResponseField>
+
+<ResponseField name="contactDetails" type="object" required>
+Contact Details
+</ResponseField>
+
+<ResponseField name="issueDate" type="string" required default='2023-01-01'>
+Issue date in YYYY-MM-DD format
+</ResponseField>
+
+<ResponseField name="dueDate" type="string" required default='2023-01-01'>
+Due date in YYYY-MM-DD format
+</ResponseField>
+
+<ResponseField name="discount" type="object">
+Discount
+</ResponseField>
+
+<ResponseField name="invoiceItems" type="string[]" required>
+Invoice Items
+</ResponseField>
+
+<ResponseField name="total" type="number" required default='999'>
+Total Amount
+</ResponseField>
+
+<ResponseField name="title" type="string" required default='INVOICE'>
+Title
+</ResponseField>
+
+<ResponseField name="amountDue" type="number" required default='999'>
+Total Amount Due
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-12-12T09:27:42.355Z'>
+created at
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2023-12-12T09:27:42.355Z'>
+updated at
+</ResponseField>
+
+<ResponseField name="automaticTaxesEnabled" type="boolean" default='True'>
+Automatic taxes enabled for the Invoice
+</ResponseField>
+
+<ResponseField name="automaticTaxesCalculated" type="boolean" default='True'>
+Is Automatic taxes calculated for the Invoice items
+</ResponseField>
+
+<ResponseField name="paymentSchedule" type="object">
+split invoice into payment schedule summing up to full invoice amount
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "invoice": {
+    "_id": "6578278e879ad2646715ba9c",
+    "status": "draft",
+    "liveMode": false,
+    "amountPaid": 0,
+    "altId": "6578278e879ad2646715ba9c",
+    "altType": "account",
+    "name": "New Invoice",
+    "businessDetails": {
+      "name": "Alex",
+      "address": {
+        "addressLine1": "9931 Beechwood",
+        "city": "St. Houston",
+        "state": "TX",
+        "countryCode": "USA",
+        "postalCode": "559-6993"
+      },
+      "phoneNo": "+1-214-559-6993",
+      "website": "www.example.com"
+    },
+    "invoiceNumber": "19",
+    "currency": "USD",
+    "contactDetails": {
+      "id": "c6tZZU0rJBf30ZXx9Gli",
+      "phoneNo": "+1-214-559-6993",
+      "email": "alex@example.com",
+      "customFields": [],
+      "name": "Alex",
+      "address": {
+        "countryCode": "US"
+      }
+    },
+    "issueDate": "2023-01-01",
+    "dueDate": "2023-01-01",
+    "discount": {
+      "type": "percentage",
+      "value": 0
+  // truncado: 23 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/invoices/YOUR_invoiceId/record-payment' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "altId": "6578278e879ad2646715ba9c",
+  "altType": "account",
+  "mode": "card",
+  "card": {
+    "brand": "string",
+    "last4": "string"
+  },
+  "cheque": {
+    "number": "129-129-129-912"
+  },
+  "notes": "This was a direct payment",
+  "amount": 999,
+  "meta": {},
+  "paymentScheduleIds": [
+    "6578278e879ad2646715ba9c"
+  ],
+  "fulfilledAt": "2025-03-19T05:03:00.000Z"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/invoices/YOUR_invoiceId/record-payment', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"altId": "6578278e879ad2646715ba9c", "altType": "account", "mode": "card", "card": {"brand": "string", "last4": "string"}, "cheque": {"number": "129-129-129-912"}, "notes": "This was a direct payment", "amount": 999, "meta": {}, "paymentScheduleIds": ["6578278e879ad2646715ba9c"], "fulfilledAt": "2025-03-19T05:03:00.000Z"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/invoices/YOUR_invoiceId/record-payment',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"altId": "6578278e879ad2646715ba9c", "altType": "account", "mode": "card", "card": {"brand": "string", "last4": "string"}, "cheque": {"number": "129-129-129-912"}, "notes": "This was a direct payment", "amount": 999, "meta": {}, "paymentScheduleIds": ["6578278e879ad2646715ba9c"], "fulfilledAt": "2025-03-19T05:03:00.000Z"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/invoices/YOUR_invoiceId/record-payment');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'altId': '6578278e879ad2646715ba9c', 'altType': 'account', 'mode': 'card', 'card': {'brand': 'string', 'last4': 'string'}, 'cheque': {'number': '129-129-129-912'}, 'notes': 'This was a direct payment', 'amount': 999, 'meta': {}, 'paymentScheduleIds': ['6578278e879ad2646715ba9c'], 'fulfilledAt': '2025-03-19T05:03:00.000Z'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

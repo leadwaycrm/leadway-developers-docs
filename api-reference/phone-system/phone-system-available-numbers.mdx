@@ -1,4 +1,266 @@
 ---
 title: 'List available phone numbers'
-openapi: 'GET /phone-system/numbers/location/{locationId}/available'
+description: 'Search for available phone numbers to purchase for a specific account. Supports filtering by number pattern, type, and capabilities.'
 ---
+
+Search for available phone numbers to purchase for a specific account. Supports filtering by number pattern, type, and capabilities.
+
+```http
+GET https://services.leadconnectorhq.com/phone-system/numbers/location/{locationId}/available
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="locationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+The unique identifier of the account
+</ParamField>
+
+## Query parameters
+
+<ParamField query="countryCode" type="string" required default='US'>
+ISO 3166-1 alpha-2 country code for which to search available numbers
+</ParamField>
+
+<ParamField query="numberTypes" type="string" default='local,tollFree'>
+Comma-separated list of phone number types to search for (e.g. local, tollFree, mobile)
+</ParamField>
+
+<ParamField query="firstPart" type="string" default='830'>
+Filter numbers that begin with this digit pattern
+</ParamField>
+
+<ParamField query="lastPart" type="string" default='825'>
+Filter numbers that end with this digit pattern
+</ParamField>
+
+<ParamField query="anywhere" type="string" default='825'>
+Filter numbers that contain this digit pattern anywhere
+</ParamField>
+
+<ParamField query="smsEnabled" type="boolean" default='True'>
+Filter for numbers with SMS capability
+</ParamField>
+
+<ParamField query="mmsEnabled" type="boolean" default='True'>
+Filter for numbers with MMS capability
+</ParamField>
+
+<ParamField query="voiceEnabled" type="boolean" default='True'>
+Filter for numbers with voice capability
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successfully retrieved list of available phone numbers">
+<ResponseField name="fingerprintId" type="string" required default='1773314252953'>
+Unique fingerprint ID for this search result, required when purchasing one of the returned numbers
+</ResponseField>
+
+<ResponseField name="numbers" type="object[]" required>
+List of available phone numbers matching the search criteria
+<Expandable title="cada item">
+<ResponseField name="phoneNumber" type="string" required default='+18705871861'>
+E.164 formatted phone number
+</ResponseField>
+
+<ResponseField name="friendlyName" type="string" required default='(870) 587-1861'>
+Human-readable formatted phone number
+</ResponseField>
+
+<ResponseField name="isoCountry" type="string" required default='US'>
+ISO 3166-1 alpha-2 country code
+</ResponseField>
+
+<ResponseField name="lata" type="string" default='528'>
+Local Access and Transport Area code
+</ResponseField>
+
+<ResponseField name="locality" type="string" default='Wynne'>
+City or locality of the number
+</ResponseField>
+
+<ResponseField name="rateCenter" type="string" default='WYNNE'>
+Rate center of the number
+</ResponseField>
+
+<ResponseField name="latitude" type="string" default='35.241800'>
+Latitude coordinate of the number's account
+</ResponseField>
+
+<ResponseField name="longitude" type="string" default='-90.846000'>
+Longitude coordinate of the number's account
+</ResponseField>
+
+<ResponseField name="region" type="string" default='AR'>
+State or region abbreviation
+</ResponseField>
+
+<ResponseField name="postalCode" type="string" default='72396'>
+Postal code of the number
+</ResponseField>
+
+<ResponseField name="addressRequirements" type="string" required default='none'>
+Address requirements for purchasing this number Posibles valores: 'none', 'any', 'local', 'foreign'
+</ResponseField>
+
+<ResponseField name="beta" type="boolean" required default='False'>
+Whether this is a beta number
+</ResponseField>
+
+<ResponseField name="capabilities" type="object" required>
+Communication capabilities supported by this number
+<Expandable title="propiedades">
+<ResponseField name="MMS" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="SMS" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="voice" type="boolean" default='True'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="price" type="object">
+Pricing information for this number
+<Expandable title="propiedades">
+<ResponseField name="number_type" type="string" default='local'>
+Type of number for billing purposes
+</ResponseField>
+
+<ResponseField name="price" type="number" default='1.15'>
+Monthly price for this number
+</ResponseField>
+
+<ResponseField name="price_unit" type="string" default='USD'>
+Currency unit for the price
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "fingerprintId": "1773314252953",
+  "numbers": [
+    {
+      "phoneNumber": "+18705871861",
+      "friendlyName": "(870) 587-1861",
+      "lata": "528",
+      "locality": "Wynne",
+      "rateCenter": "WYNNE",
+      "latitude": "35.241800",
+      "longitude": "-90.846000",
+      "region": "AR",
+      "postalCode": "72396",
+      "isoCountry": "US",
+      "addressRequirements": "none",
+      "beta": false,
+      "capabilities": {
+        "MMS": true,
+        "SMS": true,
+        "voice": true
+      },
+      "price": {
+        "number_type": "local",
+        "price": 1.15,
+        "price_unit": "USD"
+      }
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad request - Invalid parameters">
+<ResponseField name="message" type="string" default='countryCode is required'>
+</ResponseField>
+
+<ResponseField name="error" type="string" default='Bad Request'>
+</ResponseField>
+
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+```json
+{
+  "message": "countryCode is required",
+  "error": "Bad Request",
+  "statusCode": 400
+}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="500 - Internal server error">
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId/available' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId/available', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId/available',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/phone-system/numbers/location/YOUR_locationId/available');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

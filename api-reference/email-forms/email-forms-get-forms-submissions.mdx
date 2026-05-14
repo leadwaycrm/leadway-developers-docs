@@ -1,4 +1,274 @@
 ---
 title: 'Get Forms Submissions'
-openapi: 'GET /forms/submissions'
+description: 'Get Forms Submissions'
 ---
+
+Get Forms Submissions
+
+```http
+GET https://services.leadconnectorhq.com/forms/submissions
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+</ParamField>
+
+<ParamField query="page" type="number" default='1'>
+Page No. By default it will be 1
+</ParamField>
+
+<ParamField query="limit" type="number" default='20'>
+Limit Per Page records count. will allow maximum up to 100 and default will be 20
+</ParamField>
+
+<ParamField query="formId" type="string" default='jjusM6EOngDExnbo2DbU'>
+Filter submission by form id
+</ParamField>
+
+<ParamField query="q" type="string" default='john@deo.com'>
+Filter by contactId, name, email or phone no.
+</ParamField>
+
+<ParamField query="startAt" type="string" default='2020-11-14'>
+Get submission by starting of this date. By default it will be same date of last month(YYYY-MM-DD).
+</ParamField>
+
+<ParamField query="endAt" type="string" default='2020-12-14'>
+Get submission by ending of this date. By default it will be current date(YYYY-MM-DD).
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="submissions" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='38303ec7-629a-49e2-888a-cf8bf0b1f97e'>
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='DWQ45t2IPVxi9LDu1wBl'>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" default='2021-06-23T06:07:04.000Z'>
+</ResponseField>
+
+<ResponseField name="formId" type="string" default='YSWdvS4Is98wtIDGnpmI'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='test'>
+</ResponseField>
+
+<ResponseField name="email" type="string" default='test@test.com'>
+</ResponseField>
+
+<ResponseField name="others" type="object">
+<Expandable title="propiedades">
+<ResponseField name="__submissions_other_field__" type="string" default='john@deo.com'>
+</ResponseField>
+
+<ResponseField name="__custom_field_id__" type="string" default='20'>
+</ResponseField>
+
+<ResponseField name="eventData" type="object">
+<Expandable title="propiedades">
+<ResponseField name="fbc" type="string" default='fb.1.123456789.987654321'>
+</ResponseField>
+
+<ResponseField name="fbp" type="string" default='fbp.1.987654321.123456789'>
+</ResponseField>
+
+<ResponseField name="page" type="object">
+<Expandable title="propiedades">
+<ResponseField name="url" type="string" default='https://example.com'>
+</ResponseField>
+
+<ResponseField name="title" type="string" default='Example Page'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="type" type="string" default='page-visit'>
+</ResponseField>
+
+<ResponseField name="domain" type="string" default='example.com'>
+</ResponseField>
+
+<ResponseField name="medium" type="string" default='form'>
+</ResponseField>
+
+<ResponseField name="source" type="string" default='Direct traffic'>
+</ResponseField>
+
+<ResponseField name="version" type="string" default='v3'>
+</ResponseField>
+
+<ResponseField name="adSource" type="string" default='example-ad-source'>
+</ResponseField>
+
+<ResponseField name="mediumId" type="string" default='medium-id-123'>
+</ResponseField>
+
+<ResponseField name="parentId" type="string" default='parent-id-456'>
+</ResponseField>
+
+<ResponseField name="referrer" type="string" default='https://app.leadwaycrm.com'>
+</ResponseField>
+
+<ResponseField name="fbEventId" type="string" default='event-id-789'>
+</ResponseField>
+
+<ResponseField name="timestamp" type="number" default='1234567890'>
+</ResponseField>
+
+<ResponseField name="parentName" type="string" default='Parent Form'>
+</ResponseField>
+
+<ResponseField name="fingerprint" type="string" default='example-fingerprint'>
+</ResponseField>
+
+<ResponseField name="pageVisitType" type="string" default='form'>
+</ResponseField>
+
+<ResponseField name="contactSessionIds" type="object">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="fieldsOriSequance" type="string[]">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+<Expandable title="propiedades">
+<ResponseField name="total" type="number" default='1'>
+</ResponseField>
+
+<ResponseField name="currentPage" type="number" default='1'>
+</ResponseField>
+
+<ResponseField name="nextPage" type="number">
+</ResponseField>
+
+<ResponseField name="prevPage" type="number">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "submissions": [
+    {
+      "id": "38303ec7-629a-49e2-888a-cf8bf0b1f97e",
+      "contactId": "DWQ45t2IPVxi9LDu1wBl",
+      "createdAt": "2021-06-23T06:07:04.000Z",
+      "formId": "YSWdvS4Is98wtIDGnpmI",
+      "name": "test",
+      "email": "test@test.com",
+      "others": {
+        "__submissions_other_field__": "john@deo.com",
+        "__custom_field_id__": "20",
+        "eventData": {},
+        "fieldsOriSequance": [
+          "full_name",
+          "first_name",
+          "last_name",
+          "phone",
+          "email"
+        ]
+      }
+    }
+  ],
+  "meta": {
+    "total": 1,
+    "currentPage": 1
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/forms/submissions' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/forms/submissions', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/forms/submissions',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/forms/submissions');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

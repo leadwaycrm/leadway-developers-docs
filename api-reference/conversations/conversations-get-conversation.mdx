@@ -1,4 +1,143 @@
 ---
 title: 'Get Conversation'
-openapi: 'GET /conversations/{conversationId}'
+description: 'Get the conversation details based on the conversation ID'
 ---
+
+Get the conversation details based on the conversation ID
+
+```http
+GET https://services.leadconnectorhq.com/conversations/{conversationId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="conversationId" type="string" required default='tDtDnQdgm2LXpyiqYvZ6'>
+Conversation ID as string
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="contactId" type="string" required default='ve9EPM428kjkvShlRW1KT'>
+Unique identifier of the contact associated with this conversation
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='ve9EPM428kjkvShlRW1KT'>
+Unique identifier of the business account where this conversation takes place
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Flag indicating if this conversation has been moved to trash/deleted
+</ResponseField>
+
+<ResponseField name="inbox" type="boolean" required default='True'>
+Flag indicating if this conversation is currently in the main inbox view
+</ResponseField>
+
+<ResponseField name="type" type="number" required>
+Communication channel type for this conversation: 1 (Phone), 2 (Email), 3 (Facebook Messenger), 4 (Review), 5 (Group SMS), 6 (Internal Chat - coming soon)
+</ResponseField>
+
+<ResponseField name="unreadCount" type="number" required default='1'>
+Number of messages in this conversation that have not been read by the user
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='ve9EPM428kjkvShlRW1KT'>
+Unique identifier of the team member currently responsible for handling this conversation
+</ResponseField>
+
+<ResponseField name="id" type="string" required default='ve9EPM428kjkvShlRW1KT'>
+Unique identifier for this specific conversation thread
+</ResponseField>
+
+<ResponseField name="starred" type="boolean" default='True'>
+Flag indicating if this conversation has been marked as important/starred by the user
+</ResponseField>
+
+```json
+{
+  "contactId": "ve9EPM428kjkvShlRW1KT",
+  "locationId": "ve9EPM428kjkvShlRW1KT",
+  "deleted": false,
+  "inbox": true,
+  "type": 0,
+  "unreadCount": 1,
+  "assignedTo": "ve9EPM428kjkvShlRW1KT",
+  "id": "ve9EPM428kjkvShlRW1KT",
+  "starred": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/conversations/YOUR_conversationId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/conversations/YOUR_conversationId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/conversations/YOUR_conversationId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/conversations/YOUR_conversationId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

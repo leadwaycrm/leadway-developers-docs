@@ -1,4 +1,139 @@
 ---
 title: 'Get All Notes'
-openapi: 'GET /contacts/{contactId}/notes'
+description: 'Get All Notes'
 ---
+
+Get All Notes
+
+```http
+GET https://services.leadconnectorhq.com/contacts/{contactId}/notes
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="contactId" type="string" required default='sx6wyHhbFdRXh302LLNR'>
+Contact Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="notes" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='HGPcayliwcdoUFzvbTok'>
+</ResponseField>
+
+<ResponseField name="body" type="string" default='lorem ipsum'>
+</ResponseField>
+
+<ResponseField name="userId" type="string" default='TUcmRxWrjqzJS8EjkxNK'>
+</ResponseField>
+
+<ResponseField name="dateAdded" type="string" default='2021-07-08T12:02:11.285Z'>
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='TUcmRxWrjqzJS8EjkxNK'>
+</ResponseField>
+
+<ResponseField name="title" type="string" default='Follow-up summary'>
+</ResponseField>
+
+<ResponseField name="color" type="string" default='#FFAA00'>
+</ResponseField>
+
+<ResponseField name="pinned" type="boolean" default='False'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "notes": [
+    {
+      "id": "HGPcayliwcdoUFzvbTok",
+      "body": "lorem ipsum",
+      "userId": "TUcmRxWrjqzJS8EjkxNK",
+      "dateAdded": "2021-07-08T12:02:11.285Z",
+      "contactId": "TUcmRxWrjqzJS8EjkxNK",
+      "title": "Follow-up summary",
+      "color": "#FFAA00",
+      "pinned": false
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/contacts/YOUR_contactId/notes' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/YOUR_contactId/notes', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/contacts/YOUR_contactId/notes',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/YOUR_contactId/notes');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

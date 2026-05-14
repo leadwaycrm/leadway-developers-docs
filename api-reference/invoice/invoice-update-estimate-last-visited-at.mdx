@@ -1,4 +1,104 @@
 ---
 title: 'Update estimate last visited at'
-openapi: 'PATCH /invoices/estimate/stats/last-visited-at'
+description: 'API to update estimate last visited at by estimate id'
 ---
+
+API to update estimate last visited at by estimate id
+
+```http
+PATCH https://services.leadconnectorhq.com/invoices/estimate/stats/last-visited-at
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="estimateId" type="string" required default='5f9d6d8b1b2d2c001f2d9e4b'>
+Estimate Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Response">
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PATCH 'https://services.leadconnectorhq.com/invoices/estimate/stats/last-visited-at' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "estimateId": "5f9d6d8b1b2d2c001f2d9e4b"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/invoices/estimate/stats/last-visited-at', {
+  method: 'PATCH',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"estimateId": "5f9d6d8b1b2d2c001f2d9e4b"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PATCH',
+    'https://services.leadconnectorhq.com/invoices/estimate/stats/last-visited-at',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"estimateId": "5f9d6d8b1b2d2c001f2d9e4b"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/invoices/estimate/stats/last-visited-at');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PATCH',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'estimateId': '5f9d6d8b1b2d2c001f2d9e4b'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

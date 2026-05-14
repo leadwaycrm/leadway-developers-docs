@@ -1,4 +1,277 @@
 ---
 title: 'List Call Logs'
-openapi: 'GET /voice-ai/dashboard/call-logs'
+description: 'Returns call logs for Voice AI agents scoped to a account. Supports filtering by agent, contact, call type, action types, and date range (interpreted in the provided IANA timezone). Also supports sort'
 ---
+
+Returns call logs for Voice AI agents scoped to a account. Supports filtering by agent, contact, call type, action types, and date range (interpreted in the provided IANA timezone). Also supports sorting and 1-based pagination.
+
+```http
+GET https://services.leadconnectorhq.com/voice-ai/dashboard/call-logs
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required>
+Account identifier. Filters results to this account.
+</ParamField>
+
+<ParamField query="agentId" type="string" default='507f1f77bcf86cd799439011'>
+Agent identifier. When provided, returns logs for this agent only.
+</ParamField>
+
+<ParamField query="contactId" type="string" default='contact123,contact456'>
+Contact IDs (comma-separated) to filter by.
+</ParamField>
+
+<ParamField query="callType" type="string">
+Call type filter.
+</ParamField>
+
+<ParamField query="startDate" type="number" default='1679308800000'>
+Start date filter (Unix timestamp). Must be less than endDate. Both startDate and endDate must be provided together.
+</ParamField>
+
+<ParamField query="endDate" type="number" default='1679395199000'>
+End date filter (Unix timestamp). Must be greater than startDate. Both startDate and endDate must be provided together.
+</ParamField>
+
+<ParamField query="actionType" type="string" default='SMS,CALL_TRANSFER,WORKFLOW_TRIGGER'>
+Action type filter for call logs (comma-separated ACTION_TYPE values)
+</ParamField>
+
+<ParamField query="sortBy" type="string">
+Field to sort by. Defaults to newest if omitted.
+</ParamField>
+
+<ParamField query="sort" type="string">
+Sort direction. Applies only when sortBy is provided.
+</ParamField>
+
+<ParamField query="page" type="number">
+Page number (1-based).
+</ParamField>
+
+<ParamField query="pageSize" type="number">
+Page size (max 50).
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successfully retrieved call logs">
+<ResponseField name="total" type="number" required default='150'>
+Total number of items
+</ResponseField>
+
+<ResponseField name="page" type="number" required default='2'>
+Page number starting from 1
+</ResponseField>
+
+<ResponseField name="pageSize" type="number" required default='10'>
+Number of items per page
+</ResponseField>
+
+<ResponseField name="callLogs" type="object[]" required>
+Array of call logs
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='507f1f77bcf86cd799439011'>
+Unique identifier for the call
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='507f1f77bcf86cd799439012'>
+Associated contact ID
+</ResponseField>
+
+<ResponseField name="agentId" type="string" required default='507f1f77bcf86cd799439013'>
+Agent ID associated with the call
+</ResponseField>
+
+<ResponseField name="isAgentDeleted" type="boolean" required default='False'>
+Whether the agent is deleted
+</ResponseField>
+
+<ResponseField name="fromNumber" type="string" default='+1234567890'>
+Caller phone number
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2024-01-15T10:30:00.000Z'>
+Timestamp when the call was created
+</ResponseField>
+
+<ResponseField name="duration" type="number" required default='180'>
+Call duration in seconds
+</ResponseField>
+
+<ResponseField name="trialCall" type="boolean" required default='False'>
+Whether this call was a trial call
+</ResponseField>
+
+<ResponseField name="executedCallActions" type="object[]" required>
+Actions performed during the call. Note: The APPOINTMENT_BOOKING action will only be visible in executedCallActions from Sep 9th 2025.
+<Expandable title="cada item">
+<ResponseField name="actionId" type="string" default='507f1f77bcf86cd799439015'>
+Action ID reference
+</ResponseField>
+
+<ResponseField name="actionType" type="string" required default='SMS'>
+Action type Posibles valores: 'CALL_TRANSFER', 'DATA_EXTRACTION', 'IN_CALL_DATA_EXTRACTION', 'WORKFLOW_TRIGGER', 'SMS', 'APPOINTMENT_BOOKING', 'CUSTOM_ACTION', 'KNOWLEDGE_BASE'
+</ResponseField>
+
+<ResponseField name="actionName" type="string" required default='Send SMS Confirmation'>
+Action name
+</ResponseField>
+
+<ResponseField name="actionParameters" type="object">
+Action parameters - structure varies by actionType
+</ResponseField>
+
+<ResponseField name="executedAt" type="string" default='2024-01-15T10:32:00.000Z'>
+When the action was executed
+</ResponseField>
+
+<ResponseField name="triggerReceivedAt" type="string" default='2024-01-15T10:31:45.000Z'>
+When the trigger was received
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="summary" type="string" required default='Customer called to inquire about product pricing and was transferred to sales team.'>
+Call summary
+</ResponseField>
+
+<ResponseField name="transcript" type="string" required default='bot: Hello, how can I help you today? human: I would like to know about your pricing...'>
+Call transcript
+</ResponseField>
+
+<ResponseField name="translation" type="object">
+Transcript translation details
+</ResponseField>
+
+<ResponseField name="extractedData" type="object">
+Dynamic data extracted from the call based on agent configuration
+</ResponseField>
+
+<ResponseField name="messageId" type="string" default='507f1f77bcf86cd799439014'>
+Message identifier associated with the call
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "total": 150,
+  "page": 2,
+  "pageSize": 10,
+  "callLogs": [
+    {
+      "id": "507f1f77bcf86cd799439011",
+      "contactId": "507f1f77bcf86cd799439012",
+      "agentId": "507f1f77bcf86cd799439013",
+      "isAgentDeleted": false,
+      "fromNumber": "+1234567890",
+      "createdAt": "2024-01-15T10:30:00.000Z",
+      "duration": 180,
+      "trialCall": false,
+      "executedCallActions": [
+        {
+          "actionId": "507f1f77bcf86cd799439015",
+          "actionType": "CALL_TRANSFER",
+          "actionName": "Transfer to Manager",
+          "actionParameters": {
+            "transferToType": "number",
+            "transferToValue": "+12345678901",
+            "triggerMessage": "Let me transfer you to a manager right away",
+            "hearWhisperMessage": true
+          },
+          "executedAt": "2024-01-15T10:32:00.000Z",
+          "triggerReceivedAt": "2024-01-15T10:31:45.000Z"
+        },
+        {
+          "actionId": "507f1f77bcf86cd799439016",
+          "actionType": "SMS",
+          "actionName": "Send Confirmation SMS",
+          "actionParameters": {
+            "triggerPrompt": "When caller asks for booking confirmation",
+            "triggerMessage": "I'll send you a confirmation text",
+            "messageBody": "Your appointment is confirmed for tomorrow at 2 PM"
+          },
+          "executedAt": "2024-01-15T10:33:30.000Z",
+          "triggerReceivedAt": "2024-01-15T10:33:15.000Z"
+  // truncado: 131 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/voice-ai/dashboard/call-logs' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/voice-ai/dashboard/call-logs', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/voice-ai/dashboard/call-logs',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/voice-ai/dashboard/call-logs');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,150 @@
 ---
 title: 'Update Link'
-openapi: 'PUT /links/{linkId}'
+description: 'Update Link'
 ---
+
+Update Link
+
+```http
+PUT https://services.leadconnectorhq.com/links/{linkId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="linkId" type="string" required>
+Link Id
+</ParamField>
+
+## Body
+
+<ParamField body="name" type="string" required default='first tag'>
+</ParamField>
+
+<ParamField body="redirectTo" type="string" required default='https://www.google.com/'>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="link" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='n4AriwEnFrGh3tu08W0U'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='first tag'>
+</ResponseField>
+
+<ResponseField name="redirectTo" type="string" default='https://www.google.com/'>
+</ResponseField>
+
+<ResponseField name="fieldKey" type="string" default='{{trigger_link.n4AriwEnFrGh3tu08W0U}}'>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='ve9EPM428h8vShlRW1KT'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "link": {
+    "id": "n4AriwEnFrGh3tu08W0U",
+    "name": "first tag",
+    "redirectTo": "https://www.google.com/",
+    "fieldKey": "{{trigger_link.n4AriwEnFrGh3tu08W0U}}",
+    "locationId": "ve9EPM428h8vShlRW1KT"
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/links/YOUR_linkId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "first tag",
+  "redirectTo": "https://www.google.com/"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/links/YOUR_linkId', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"name": "first tag", "redirectTo": "https://www.google.com/"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/links/YOUR_linkId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"name": "first tag", "redirectTo": "https://www.google.com/"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/links/YOUR_linkId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'name': 'first tag', 'redirectTo': 'https://www.google.com/'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

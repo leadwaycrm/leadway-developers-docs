@@ -1,4 +1,287 @@
 ---
 title: 'Send a new message'
-openapi: 'POST /conversations/messages'
+description: 'Post the necessary fields for the API to send a new message.'
 ---
+
+Post the necessary fields for the API to send a new message.
+
+```http
+POST https://services.leadconnectorhq.com/conversations/messages
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="type" type="string" required default='Email'>
+Type of message being sent Posibles valores: 'SMS', 'RCS', 'Email', 'WhatsApp', 'IG', 'FB', 'Custom', 'Live_Chat', 'TIKTOK'
+</ParamField>
+
+<ParamField body="subType" type="object" required default='Email'>
+Type of message being sent
+</ParamField>
+
+<ParamField body="contactId" type="string" required default='abc123def456'>
+ID of the contact receiving the message
+</ParamField>
+
+<ParamField body="appointmentId" type="string" default='appt123'>
+ID of the associated appointment
+</ParamField>
+
+<ParamField body="attachments" type="string[]">
+Array of attachment URLs
+</ParamField>
+
+<ParamField body="emailFrom" type="string" default='sender@company.com'>
+Email address to send from
+</ParamField>
+
+<ParamField body="emailCc" type="string[]">
+Array of CC email addresses
+</ParamField>
+
+<ParamField body="emailBcc" type="string[]">
+Array of BCC email addresses
+</ParamField>
+
+<ParamField body="html" type="string" default='<p>Hello World</p>'>
+HTML content of the message
+</ParamField>
+
+<ParamField body="message" type="string" default='Hello, how can I help you today?'>
+Text content of the message
+</ParamField>
+
+<ParamField body="subject" type="string" default='Important Update'>
+Subject line for email messages
+</ParamField>
+
+<ParamField body="replyMessageId" type="string" default='msg123'>
+ID of message being replied to
+</ParamField>
+
+<ParamField body="templateId" type="string" default='template123'>
+ID of message template
+</ParamField>
+
+<ParamField body="threadId" type="string" default='thread123'>
+ID of message thread. For email messages, this is the message ID that contains multiple email messages in the thread
+</ParamField>
+
+<ParamField body="scheduledTimestamp" type="number" default='1669287863'>
+UTC Timestamp (in seconds) at which the message should be scheduled
+</ParamField>
+
+<ParamField body="conversationProviderId" type="string" default='provider123'>
+ID of conversation provider
+</ParamField>
+
+<ParamField body="emailTo" type="string" default='recipient@company.com'>
+Email address to send to, if different from contact's primary email. This should be a valid email address associated with the contact.
+</ParamField>
+
+<ParamField body="customSubtypeId" type="string" default='507f1f77bcf86cd799439011'>
+Custom subtype ID for email unsubscription preferences. Only applies to email messages.
+</ParamField>
+
+<ParamField body="emailReplyMode" type="string" default='reply_all'>
+Mode for email replies Posibles valores: 'reply', 'reply_all'
+</ParamField>
+
+<ParamField body="fromNumber" type="string" default='+1499499299'>
+Phone number used as the sender number for outbound messages
+</ParamField>
+
+<ParamField body="toNumber" type="string" default='+1439499299'>
+Recipient phone number for outbound messages
+</ParamField>
+
+<ParamField body="forward" type="object">
+Forwarding configuration for emails
+</ParamField>
+
+<ParamField body="status" type="string" required default='delivered'>
+Message status Posibles valores: 'delivered', 'failed', 'pending', 'read'
+</ParamField>
+
+<ParamField body="usesNativeSchedulingAi" type="boolean" default='False'>
+Whether the scheduled email uses native AI for the email scheduling 
+</ParamField>
+
+<ParamField body="optimizationPeriod" type="string" default='24h'>
+Optimization period in hours (24h, 48h, or 72h) Posibles valores: '24h', '48h', '72h'
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Created the message">
+<ResponseField name="conversationId" type="string" required default='ABC12h2F6uBrIkfXYazb'>
+Conversation ID.
+</ResponseField>
+
+<ResponseField name="emailMessageId" type="string" default='rnGyqh2F6uBrIkfhFo9A'>
+This contains the email message id (only for Email type). Use this ID to send inbound replies to GHL to create a threaded email.
+</ResponseField>
+
+<ResponseField name="messageId" type="string" required default='t22c6DQcTDf3MjRhwf77'>
+This is the main Message ID
+</ResponseField>
+
+<ResponseField name="messageIds" type="string[]">
+When sending via the GMB channel, we will be returning list of `messageIds` instead of single `messageId`.
+</ResponseField>
+
+<ResponseField name="msg" type="string" default='Message queued successfully.'>
+Additional response message when sending a workflow message
+</ResponseField>
+
+<ResponseField name="forwardData" type="object">
+Optional metadata for forwarded email
+</ResponseField>
+
+<ResponseField name="status" type="string" required default='delivered'>
+Message status Posibles valores: 'delivered', 'failed', 'pending', 'read'
+</ResponseField>
+
+```json
+{
+  "conversationId": "ABC12h2F6uBrIkfXYazb",
+  "emailMessageId": "rnGyqh2F6uBrIkfhFo9A",
+  "messageId": "t22c6DQcTDf3MjRhwf77",
+  "messageIds": [
+    "string"
+  ],
+  "msg": "Message queued successfully.",
+  "forwardData": {
+    "forwardWholeThread": false,
+    "messageId": "t22c6DQcTDf3MjRhwf77",
+    "emailMessageId": "rnGyqh2F6uBrIkfhFo9A",
+    "forwardToEmail": "recipient@example.com",
+    "recipientContactId": "DEF56h2F6uBrIkfXYacd"
+  },
+  "status": "delivered"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/conversations/messages' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "type": "Email",
+  "subType": "Email",
+  "contactId": "abc123def456",
+  "appointmentId": "appt123",
+  "attachments": [
+    "https://storage.com/file1.pdf",
+    "https://storage.com/file2.jpg"
+  ],
+  "emailFrom": "sender@company.com",
+  "emailCc": [
+    "cc1@company.com",
+    "cc2@company.com"
+  ],
+  "emailBcc": [
+    "bcc1@company.com",
+    "bcc2@company.com"
+  ],
+  "html": "<p>Hello World</p>",
+  "message": "Hello, how can I help you today?",
+  "subject": "Important Update",
+  "replyMessageId": "msg123",
+  "templateId": "template123",
+  "threadId": "thread123",
+  "scheduledTimestamp": 1669287863,
+  "conversationProviderId": "provider123",
+  "emailTo": "recipient@company.com",
+  "customSubtypeId": "507f1f77bcf86cd799439011",
+  "emailReplyMode": "reply_all",
+  "fromNumber": "+1499499299",
+  "toNumber": "+1439499299",
+  "forward": {
+    "isForwarded": true,
+    "forwardWholeThread": false,
+    "messageId": "t22c6DQcTDf3MjRhwf77",
+    "emailMessageId": "rnGyqh2F6uBrIkfhFo9A",
+    "toEmail": "forward@example.com",
+    "recipientContactId": "DEF56h2F6uBrIkfXYacd"
+  },
+  "status": "delivered",
+  "usesNativeSchedulingAi": false,
+  "optimizationPeriod": "24h"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/conversations/messages', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"type": "Email", "subType": "Email", "contactId": "abc123def456", "appointmentId": "appt123", "attachments": ["https://storage.com/file1.pdf", "https://storage.com/file2.jpg"], "emailFrom": "sender@company.com", "emailCc": ["cc1@company.com", "cc2@company.com"], "emailBcc": ["bcc1@company.com", "bcc2@company.com"], "html": "<p>Hello World</p>", "message": "Hello, how can I help you today?", "subject": "Important Update", "replyMessageId": "msg123", "templateId": "template123", "threadId": "thread123", "scheduledTimestamp": 1669287863, "conversationProviderId": "provider123", "emailTo": "recipient@company.com", "customSubtypeId": "507f1f77bcf86cd799439011", "emailReplyMode": "reply_all", "fromNumber": "+1499499299", "toNumber": "+1439499299", "forward": {"isForwarded": true, "forwardWholeThread": false, "messageId": "t22c6DQcTDf3MjRhwf77", "emailMessageId": "rnGyqh2F6uBrIkfhFo9A", "toEmail": "forward@example.com", "recipientContactId": "DEF56h2F6uBrIkfXYacd"}, "status": "delivered", "usesNativeSchedulingAi": false, "optimizationPeriod": "24h"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/conversations/messages',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"type": "Email", "subType": "Email", "contactId": "abc123def456", "appointmentId": "appt123", "attachments": ["https://storage.com/file1.pdf", "https://storage.com/file2.jpg"], "emailFrom": "sender@company.com", "emailCc": ["cc1@company.com", "cc2@company.com"], "emailBcc": ["bcc1@company.com", "bcc2@company.com"], "html": "<p>Hello World</p>", "message": "Hello, how can I help you today?", "subject": "Important Update", "replyMessageId": "msg123", "templateId": "template123", "threadId": "thread123", "scheduledTimestamp": 1669287863, "conversationProviderId": "provider123", "emailTo": "recipient@company.com", "customSubtypeId": "507f1f77bcf86cd799439011", "emailReplyMode": "reply_all", "fromNumber": "+1499499299", "toNumber": "+1439499299", "forward": {"isForwarded": true, "forwardWholeThread": false, "messageId": "t22c6DQcTDf3MjRhwf77", "emailMessageId": "rnGyqh2F6uBrIkfhFo9A", "toEmail": "forward@example.com", "recipientContactId": "DEF56h2F6uBrIkfXYacd"}, "status": "delivered", "usesNativeSchedulingAi": false, "optimizationPeriod": "24h"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/conversations/messages');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'type': 'Email', 'subType': 'Email', 'contactId': 'abc123def456', 'appointmentId': 'appt123', 'attachments': ['https://storage.com/file1.pdf', 'https://storage.com/file2.jpg'], 'emailFrom': 'sender@company.com', 'emailCc': ['cc1@company.com', 'cc2@company.com'], 'emailBcc': ['bcc1@company.com', 'bcc2@company.com'], 'html': '<p>Hello World</p>', 'message': 'Hello, how can I help you today?', 'subject': 'Important Update', 'replyMessageId': 'msg123', 'templateId': 'template123', 'threadId': 'thread123', 'scheduledTimestamp': 1669287863, 'conversationProviderId': 'provider123', 'emailTo': 'recipient@company.com', 'customSubtypeId': '507f1f77bcf86cd799439011', 'emailReplyMode': 'reply_all', 'fromNumber': '+1499499299', 'toNumber': '+1439499299', 'forward': {'isForwarded': true, 'forwardWholeThread': false, 'messageId': 't22c6DQcTDf3MjRhwf77', 'emailMessageId': 'rnGyqh2F6uBrIkfhFo9A', 'toEmail': 'forward@example.com', 'recipientContactId': 'DEF56h2F6uBrIkfXYacd'}, 'status': 'delivered', 'usesNativeSchedulingAi': false, 'optimizationPeriod': '24h'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

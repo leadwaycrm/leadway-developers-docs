@@ -1,4 +1,252 @@
 ---
 title: 'Execute Agent (Deprecated)'
-openapi: 'POST /agent-studio/public-api/agents/{agentId}/execute'
+description: '**Deprecated endpoint - use POST /agent/:agentId/execute instead.**  Executes the specified agent and returns a non-streaming JSON response with the complete agent output. The agent must be in active '
 ---
+
+**Deprecated endpoint - use POST /agent/:agentId/execute instead.**
+
+Executes the specified agent and returns a non-streaming JSON response with the complete agent output. The agent must be in active status and belong to the specified account. locationId is required in the request body. 
+
+**Session Management:**
+- For the first message in a new session, do not include the `executionId` in the request payload.
+- The API will return an `executionId` along with the agent response, which uniquely identifies this conversation session.
+- To continue the conversation within the same session, include the `executionId` from the previous response in subsequent requests.
+
+```http
+POST https://services.leadconnectorhq.com/agent-studio/public-api/agents/{agentId}/execute
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="agentId" type="string" required default='p1q2r3s4t5u6v7w8x9y0z1a2'>
+</ParamField>
+
+## Query parameters
+
+<ParamField query="source" type="string" default='api'>
+</ParamField>
+
+## Body
+
+<ParamField body="message" type="string" required default='How can you help me with my marketing?'>
+Message to send to the agent
+</ParamField>
+
+<ParamField body="executionId" type="string" default='a1b2c3d4e5f6g7h8i9j0k1l2'>
+Unique session identifier that maintains conversational context across multiple interactions within the same agent session. Omit this field for the first message in a new session. Include the executionId returned from the previous response to maintain context in subsequent messages.
+</ParamField>
+
+<ParamField body="inputVariables" type="object">
+Input variables to pass to the agent. These should match the input variables defined in the agent configuration.
+</ParamField>
+
+<ParamField body="versionId" type="string" default='b2b1c1d2-3e4f-5a6b-7c8d-9e0f1a2b3c4d'>
+Published version ID to execute. If not provided, the latest published production version will be used.
+</ParamField>
+
+<ParamField body="attachments" type="object[]">
+Attachments for the message
+<Expandable title="cada item">
+<ParamField body="type" type="string" required default='image'>
+Type of attachment
+</ParamField>
+
+<ParamField body="imageUrl" type="string" required default='https://example.com/image.png'>
+URL of the image attachment
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='C2QujeCh8ZnC7al2InWR'>
+Account ID
+</ParamField>
+
+<ParamField body="contactId" type="string" default='cid_abc123def456'>
+Contact ID to associate with this execution. When provided, contact data will be hydrated and made available to the agent.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Agent executed successfully">
+<ResponseField name="success" type="boolean" required default='True'>
+Success status
+</ResponseField>
+
+<ResponseField name="executionId" type="string" required default='a1b2c3d4e5f6g7h8i9j0k1l2'>
+Unique session identifier that maintains conversational context across multiple interactions within the same agent session. Use this ID in subsequent requests to continue the conversation.
+</ResponseField>
+
+<ResponseField name="interactionId" type="string" required default='m9n8o7p6q5r4s3t2u1v0w9x8'>
+Unique identifier for a single interaction cycle, consisting of one user input and the corresponding agent response. Each message exchange generates a new interactionId.
+</ResponseField>
+
+<ResponseField name="response" type="string" required default='I can help you with various tasks...'>
+Agent response text
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='text'>
+Response type
+</ResponseField>
+
+<ResponseField name="nextExpectedInput" type="string" required default='text'>
+Expected input type for next interaction
+</ResponseField>
+
+<ResponseField name="goalCompletion" type="boolean" required default='False'>
+When end node is added in the graph, this will be true if the agent reached the end node in the graph
+</ResponseField>
+
+<ResponseField name="executionStatus" type="string" required default='completed'>
+Execution status
+</ResponseField>
+
+<ResponseField name="flowSwitch" type="boolean" required default='False'>
+Whether flow was switched
+</ResponseField>
+
+<ResponseField name="attachments" type="object[]" required>
+Response attachments
+</ResponseField>
+
+<ResponseField name="generativeOutputs" type="object[]" required>
+Generated outputs
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "executionId": "a1b2c3d4e5f6g7h8i9j0k1l2",
+  "interactionId": "m9n8o7p6q5r4s3t2u1v0w9x8",
+  "response": "I can help you with various tasks...",
+  "type": "text",
+  "nextExpectedInput": "text",
+  "goalCompletion": false,
+  "executionStatus": "completed",
+  "flowSwitch": false,
+  "attachments": [],
+  "generativeOutputs": []
+}
+```
+</Accordion>
+
+<Accordion title="400 - Agent is not active or invalid request - locationId is required">
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="403 - User does not have required scopes to execute this agent">
+</Accordion>
+
+<Accordion title="404 - Agent not found">
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="500 - Internal Server Error">
+<ResponseField name="statusCode" type="number" default='500'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Internal Server Error'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId/execute' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "message": "How can you help me with my marketing?",
+  "executionId": "a1b2c3d4e5f6g7h8i9j0k1l2",
+  "inputVariables": {
+    "customerName": "John Doe",
+    "orderNumber": "ORD-12345"
+  },
+  "versionId": "b2b1c1d2-3e4f-5a6b-7c8d-9e0f1a2b3c4d",
+  "attachments": [
+    {
+      "type": "image",
+      "imageUrl": "https://example.com/image.png"
+    }
+  ],
+  "locationId": "C2QujeCh8ZnC7al2InWR",
+  "contactId": "cid_abc123def456"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId/execute', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"message": "How can you help me with my marketing?", "executionId": "a1b2c3d4e5f6g7h8i9j0k1l2", "inputVariables": {"customerName": "John Doe", "orderNumber": "ORD-12345"}, "versionId": "b2b1c1d2-3e4f-5a6b-7c8d-9e0f1a2b3c4d", "attachments": [{"type": "image", "imageUrl": "https://example.com/image.png"}], "locationId": "C2QujeCh8ZnC7al2InWR", "contactId": "cid_abc123def456"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId/execute',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"message": "How can you help me with my marketing?", "executionId": "a1b2c3d4e5f6g7h8i9j0k1l2", "inputVariables": {"customerName": "John Doe", "orderNumber": "ORD-12345"}, "versionId": "b2b1c1d2-3e4f-5a6b-7c8d-9e0f1a2b3c4d", "attachments": [{"type": "image", "imageUrl": "https://example.com/image.png"}], "locationId": "C2QujeCh8ZnC7al2InWR", "contactId": "cid_abc123def456"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/agent-studio/public-api/agents/YOUR_agentId/execute');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'message': 'How can you help me with my marketing?', 'executionId': 'a1b2c3d4e5f6g7h8i9j0k1l2', 'inputVariables': {'customerName': 'John Doe', 'orderNumber': 'ORD-12345'}, 'versionId': 'b2b1c1d2-3e4f-5a6b-7c8d-9e0f1a2b3c4d', 'attachments': [{'type': 'image', 'imageUrl': 'https://example.com/image.png'}], 'locationId': 'C2QujeCh8ZnC7al2InWR', 'contactId': 'cid_abc123def456'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

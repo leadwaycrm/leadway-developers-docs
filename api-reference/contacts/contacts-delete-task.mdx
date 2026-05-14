@@ -1,4 +1,106 @@
 ---
 title: 'Delete Task'
-openapi: 'DELETE /contacts/{contactId}/tasks/{taskId}'
+description: 'Delete Task'
 ---
+
+Delete Task
+
+```http
+DELETE https://services.leadconnectorhq.com/contacts/{contactId}/tasks/{taskId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="contactId" type="string" required default='sx6wyHhbFdRXh302LLNR'>
+Contact Id
+</ParamField>
+
+<ParamField path="taskId" type="string" required default='ocQHyuzHvysMo5N5VsXc'>
+Task Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="succeded" type="boolean" default='True'>
+</ResponseField>
+
+```json
+{
+  "succeded": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X DELETE 'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId', {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'DELETE',
+    'https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/YOUR_contactId/tasks/YOUR_taskId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'DELETE',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

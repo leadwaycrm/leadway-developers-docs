@@ -1,4 +1,105 @@
 ---
 title: 'Fetch List of Redirects'
-openapi: 'GET /funnels/lookup/redirect/list'
+description: 'Retrieves a list of all URL redirects based on the given query parameters.'
 ---
+
+Retrieves a list of all URL redirects based on the given query parameters.
+
+```http
+GET https://services.leadconnectorhq.com/funnels/lookup/redirect/list
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='6p2RxpgtMKQwO3E6IUaT'>
+</ParamField>
+
+<ParamField query="limit" type="number" required default='20'>
+</ParamField>
+
+<ParamField query="offset" type="number" required default='10'>
+</ParamField>
+
+<ParamField query="search" type="string" default='example.com/test'>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response - List of URL redirects returned">
+<ResponseField name="data" type="object" required>
+Object containing the count of redirects and an array of redirect data
+</ResponseField>
+
+```json
+{
+  "data": {
+    "count": 42,
+    "data": []
+  }
+}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity - The provided data is invalid or incomplete">
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/funnels/lookup/redirect/list' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/funnels/lookup/redirect/list', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/funnels/lookup/redirect/list',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/funnels/lookup/redirect/list');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

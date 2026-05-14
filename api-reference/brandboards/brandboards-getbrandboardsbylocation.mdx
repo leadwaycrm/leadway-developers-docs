@@ -1,4 +1,175 @@
 ---
 title: 'Get Brand Boards'
-openapi: 'GET /brand-boards/{locationId}'
+description: 'Retrieves all Brand Boards for a specific account'
 ---
+
+Retrieves all Brand Boards for a specific account
+
+```http
+GET https://services.leadconnectorhq.com/brand-boards/{locationId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="locationId" type="string" required>
+</ParamField>
+
+## Query parameters
+
+<ParamField query="limit" type="number" default='10'>
+Maximum number of brand boards to return
+</ParamField>
+
+<ParamField query="offset" type="number" default='0'>
+Number of brand boards to skip for pagination
+</ParamField>
+
+<ParamField query="search" type="string" default='brandboard'>
+Search term to filter brand boards by name
+</ParamField>
+
+<ParamField query="deleted" type="boolean" default='False'>
+Include deleted brand boards in results
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Success">
+<ResponseField name="brandBoards" type="object[]" required>
+Array of brand boards for the account
+<Expandable title="cada item">
+<ResponseField name="_id" type="string" required default='507f1f77bcf86cd799439011'>
+Brand board ID
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='My Brand Board'>
+Brand board name
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2024-01-05T12:00:00.000Z'>
+Last update timestamp
+</ResponseField>
+
+<ResponseField name="default" type="boolean" default='False'>
+Whether this is the default brand board for the account
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+Metadata about the brand board
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="totalCount" type="number" required default='42'>
+Total number of brand boards matching the query
+</ResponseField>
+
+```json
+{
+  "brandBoards": [
+    {
+      "_id": "507f1f77bcf86cd799439011",
+      "name": "My Brand Board",
+      "updatedAt": "2024-01-05T12:00:00.000Z",
+      "default": false
+    }
+  ],
+  "totalCount": 42
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="403 - The token does not have access to this account">
+<ResponseField name="statusCode" type="number" default='403'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='The token does not have access to this account'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 403,
+  "message": "The token does not have access to this account"
+}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/brand-boards/YOUR_locationId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/brand-boards/YOUR_locationId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/brand-boards/YOUR_locationId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/brand-boards/YOUR_locationId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,232 @@
 ---
 title: 'Import Courses'
-openapi: 'POST /courses/courses-exporter/public/import'
+description: 'Import Courses through public channels'
 ---
+
+Import Courses through public channels
+
+```http
+POST https://services.leadconnectorhq.com/courses/courses-exporter/public/import
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required>
+</ParamField>
+
+<ParamField body="userId" type="string">
+</ParamField>
+
+<ParamField body="products" type="object[]" required>
+<Expandable title="cada item">
+<ParamField body="title" type="string" required>
+</ParamField>
+
+<ParamField body="description" type="string" required>
+</ParamField>
+
+<ParamField body="imageUrl" type="string">
+</ParamField>
+
+<ParamField body="categories" type="object[]" required>
+<Expandable title="cada item">
+<ParamField body="title" type="string" required>
+</ParamField>
+
+<ParamField body="visibility" type="string" required>
+Posibles valores: 'published', 'draft'
+</ParamField>
+
+<ParamField body="thumbnailUrl" type="string">
+</ParamField>
+
+<ParamField body="posts" type="object[]">
+<Expandable title="cada item">
+<ParamField body="title" type="string" required>
+</ParamField>
+
+<ParamField body="visibility" type="string" required>
+Posibles valores: 'published', 'draft'
+</ParamField>
+
+<ParamField body="thumbnailUrl" type="string">
+</ParamField>
+
+<ParamField body="contentType" type="string" required>
+Posibles valores: 'video', 'assignment', 'quiz'
+</ParamField>
+
+<ParamField body="description" type="string" required>
+</ParamField>
+
+<ParamField body="bucketVideoUrl" type="string">
+</ParamField>
+
+<ParamField body="postMaterials" type="object[]">
+<Expandable title="cada item">
+<ParamField body="title" type="string" required>
+</ParamField>
+
+<ParamField body="type" type="string" required>
+Posibles valores: 'pdf', 'image', 'docx', 'pptx', 'xlsx', 'html', 'dotx', 'epub', 'webp', 'gdoc', 'mp3', 'doc', 'txt', 'zip', 'ppt', 'key', 'htm', 'xls', 'odp', 'odt', 'rtf', 'm4a', 'ods', 'mp4', 'ai', 'avi', 'mov', 'wmv', 'mkv', 'wav', 'flac', 'ogg', 'png', 'jpeg', 'jpg', 'gif', 'bmp', 'tiff', 'svg', 'odg', 'sxw', 'sxc', 'sxi', 'rar', '7z', 'json', 'xml', 'csv', 'md', 'obj', 'stl', 'woff', 'ttf'
+</ParamField>
+
+<ParamField body="url" type="string" required>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="subCategories" type="object[]">
+<Expandable title="cada item">
+<ParamField body="title" type="string" required>
+</ParamField>
+
+<ParamField body="visibility" type="string" required>
+Posibles valores: 'published', 'draft'
+</ParamField>
+
+<ParamField body="thumbnailUrl" type="string">
+</ParamField>
+
+<ParamField body="posts" type="object[]">
+<Expandable title="cada item">
+<ParamField body="title" type="string" required>
+</ParamField>
+
+<ParamField body="visibility" type="string" required>
+Posibles valores: 'published', 'draft'
+</ParamField>
+
+<ParamField body="thumbnailUrl" type="string">
+</ParamField>
+
+<ParamField body="contentType" type="string" required>
+Posibles valores: 'video', 'assignment', 'quiz'
+</ParamField>
+
+<ParamField body="description" type="string" required>
+</ParamField>
+
+<ParamField body="bucketVideoUrl" type="string">
+</ParamField>
+
+<ParamField body="postMaterials" type="object[]">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="instructorDetails" type="object">
+<Expandable title="propiedades">
+<ParamField body="name" type="string" required>
+</ParamField>
+
+<ParamField body="description" type="string" required>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Response">
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/courses/courses-exporter/public/import' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "string",
+  "userId": "string",
+  "products": [
+    {
+      "title": "string",
+      "description": "string",
+      "imageUrl": "string",
+      "categories": [
+        {}
+      ],
+      "instructorDetails": {
+        "name": "string",
+        "description": "string"
+      }
+    }
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/courses/courses-exporter/public/import', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "string", "userId": "string", "products": [{"title": "string", "description": "string", "imageUrl": "string", "categories": [{}], "instructorDetails": {"name": "string", "description": "string"}}]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/courses/courses-exporter/public/import',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "string", "userId": "string", "products": [{"title": "string", "description": "string", "imageUrl": "string", "categories": [{}], "instructorDetails": {"name": "string", "description": "string"}}]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/courses/courses-exporter/public/import');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'string', 'userId': 'string', 'products': [{'title': 'string', 'description': 'string', 'imageUrl': 'string', 'categories': [{}], 'instructorDetails': {'name': 'string', 'description': 'string'}}]}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

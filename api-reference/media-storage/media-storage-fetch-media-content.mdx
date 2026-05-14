@@ -1,4 +1,134 @@
 ---
 title: 'Get List of Files/ Folders'
-openapi: 'GET /medias/files'
+description: 'Fetches list of files and folders from the media storage'
 ---
+
+Fetches list of files and folders from the media storage
+
+```http
+GET https://services.leadconnectorhq.com/medias/files
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="offset" type="string" default='5'>
+Number of files to skip in listing
+</ParamField>
+
+<ParamField query="limit" type="string" default='10'>
+Number of files to show in the listing
+</ParamField>
+
+<ParamField query="sortBy" type="string" required default='createdAt'>
+Field to sorting the file listing by
+</ParamField>
+
+<ParamField query="sortOrder" type="string" required default='asc'>
+Direction in which file needs to be sorted
+</ParamField>
+
+<ParamField query="type" type="string" required default='file'>
+Type
+</ParamField>
+
+<ParamField query="query" type="string" default='Test file'>
+Query text
+</ParamField>
+
+<ParamField query="altType" type="string" required default='account'>
+AltType
+</ParamField>
+
+<ParamField query="altId" type="string" required>
+account Id
+</ParamField>
+
+<ParamField query="parentId" type="string">
+parent id or folder id
+</ParamField>
+
+<ParamField query="fetchAll" type="string" default='false'>
+Fetch all files or folders
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="files" type="string[]" required>
+Array of File Objects
+</ResponseField>
+
+```json
+{
+  "files": {
+    "altId": "locationId",
+    "altType": "account",
+    "name": "file name",
+    "parentId": "parent folder id",
+    "url": "file url",
+    "path": "file path"
+  }
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/medias/files' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/medias/files', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/medias/files',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/medias/files');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

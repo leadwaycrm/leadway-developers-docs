@@ -1,4 +1,390 @@
 ---
 title: 'Create Product'
-openapi: 'POST /products/'
+description: 'The "Create Product" API allows adding a new product to the system. Use this endpoint to create a product with the specified details. Ensure that the required information is provided in the request pa'
 ---
+
+The "Create Product" API allows adding a new product to the system. Use this endpoint to create a product with the specified details. Ensure that the required information is provided in the request payload.
+
+```http
+POST https://services.leadconnectorhq.com/products/
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="name" type="string" required default='Awesome Product'>
+The name of the product.
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='3SwdhCsvxI8Au3KsPJt6'>
+The unique identifier for the account.
+</ParamField>
+
+<ParamField body="description" type="string" default='Product description goes here.'>
+A brief description of the product.
+</ParamField>
+
+<ParamField body="productType" type="string" required>
+Posibles valores: 'DIGITAL', 'PHYSICAL', 'SERVICE', 'PHYSICAL/DIGITAL'
+</ParamField>
+
+<ParamField body="image" type="string" default='https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png'>
+The URL for the product image.
+</ParamField>
+
+<ParamField body="statementDescriptor" type="string" default='abcde'>
+The statement descriptor for the product.
+</ParamField>
+
+<ParamField body="availableInStore" type="boolean" default='True'>
+Indicates whether the product is available in-store.
+</ParamField>
+
+<ParamField body="medias" type="object[]">
+An array of medias for the product.
+<Expandable title="cada item">
+<ParamField body="id" type="string" required default='fzrgusiuu0m'>
+The unique identifier for the media.
+</ParamField>
+
+<ParamField body="title" type="string" default='1dd7dcd0-e71d-4cf7-a06b-6d47723d6a29.png'>
+The title of the media file.
+</ParamField>
+
+<ParamField body="url" type="string" required default='https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/sample.png'>
+The URL where the media file is stored.
+</ParamField>
+
+<ParamField body="type" type="string" required default='image'>
+The type of the media file (e.g., image, video will be supporting soon). Posibles valores: 'image', 'video'
+</ParamField>
+
+<ParamField body="isFeatured" type="boolean" default='True'>
+Indicates whether the media is featured.
+</ParamField>
+
+<ParamField body="priceIds" type="array[]" default='6578278e879ad2646715ba9c'>
+Mongo ObjectIds of the prices for which the media is assigned
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="variants" type="object[]">
+An array of variants for the product.
+<Expandable title="cada item">
+<ParamField body="id" type="string" required default='38s63qmxfr4'>
+A unique identifier for the variant.
+</ParamField>
+
+<ParamField body="name" type="string" required default='Size'>
+The name of the variant.
+</ParamField>
+
+<ParamField body="options" type="object[]" required>
+An array of options for the variant.
+<Expandable title="cada item">
+<ParamField body="id" type="string" required default='h4z7u0im2q8'>
+The unique identifier for the option.
+</ParamField>
+
+<ParamField body="name" type="string" required default='XL'>
+The name of the option.
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="collectionIds" type="string[]">
+An array of category Ids for the product
+</ParamField>
+
+<ParamField body="isTaxesEnabled" type="boolean" default='True'>
+Are there any taxes attached to the product. If this is true, taxes array cannot be empty.
+</ParamField>
+
+<ParamField body="taxes" type="string[]">
+List of ids of Taxes attached to the Product. If taxes are passed, isTaxesEnabled should be true.
+</ParamField>
+
+<ParamField body="automaticTaxCategoryId" type="string" default='65d71377c326ea78e1c47df5'>
+Tax category ID for Automatic taxes calculation.
+</ParamField>
+
+<ParamField body="isLabelEnabled" type="boolean" default='True'>
+Is the product label enabled. If this is true, label object cannot be empty.
+</ParamField>
+
+<ParamField body="label" type="object">
+Details for Product Label
+</ParamField>
+
+<ParamField body="slug" type="string" default='awesome-product'>
+The slug using which the product navigation will be handled
+</ParamField>
+
+<ParamField body="seo" type="object">
+SEO data for the product that will be displayed in the preview
+</ParamField>
+
+<ParamField body="taxInclusive" type="boolean" default='True'>
+Whether the taxes should be included in the purchase price
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="_id" type="string" required default='655b33a82209e60b6adb87a5'>
+The unique identifier for the product.
+</ResponseField>
+
+<ResponseField name="description" type="string" default='This is a really awesome product'>
+product description
+</ResponseField>
+
+<ResponseField name="variants" type="object[]">
+An array of variants for the product.
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='38s63qmxfr4'>
+A unique identifier for the variant.
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Size'>
+The name of the variant.
+</ResponseField>
+
+<ResponseField name="options" type="object[]" required>
+An array of options for the variant.
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='h4z7u0im2q8'>
+The unique identifier for the option.
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='XL'>
+The name of the option.
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='3SwdhCsvxI8Au3KsPJt6'>
+The unique identifier for the account.
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Awesome Product'>
+The name of the product.
+</ResponseField>
+
+<ResponseField name="productType" type="string" required default='PHYSICAL'>
+The type of the product (e.g., PHYSICAL).
+</ResponseField>
+
+<ResponseField name="availableInStore" type="boolean" default='True'>
+Indicates whether the product is available in-store.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-11-20T10:23:36.515Z'>
+The creation timestamp of the product.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2024-01-23T09:57:04.846Z'>
+The last update timestamp of the product.
+</ResponseField>
+
+<ResponseField name="statementDescriptor" type="string" default='abcde'>
+The statement descriptor for the product.
+</ResponseField>
+
+<ResponseField name="image" type="string" default='https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png'>
+The URL for the product image.
+</ResponseField>
+
+<ResponseField name="collectionIds" type="string[]">
+An array of category Ids for the product
+</ResponseField>
+
+<ResponseField name="isTaxesEnabled" type="boolean" default='True'>
+The field indicates whether taxes are enabled for the product or not.
+</ResponseField>
+
+<ResponseField name="taxes" type="string[]">
+An array of ids of Taxes attached to the Product. If the expand query includes tax, the taxes will be of type `ProductTaxDto`. Please refer to the `ProductTaxDto` for additional details.
+</ResponseField>
+
+<ResponseField name="automaticTaxCategoryId" type="string" default='65d71377c326ea78e1c47df5'>
+Tax category ID for Automatic taxes calculation.
+</ResponseField>
+
+<ResponseField name="label" type="object">
+The Product label details
+</ResponseField>
+
+<ResponseField name="slug" type="string" default='washing-machine'>
+The slug of the product by which the product will be navigated
+</ResponseField>
+
+```json
+{
+  "_id": "655b33a82209e60b6adb87a5",
+  "description": "This is a really awesome product",
+  "variants": [
+    {
+      "id": "38s63qmxfr4",
+      "name": "Size",
+      "options": [
+        {}
+      ]
+    }
+  ],
+  "locationId": "3SwdhCsvxI8Au3KsPJt6",
+  "name": "Awesome Product",
+  "productType": "PHYSICAL",
+  "availableInStore": true,
+  "createdAt": "2023-11-20T10:23:36.515Z",
+  "updatedAt": "2024-01-23T09:57:04.846Z",
+  "statementDescriptor": "abcde",
+  "image": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png",
+  "collectionIds": [
+    "65d71377c326ea78e1c47df5",
+    "65d71377c326ea78e1c47d34"
+  ],
+  "isTaxesEnabled": true,
+  "taxes": [
+    "654492a4e6bef380114de15a"
+  ],
+  "automaticTaxCategoryId": "65d71377c326ea78e1c47df5",
+  "slug": "washing-machine"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/products/' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Awesome Product",
+  "locationId": "3SwdhCsvxI8Au3KsPJt6",
+  "description": "Product description goes here.",
+  "productType": "DIGITAL",
+  "image": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png",
+  "statementDescriptor": "abcde",
+  "availableInStore": true,
+  "medias": [
+    {
+      "id": "fzrgusiuu0m",
+      "title": "1dd7dcd0-e71d-4cf7-a06b-6d47723d6a29.png",
+      "url": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/sample.png",
+      "type": "image",
+      "isFeatured": true,
+      "priceIds": "6578278e879ad2646715ba9c"
+    }
+  ],
+  "variants": [
+    {
+      "id": "38s63qmxfr4",
+      "name": "Size",
+      "options": [
+        {}
+      ]
+    }
+  ],
+  "collectionIds": [
+    "65d71377c326ea78e1c47df5",
+    "65d71377c326ea78e1c47d34"
+  ],
+  "isTaxesEnabled": true,
+  "taxes": [
+    "654492a4e6bef380114de15a"
+  ],
+  "automaticTaxCategoryId": "65d71377c326ea78e1c47df5",
+  "isLabelEnabled": true,
+  "slug": "awesome-product",
+  "taxInclusive": true
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/products/', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"name": "Awesome Product", "locationId": "3SwdhCsvxI8Au3KsPJt6", "description": "Product description goes here.", "productType": "DIGITAL", "image": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png", "statementDescriptor": "abcde", "availableInStore": true, "medias": [{"id": "fzrgusiuu0m", "title": "1dd7dcd0-e71d-4cf7-a06b-6d47723d6a29.png", "url": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/sample.png", "type": "image", "isFeatured": true, "priceIds": "6578278e879ad2646715ba9c"}], "variants": [{"id": "38s63qmxfr4", "name": "Size", "options": [{}]}], "collectionIds": ["65d71377c326ea78e1c47df5", "65d71377c326ea78e1c47d34"], "isTaxesEnabled": true, "taxes": ["654492a4e6bef380114de15a"], "automaticTaxCategoryId": "65d71377c326ea78e1c47df5", "isLabelEnabled": true, "slug": "awesome-product", "taxInclusive": true}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/products/',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"name": "Awesome Product", "locationId": "3SwdhCsvxI8Au3KsPJt6", "description": "Product description goes here.", "productType": "DIGITAL", "image": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png", "statementDescriptor": "abcde", "availableInStore": true, "medias": [{"id": "fzrgusiuu0m", "title": "1dd7dcd0-e71d-4cf7-a06b-6d47723d6a29.png", "url": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/sample.png", "type": "image", "isFeatured": true, "priceIds": "6578278e879ad2646715ba9c"}], "variants": [{"id": "38s63qmxfr4", "name": "Size", "options": [{}]}], "collectionIds": ["65d71377c326ea78e1c47df5", "65d71377c326ea78e1c47d34"], "isTaxesEnabled": true, "taxes": ["654492a4e6bef380114de15a"], "automaticTaxCategoryId": "65d71377c326ea78e1c47df5", "isLabelEnabled": true, "slug": "awesome-product", "taxInclusive": true},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/products/');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'name': 'Awesome Product', 'locationId': '3SwdhCsvxI8Au3KsPJt6', 'description': 'Product description goes here.', 'productType': 'DIGITAL', 'image': 'https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png', 'statementDescriptor': 'abcde', 'availableInStore': true, 'medias': [{'id': 'fzrgusiuu0m', 'title': '1dd7dcd0-e71d-4cf7-a06b-6d47723d6a29.png', 'url': 'https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/sample.png', 'type': 'image', 'isFeatured': true, 'priceIds': '6578278e879ad2646715ba9c'}], 'variants': [{'id': '38s63qmxfr4', 'name': 'Size', 'options': [{}]}], 'collectionIds': ['65d71377c326ea78e1c47df5', '65d71377c326ea78e1c47d34'], 'isTaxesEnabled': true, 'taxes': ['654492a4e6bef380114de15a'], 'automaticTaxCategoryId': '65d71377c326ea78e1c47df5', 'isLabelEnabled': true, 'slug': 'awesome-product', 'taxInclusive': true}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,254 @@
 ---
 title: 'Get Subscription by ID'
-openapi: 'GET /payments/subscriptions/{subscriptionId}'
+description: 'The "Get Subscription by ID" API allows to retrieve information for a specific subscription using its unique identifier. Use this endpoint to fetch details for a single subscription based on the provi'
 ---
+
+The "Get Subscription by ID" API allows to retrieve information for a specific subscription using its unique identifier. Use this endpoint to fetch details for a single subscription based on the provided subscription ID.
+
+```http
+GET https://services.leadconnectorhq.com/payments/subscriptions/{subscriptionId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="subscriptionId" type="string" required default='6322e9c9e39fc14ab3ed7042'>
+ID of the subscription that needs to be returned
+</ParamField>
+
+## Query parameters
+
+<ParamField query="altId" type="string" required default='3SwdhCu3svxI8AKsPJt6'>
+AltId is the unique identifier e.g: account id.
+</ParamField>
+
+<ParamField query="altType" type="string" required default='account'>
+AltType is the type of identifier.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="_id" type="string" required default='64bf78af39118e4011926cba'>
+The unique identifier for the subscription.
+</ResponseField>
+
+<ResponseField name="altType" type="object" required default='account'>
+AltType is the type of identifier.
+</ResponseField>
+
+<ResponseField name="altId" type="string" required default='3SwdhCu3svxI8AKsPJt6'>
+AltId is the unique identifier eg: account id.
+</ResponseField>
+
+<ResponseField name="contactId" type="string" default='XPLSw2SVagl12LMDeTmQ'>
+Contact id corresponding to the subscription.
+</ResponseField>
+
+<ResponseField name="contactSnapshot" type="object" default='{ last_name: "Mcclain", type: "lead", first_name_lower_case: "rogan", email: "anish+11@leadwaycrm.com", last_name_lower_case: "mcclain", location_id: "o6241QsiRwUIJHyjuhos", company_name: "Jordan and Cox Trading"}'>
+Contact details of the subscriber.
+</ResponseField>
+
+<ResponseField name="coupon" type="object" default='{ _id: "6374c6926d119a393fe1e556", usageCount: 5260, altId: "jVFIxsMY19D94nOSIOEO", altType: "account", name: "FREE-100%", code: "FREE100", discountType: "percentage", discountValue: 100 }'>
+Coupon details of the subscription.
+</ResponseField>
+
+<ResponseField name="currency" type="string" default='USD'>
+Currency in which subscription was made.
+</ResponseField>
+
+<ResponseField name="amount" type="number" default='100'>
+Subscription value.
+</ResponseField>
+
+<ResponseField name="status" type="object" default='active'>
+Subscription status.
+</ResponseField>
+
+<ResponseField name="liveMode" type="boolean" default='false'>
+Subscription is in live / test mode.
+</ResponseField>
+
+<ResponseField name="entityType" type="string" default='order'>
+Entity type of subscription (eg: order).
+</ResponseField>
+
+<ResponseField name="entityId" type="string" default='62f4db0f3059ecee61379012'>
+Entity id for the subscription. e.g: order id
+</ResponseField>
+
+<ResponseField name="entitySource" type="object" default='{ type: "funnel", id: "lx6ROqruHGVQD2PZwFxK", subType: "upsell", name: "test funnel" }'>
+Entity source details for the subscription.
+</ResponseField>
+
+<ResponseField name="subscriptionId" type="string" default='I-0UE609H8E43P'>
+Subscription id for subscription.
+</ResponseField>
+
+<ResponseField name="subscriptionSnapshot" type="object" default='{ status: "ACTIVE", status_update_time: "2022-08-16T11:06:53Z", id: "I-0UE609H8E43P", plan_id: "P-82K11750F0313430KMLRGE6Y", start_time: "2022-08-16T11:05:31Z", quantity: 1 }'>
+Snapshot of subscription.
+</ResponseField>
+
+<ResponseField name="paymentProvider" type="object" default='{ type: "paypal", connectedAccount: { _id: "64410debdc8f3b0503523abb", merchantClientId: "AeXtjrxdgsJiCPwQt5jML5pH-0mwmLs-tH7ub4Uo3IrDKvRl34FvJy8niI6E1wmS_pryIRdNllyVl58b" } }'>
+Payment provider details for the subscription.
+</ResponseField>
+
+<ResponseField name="ipAddress" type="string" default='103.100.16.82'>
+Ip address from where subscription was initiated.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-11-20T10:23:36.515Z'>
+The creation timestamp of the subscription.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2024-01-23T09:57:04.846Z'>
+The last update timestamp of the subscription.
+</ResponseField>
+
+<ResponseField name="meta" type="object" default='{ collection: "transactionsv2", id: "6320652f0f664b6632006920" }'>
+Meta details of the subscription.
+</ResponseField>
+
+<ResponseField name="markAsTest" type="boolean" default='false'>
+Is test subscription.
+</ResponseField>
+
+<ResponseField name="schedule" type="object" default='{ collection: "transactionsv2", id: "6320652f0f664b6632006920" }'>
+Scedule details for the subscription.
+</ResponseField>
+
+<ResponseField name="autoPayment" type="object" default='{ customerId: "908879612", paymentMethodId: "908646635" }'>
+Auto payment details of the subscription.
+</ResponseField>
+
+<ResponseField name="recurringProduct" type="object" default='{ locationId: "Z4Bxl8J4SaPEPLq9IQ8g", funnel: "bQHJWKcyjiKjk4BHv91g", step: "2281a993-8a75-4b48-9912-571f29c99a74", name: "Sofa Set" }'>
+Recurring product details of the subscription.
+</ResponseField>
+
+<ResponseField name="canceledAt" type="string" default='2023-11-20T10:23:36.515Z'>
+Cancellation timestamp of the subscription.
+</ResponseField>
+
+<ResponseField name="canceledBy" type="string" default='qUuXUiB2AiA2DIthEicP'>
+User id who cancelled the subscription.
+</ResponseField>
+
+<ResponseField name="traceId" type="string" default='302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a'>
+Trace id of the subscription.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string" default='user123'>
+User ID who created the subscription.
+</ResponseField>
+
+```json
+{
+  "_id": "64bf78af39118e4011926cba",
+  "altType": "account",
+  "altId": "3SwdhCu3svxI8AKsPJt6",
+  "contactId": "XPLSw2SVagl12LMDeTmQ",
+  "contactSnapshot": "{ last_name: \"Mcclain\", type: \"lead\", first_name_lower_case: \"rogan\", email: \"anish+11@leadwaycrm.com\", last_name_lower_case: \"mcclain\", location_id: \"o6241QsiRwUIJHyjuhos\", company_name: \"Jordan and Cox Trading\"}",
+  "coupon": "{ _id: \"6374c6926d119a393fe1e556\", usageCount: 5260, altId: \"jVFIxsMY19D94nOSIOEO\", altType: \"account\", name: \"FREE-100%\", code: \"FREE100\", discountType: \"percentage\", discountValue: 100 }",
+  "currency": "USD",
+  "amount": "100",
+  "status": "active",
+  "liveMode": "false",
+  "entityType": "order",
+  "entityId": "62f4db0f3059ecee61379012",
+  "entitySource": "{ type: \"funnel\", id: \"lx6ROqruHGVQD2PZwFxK\", subType: \"upsell\", name: \"test funnel\" }",
+  "subscriptionId": "I-0UE609H8E43P",
+  "subscriptionSnapshot": "{ status: \"ACTIVE\", status_update_time: \"2022-08-16T11:06:53Z\", id: \"I-0UE609H8E43P\", plan_id: \"P-82K11750F0313430KMLRGE6Y\", start_time: \"2022-08-16T11:05:31Z\", quantity: 1 }",
+  "paymentProvider": "{ type: \"paypal\", connectedAccount: { _id: \"64410debdc8f3b0503523abb\", merchantClientId: \"AeXtjrxdgsJiCPwQt5jML5pH-0mwmLs-tH7ub4Uo3IrDKvRl34FvJy8niI6E1wmS_pryIRdNllyVl58b\" } }",
+  "ipAddress": "103.100.16.82",
+  "createdAt": "2023-11-20T10:23:36.515Z",
+  "updatedAt": "2024-01-23T09:57:04.846Z",
+  "meta": "{ collection: \"transactionsv2\", id: \"6320652f0f664b6632006920\" }",
+  "markAsTest": "false",
+  "schedule": "{ collection: \"transactionsv2\", id: \"6320652f0f664b6632006920\" }",
+  "autoPayment": "{ customerId: \"908879612\", paymentMethodId: \"908646635\" }",
+  "recurringProduct": "{ locationId: \"Z4Bxl8J4SaPEPLq9IQ8g\", funnel: \"bQHJWKcyjiKjk4BHv91g\", step: \"2281a993-8a75-4b48-9912-571f29c99a74\", name: \"Sofa Set\" }",
+  "canceledAt": "2023-11-20T10:23:36.515Z",
+  "canceledBy": "qUuXUiB2AiA2DIthEicP",
+  "traceId": "302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a",
+  "createdBy": "user123"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Subscription not found">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/payments/subscriptions/YOUR_subscriptionId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/payments/subscriptions/YOUR_subscriptionId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/payments/subscriptions/YOUR_subscriptionId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/payments/subscriptions/YOUR_subscriptionId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

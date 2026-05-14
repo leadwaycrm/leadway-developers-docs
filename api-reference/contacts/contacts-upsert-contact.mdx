@@ -1,4 +1,728 @@
 ---
 title: 'Upsert Contact'
-openapi: 'POST /contacts/upsert'
+description: 'Please find the list of acceptable values for the `country` field  here<br/><br/>The Upsert API will adhere to the configuration defined under the “Allow Duplicate Contact” setting at the Account leve'
 ---
+
+Please find the list of acceptable values for the `country` field  here&lt;br/&gt;&lt;br/&gt;The Upsert API will adhere to the configuration defined under the “Allow Duplicate Contact” setting at the Account level. If the setting is configured to check both Email and Phone, the API will attempt to identify an existing contact based on the priority sequence specified in the setting, and will create or update the contact accordingly.&lt;br/&gt;&lt;br/&gt;If two separate contacts already exist—one with the same email and another with the same phone—and an upsert request includes both the email and phone, the API will update the contact that matches the first field in the configured sequence, and ignore the second field to prevent duplication.
+
+```http
+POST https://services.leadconnectorhq.com/contacts/upsert
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="firstName" type="string" default='Rosan'>
+</ParamField>
+
+<ParamField body="lastName" type="string" default='Deo'>
+</ParamField>
+
+<ParamField body="name" type="string" default='Rosan Deo'>
+</ParamField>
+
+<ParamField body="email" type="string" default='rosan@deos.com'>
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='ve9EPM428h8vShlRW1KT'>
+</ParamField>
+
+<ParamField body="gender" type="string" default='male'>
+</ParamField>
+
+<ParamField body="phone" type="string" default='+1 888-888-8888'>
+</ParamField>
+
+<ParamField body="address1" type="string" default='3535 1st St N'>
+</ParamField>
+
+<ParamField body="city" type="string" default='Dolomite'>
+</ParamField>
+
+<ParamField body="state" type="string" default='AL'>
+</ParamField>
+
+<ParamField body="postalCode" type="string" default='35061'>
+</ParamField>
+
+<ParamField body="website" type="string" default='https://www.tesla.com'>
+</ParamField>
+
+<ParamField body="timezone" type="string" default='America/Chihuahua'>
+</ParamField>
+
+<ParamField body="dnd" type="boolean" default='True'>
+</ParamField>
+
+<ParamField body="dndSettings" type="object">
+<Expandable title="propiedades">
+<ParamField body="Call" type="object">
+<Expandable title="propiedades">
+<ParamField body="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ParamField>
+
+<ParamField body="message" type="string">
+</ParamField>
+
+<ParamField body="code" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="Email" type="object">
+<Expandable title="propiedades">
+<ParamField body="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ParamField>
+
+<ParamField body="message" type="string">
+</ParamField>
+
+<ParamField body="code" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="SMS" type="object">
+<Expandable title="propiedades">
+<ParamField body="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ParamField>
+
+<ParamField body="message" type="string">
+</ParamField>
+
+<ParamField body="code" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="WhatsApp" type="object">
+<Expandable title="propiedades">
+<ParamField body="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ParamField>
+
+<ParamField body="message" type="string">
+</ParamField>
+
+<ParamField body="code" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="GMB" type="object">
+<Expandable title="propiedades">
+<ParamField body="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ParamField>
+
+<ParamField body="message" type="string">
+</ParamField>
+
+<ParamField body="code" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="FB" type="object">
+<Expandable title="propiedades">
+<ParamField body="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ParamField>
+
+<ParamField body="message" type="string">
+</ParamField>
+
+<ParamField body="code" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="inboundDndSettings" type="object">
+<Expandable title="propiedades">
+<ParamField body="all" type="object">
+<Expandable title="propiedades">
+<ParamField body="status" type="string" required>
+Posibles valores: 'active', 'inactive'
+</ParamField>
+
+<ParamField body="message" type="string">
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="tags" type="string[]">
+This field will overwrite all current tags associated with the contact. To update a tags, it is recommended to use the Add Tag or Remove Tag API instead.
+</ParamField>
+
+<ParamField body="customFields" type="object[]">
+</ParamField>
+
+<ParamField body="source" type="string" default='public api'>
+</ParamField>
+
+<ParamField body="dateOfBirth" type="object" default='1990-09-25'>
+The birth date of the contact. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, YYYY_MM_DD, MM_DD_YYYY
+</ParamField>
+
+<ParamField body="country" type="string" default='US'>
+</ParamField>
+
+<ParamField body="companyName" type="string" default='DGS VolMAX'>
+</ParamField>
+
+<ParamField body="assignedTo" type="string" default='y0BeYjuRIlDwsDcOHOJo'>
+User's Id
+</ParamField>
+
+<ParamField body="createNewIfDuplicateAllowed" type="boolean" default='False'>
+Controls whether to create a new contact or update an existing duplicate. **Scenario 1:** If this value is `true` and the account allows duplicate contacts, a new contact will be created immediately without checking for duplicates. **Scenario 2:** If this value is `true` but the account does not allow duplicate contacts, this field is ignored and the normal upsert behavior applies: the API will search for an existing duplicate contact, update it if found, or create a new contact if not found. **Scenario 3:** If this value is `false` or not provided, the normal upsert behavior applies regardless of the account's duplicate contact setting.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="new" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="contact" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='seD4PfOuKoVMLkEZqohJ'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='rubika deo'>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='ve9EPM428h8vShlRW1KT'>
+</ResponseField>
+
+<ResponseField name="firstName" type="string" default='rubika'>
+</ResponseField>
+
+<ResponseField name="lastName" type="string" default='Deo'>
+</ResponseField>
+
+<ResponseField name="email" type="string" default='rubika@deos.com'>
+</ResponseField>
+
+<ResponseField name="emailLowerCase" type="string" default='rubika@deos.com'>
+</ResponseField>
+
+<ResponseField name="timezone" type="string" default='Asia/Calcutta'>
+</ResponseField>
+
+<ResponseField name="companyName" type="string" default='DGS VolMAX'>
+</ResponseField>
+
+<ResponseField name="phone" type="string" default='+18832327657'>
+</ResponseField>
+
+<ResponseField name="dnd" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="dndSettings" type="object">
+<Expandable title="propiedades">
+<ResponseField name="Call" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="Email" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="SMS" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="WhatsApp" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="GMB" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="FB" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="type" type="string" default='read'>
+</ResponseField>
+
+<ResponseField name="source" type="string" default='public api'>
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='ve9EPM428h8vShlRW1KT'>
+</ResponseField>
+
+<ResponseField name="address1" type="string" default='3535 1st St N'>
+</ResponseField>
+
+<ResponseField name="city" type="string" default='ruDolomitebika'>
+</ResponseField>
+
+<ResponseField name="state" type="string" default='AL'>
+</ResponseField>
+
+<ResponseField name="country" type="string" default='US'>
+</ResponseField>
+
+<ResponseField name="postalCode" type="string" default='35061'>
+</ResponseField>
+
+<ResponseField name="website" type="string" default='https://www.tesla.com'>
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+</ResponseField>
+
+<ResponseField name="dateOfBirth" type="string" default='Date format YYYY-MM-DD'>
+</ResponseField>
+
+<ResponseField name="dateAdded" type="string" default='2021-07-02T05:18:26.704Z'>
+</ResponseField>
+
+<ResponseField name="dateUpdated" type="string" default='2021-07-02T05:18:26.704Z'>
+</ResponseField>
+
+<ResponseField name="attachments" type="string">
+</ResponseField>
+
+<ResponseField name="ssn" type="string">
+</ResponseField>
+
+<ResponseField name="keyword" type="string" default='test'>
+</ResponseField>
+
+<ResponseField name="firstNameLowerCase" type="string" default='rubika'>
+</ResponseField>
+
+<ResponseField name="fullNameLowerCase" type="string" default='rubika deo'>
+</ResponseField>
+
+<ResponseField name="lastNameLowerCase" type="string" default='deo'>
+</ResponseField>
+
+<ResponseField name="lastActivity" type="string" default='2021-07-16T11:39:30.564Z'>
+</ResponseField>
+
+<ResponseField name="customFields" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='MgobCB14YMVKuE4Ka8p1'>
+</ResponseField>
+
+<ResponseField name="value" type="string" default='name'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="businessId" type="string" default='641c094001436dbc2081e642'>
+</ResponseField>
+
+<ResponseField name="attributionSource" type="object">
+<Expandable title="propiedades">
+<ResponseField name="url" type="string" required default='Trigger Link'>
+</ResponseField>
+
+<ResponseField name="campaign" type="string">
+</ResponseField>
+
+<ResponseField name="utmSource" type="string">
+</ResponseField>
+
+<ResponseField name="utmMedium" type="string">
+</ResponseField>
+
+<ResponseField name="utmContent" type="string">
+</ResponseField>
+
+<ResponseField name="referrer" type="string" default='https: //www.google.com'>
+</ResponseField>
+
+<ResponseField name="campaignId" type="string">
+</ResponseField>
+
+<ResponseField name="fbclid" type="string">
+</ResponseField>
+
+<ResponseField name="gclid" type="string" default='CjOKCQjwnNyUBhCZARISAI9AYIFtNnIcWcYGIOQINz_ZoFI5SSLRRugSoPZoiEu27IZBY£1-MAIWmEaAo2VEALW_WCB'>
+</ResponseField>
+
+<ResponseField name="msclikid" type="string">
+</ResponseField>
+
+<ResponseField name="dclid" type="string">
+</ResponseField>
+
+<ResponseField name="fbc" type="string">
+</ResponseField>
+
+<ResponseField name="fbp" type="string" default='fb. 1.1674748390986.1171287961'>
+</ResponseField>
+
+<ResponseField name="fbEventId" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="userAgent" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="ip" type="string" default='58.111.106.198'>
+</ResponseField>
+
+<ResponseField name="medium" type="string" default='survey'>
+</ResponseField>
+
+<ResponseField name="mediumId" type="string" default='FglfHAn30PRwsZVyQlKp'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="lastAttributionSource" type="object">
+<Expandable title="propiedades">
+<ResponseField name="url" type="string" required default='Trigger Link'>
+</ResponseField>
+
+<ResponseField name="campaign" type="string">
+</ResponseField>
+
+<ResponseField name="utmSource" type="string">
+</ResponseField>
+
+<ResponseField name="utmMedium" type="string">
+</ResponseField>
+
+<ResponseField name="utmContent" type="string">
+</ResponseField>
+
+<ResponseField name="referrer" type="string" default='https: //www.google.com'>
+</ResponseField>
+
+<ResponseField name="campaignId" type="string">
+</ResponseField>
+
+<ResponseField name="fbclid" type="string">
+</ResponseField>
+
+<ResponseField name="gclid" type="string" default='CjOKCQjwnNyUBhCZARISAI9AYIFtNnIcWcYGIOQINz_ZoFI5SSLRRugSoPZoiEu27IZBY£1-MAIWmEaAo2VEALW_WCB'>
+</ResponseField>
+
+<ResponseField name="msclikid" type="string">
+</ResponseField>
+
+<ResponseField name="dclid" type="string">
+</ResponseField>
+
+<ResponseField name="fbc" type="string">
+</ResponseField>
+
+<ResponseField name="fbp" type="string" default='fb. 1.1674748390986.1171287961'>
+</ResponseField>
+
+<ResponseField name="fbEventId" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="userAgent" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="ip" type="string" default='58.111.106.198'>
+</ResponseField>
+
+<ResponseField name="medium" type="string" default='survey'>
+</ResponseField>
+
+<ResponseField name="mediumId" type="string" default='FglfHAn30PRwsZVyQlKp'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="visitorId" type="string" default='ve9EPM428h8vShlRW1KT'>
+visitorId is the Unique ID assigned to each Live chat visitor.
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="traceId" type="string">
+</ResponseField>
+
+```json
+{
+  "new": true,
+  "contact": {
+    "id": "seD4PfOuKoVMLkEZqohJ",
+    "name": "rubika deo",
+    "locationId": "ve9EPM428h8vShlRW1KT",
+    "firstName": "rubika",
+    "lastName": "Deo",
+    "email": "rubika@deos.com",
+    "emailLowerCase": "rubika@deos.com",
+    "timezone": "Asia/Calcutta",
+    "companyName": "DGS VolMAX",
+    "phone": "+18832327657",
+    "dnd": true,
+    "dndSettings": {
+      "Call": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "Email": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "SMS": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "WhatsApp": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "GMB": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+  // truncado: 81 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/contacts/upsert' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "firstName": "Rosan",
+  "lastName": "Deo",
+  "name": "Rosan Deo",
+  "email": "rosan@deos.com",
+  "locationId": "ve9EPM428h8vShlRW1KT",
+  "gender": "male",
+  "phone": "+1 888-888-8888",
+  "address1": "3535 1st St N",
+  "city": "Dolomite",
+  "state": "AL",
+  "postalCode": "35061",
+  "website": "https://www.tesla.com",
+  "timezone": "America/Chihuahua",
+  "dnd": true,
+  "dndSettings": {
+    "Call": {
+      "status": "active",
+      "message": "string",
+      "code": "string"
+    },
+    "Email": {
+      "status": "active",
+      "message": "string",
+      "code": "string"
+    },
+    "SMS": {
+      "status": "active",
+      "message": "string",
+      "code": "string"
+    },
+    "WhatsApp": {
+      "status": "active",
+      "message": "string",
+      "code": "string"
+    },
+    "GMB": {
+      "status": "active",
+      "message": "string",
+      "code": "string"
+    },
+    "FB": {
+      "status": "active",
+      "message": "string",
+      "code": "string"
+    }
+  },
+  "inboundDndSettings": {
+    "all": {
+      "status": "active",
+      "message": "string"
+    }
+  },
+  "tags": [
+    "nisi sint commodo amet",
+    "consequat"
+  ],
+  "customFields": [],
+  "source": "public api",
+  "dateOfBirth": "1990-09-25",
+  "country": "US",
+  "companyName": "DGS VolMAX",
+  "assignedTo": "y0BeYjuRIlDwsDcOHOJo",
+  "createNewIfDuplicateAllowed": false
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"firstName": "Rosan", "lastName": "Deo", "name": "Rosan Deo", "email": "rosan@deos.com", "locationId": "ve9EPM428h8vShlRW1KT", "gender": "male", "phone": "+1 888-888-8888", "address1": "3535 1st St N", "city": "Dolomite", "state": "AL", "postalCode": "35061", "website": "https://www.tesla.com", "timezone": "America/Chihuahua", "dnd": true, "dndSettings": {"Call": {"status": "active", "message": "string", "code": "string"}, "Email": {"status": "active", "message": "string", "code": "string"}, "SMS": {"status": "active", "message": "string", "code": "string"}, "WhatsApp": {"status": "active", "message": "string", "code": "string"}, "GMB": {"status": "active", "message": "string", "code": "string"}, "FB": {"status": "active", "message": "string", "code": "string"}}, "inboundDndSettings": {"all": {"status": "active", "message": "string"}}, "tags": ["nisi sint commodo amet", "consequat"], "customFields": [], "source": "public api", "dateOfBirth": "1990-09-25", "country": "US", "companyName": "DGS VolMAX", "assignedTo": "y0BeYjuRIlDwsDcOHOJo", "createNewIfDuplicateAllowed": false}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/contacts/upsert',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"firstName": "Rosan", "lastName": "Deo", "name": "Rosan Deo", "email": "rosan@deos.com", "locationId": "ve9EPM428h8vShlRW1KT", "gender": "male", "phone": "+1 888-888-8888", "address1": "3535 1st St N", "city": "Dolomite", "state": "AL", "postalCode": "35061", "website": "https://www.tesla.com", "timezone": "America/Chihuahua", "dnd": true, "dndSettings": {"Call": {"status": "active", "message": "string", "code": "string"}, "Email": {"status": "active", "message": "string", "code": "string"}, "SMS": {"status": "active", "message": "string", "code": "string"}, "WhatsApp": {"status": "active", "message": "string", "code": "string"}, "GMB": {"status": "active", "message": "string", "code": "string"}, "FB": {"status": "active", "message": "string", "code": "string"}}, "inboundDndSettings": {"all": {"status": "active", "message": "string"}}, "tags": ["nisi sint commodo amet", "consequat"], "customFields": [], "source": "public api", "dateOfBirth": "1990-09-25", "country": "US", "companyName": "DGS VolMAX", "assignedTo": "y0BeYjuRIlDwsDcOHOJo", "createNewIfDuplicateAllowed": false},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/upsert');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'firstName': 'Rosan', 'lastName': 'Deo', 'name': 'Rosan Deo', 'email': 'rosan@deos.com', 'locationId': 've9EPM428h8vShlRW1KT', 'gender': 'male', 'phone': '+1 888-888-8888', 'address1': '3535 1st St N', 'city': 'Dolomite', 'state': 'AL', 'postalCode': '35061', 'website': 'https://www.tesla.com', 'timezone': 'America/Chihuahua', 'dnd': true, 'dndSettings': {'Call': {'status': 'active', 'message': 'string', 'code': 'string'}, 'Email': {'status': 'active', 'message': 'string', 'code': 'string'}, 'SMS': {'status': 'active', 'message': 'string', 'code': 'string'}, 'WhatsApp': {'status': 'active', 'message': 'string', 'code': 'string'}, 'GMB': {'status': 'active', 'message': 'string', 'code': 'string'}, 'FB': {'status': 'active', 'message': 'string', 'code': 'string'}}, 'inboundDndSettings': {'all': {'status': 'active', 'message': 'string'}}, 'tags': ['nisi sint commodo amet', 'consequat'], 'customFields': [], 'source': 'public api', 'dateOfBirth': '1990-09-25', 'country': 'US', 'companyName': 'DGS VolMAX', 'assignedTo': 'y0BeYjuRIlDwsDcOHOJo', 'createNewIfDuplicateAllowed': false}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

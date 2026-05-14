@@ -1,4 +1,227 @@
 ---
 title: 'Upsert ad'
-openapi: 'PUT /ad-publishing/facebook/ads-v2'
+description: 'Create or update a Facebook ad (v2)'
 ---
+
+Create or update a Facebook ad (v2)
+
+```http
+PUT https://services.leadconnectorhq.com/ad-publishing/facebook/ads-v2
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="id" type="string" default='ad_123'>
+Ad identifier
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='loc_abc123'>
+Account identifier
+</ParamField>
+
+<ParamField body="name" type="string" default='My Ad Creative'>
+Ad name
+</ParamField>
+
+<ParamField body="primaryText" type="string" default='Check out our offer!'>
+Ad primary text
+</ParamField>
+
+<ParamField body="headline" type="string" default='Great Deal'>
+Ad headline text
+</ParamField>
+
+<ParamField body="description" type="string" default='Limited time offer'>
+Ad description text
+</ParamField>
+
+<ParamField body="imageUrl" type="string" default='https://example.com/img.jpg'>
+Ad image URL
+</ParamField>
+
+<ParamField body="mediaType" type="string">
+Ad media type Posibles valores: 'SINGLE', 'CAROUSEL'
+</ParamField>
+
+<ParamField body="media" type="object[]">
+Media items (images or videos) attached to the ad creative
+<Expandable title="cada item">
+<ParamField body="src" type="string" required default='https://example.com/image.jpg'>
+Media source URL
+</ParamField>
+
+<ParamField body="thumbnailUrl" type="string" default='https://example.com/thumb.jpg'>
+Thumbnail URL (required when type is video)
+</ParamField>
+
+<ParamField body="selectedPoster" type="number" default='0'>
+Selected poster index (required when type is video)
+</ParamField>
+
+<ParamField body="type" type="string" required default='IMAGE'>
+Media content type Posibles valores: 'image', 'video'
+</ParamField>
+
+<ParamField body="name" type="string" default='ad_image.jpg'>
+Media file name
+</ParamField>
+
+<ParamField body="headline" type="string" default='Great Offer'>
+Media headline
+</ParamField>
+
+<ParamField body="description" type="string" default='Click to learn more'>
+Media description
+</ParamField>
+
+<ParamField body="link" type="string" default='https://example.com'>
+Media destination link
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="multiAdvertiserAds" type="boolean" default='False'>
+Enable multi-advertiser ads
+</ParamField>
+
+<ParamField body="campaignId" type="string" required default='camp_123'>
+Parent campaign ID
+</ParamField>
+
+<ParamField body="adsetId" type="string" required default='adset_123'>
+Parent ad set ID
+</ParamField>
+
+<ParamField body="cta" type="string" default='LEARN_MORE'>
+Call to action type
+</ParamField>
+
+<ParamField body="conversationFormId" type="string" default='conv_123'>
+Conversation form ID
+</ParamField>
+
+<ParamField body="destinationLink" type="string" default='https://example.com'>
+Destination link URL
+</ParamField>
+
+<ParamField body="destinationFormId" type="string" default='form_123'>
+Destination form ID
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Response">
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/ad-publishing/facebook/ads-v2' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": "ad_123",
+  "locationId": "loc_abc123",
+  "name": "My Ad Creative",
+  "primaryText": "Check out our offer!",
+  "headline": "Great Deal",
+  "description": "Limited time offer",
+  "imageUrl": "https://example.com/img.jpg",
+  "mediaType": "SINGLE",
+  "media": [
+    {
+      "src": "https://example.com/image.jpg",
+      "thumbnailUrl": "https://example.com/thumb.jpg",
+      "selectedPoster": 0,
+      "type": "IMAGE",
+      "name": "ad_image.jpg"
+    }
+  ],
+  "multiAdvertiserAds": false,
+  "campaignId": "camp_123",
+  "adsetId": "adset_123",
+  "cta": "LEARN_MORE",
+  "conversationFormId": "conv_123",
+  "destinationLink": "https://example.com",
+  "destinationFormId": "form_123"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/ad-publishing/facebook/ads-v2', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"id": "ad_123", "locationId": "loc_abc123", "name": "My Ad Creative", "primaryText": "Check out our offer!", "headline": "Great Deal", "description": "Limited time offer", "imageUrl": "https://example.com/img.jpg", "mediaType": "SINGLE", "media": [{"src": "https://example.com/image.jpg", "thumbnailUrl": "https://example.com/thumb.jpg", "selectedPoster": 0, "type": "IMAGE", "name": "ad_image.jpg"}], "multiAdvertiserAds": false, "campaignId": "camp_123", "adsetId": "adset_123", "cta": "LEARN_MORE", "conversationFormId": "conv_123", "destinationLink": "https://example.com", "destinationFormId": "form_123"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/ad-publishing/facebook/ads-v2',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"id": "ad_123", "locationId": "loc_abc123", "name": "My Ad Creative", "primaryText": "Check out our offer!", "headline": "Great Deal", "description": "Limited time offer", "imageUrl": "https://example.com/img.jpg", "mediaType": "SINGLE", "media": [{"src": "https://example.com/image.jpg", "thumbnailUrl": "https://example.com/thumb.jpg", "selectedPoster": 0, "type": "IMAGE", "name": "ad_image.jpg"}], "multiAdvertiserAds": false, "campaignId": "camp_123", "adsetId": "adset_123", "cta": "LEARN_MORE", "conversationFormId": "conv_123", "destinationLink": "https://example.com", "destinationFormId": "form_123"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/ad-publishing/facebook/ads-v2');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'id': 'ad_123', 'locationId': 'loc_abc123', 'name': 'My Ad Creative', 'primaryText': 'Check out our offer!', 'headline': 'Great Deal', 'description': 'Limited time offer', 'imageUrl': 'https://example.com/img.jpg', 'mediaType': 'SINGLE', 'media': [{'src': 'https://example.com/image.jpg', 'thumbnailUrl': 'https://example.com/thumb.jpg', 'selectedPoster': 0, 'type': 'IMAGE', 'name': 'ad_image.jpg'}], 'multiAdvertiserAds': false, 'campaignId': 'camp_123', 'adsetId': 'adset_123', 'cta': 'LEARN_MORE', 'conversationFormId': 'conv_123', 'destinationLink': 'https://example.com', 'destinationFormId': 'form_123'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

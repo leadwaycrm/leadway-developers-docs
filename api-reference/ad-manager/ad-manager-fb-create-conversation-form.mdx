@@ -1,4 +1,144 @@
 ---
 title: 'Create conversation form'
-openapi: 'POST /ad-publishing/facebook/conversation-forms'
+description: 'Create a new Facebook conversation lead form'
 ---
+
+Create a new Facebook conversation lead form
+
+```http
+POST https://services.leadconnectorhq.com/ad-publishing/facebook/conversation-forms
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='loc_abc123'>
+Account identifier
+</ParamField>
+
+<ParamField body="name" type="string" required default='Welcome Form'>
+Conversation form name
+</ParamField>
+
+<ParamField body="text" type="string" required default='Hi! How can we help?'>
+Welcome message text
+</ParamField>
+
+<ParamField body="questions" type="object[]" required>
+Quick-reply questions shown in the welcome message of the conversation form
+<Expandable title="cada item">
+<ParamField body="question" type="string" required default='How can we help?'>
+Question title text
+</ParamField>
+
+<ParamField body="response" type="string" default='Thanks for reaching out'>
+Auto-response message
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Response">
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/ad-publishing/facebook/conversation-forms' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "loc_abc123",
+  "name": "Welcome Form",
+  "text": "Hi! How can we help?",
+  "questions": [
+    {
+      "question": "How can we help?",
+      "response": "Thanks for reaching out! A team member will assist you shortly."
+    },
+    {
+      "question": "I want to learn more",
+      "response": "Great! Here is a link to our services."
+    }
+  ]
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/ad-publishing/facebook/conversation-forms', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "loc_abc123", "name": "Welcome Form", "text": "Hi! How can we help?", "questions": [{"question": "How can we help?", "response": "Thanks for reaching out! A team member will assist you shortly."}, {"question": "I want to learn more", "response": "Great! Here is a link to our services."}]}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/ad-publishing/facebook/conversation-forms',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "loc_abc123", "name": "Welcome Form", "text": "Hi! How can we help?", "questions": [{"question": "How can we help?", "response": "Thanks for reaching out! A team member will assist you shortly."}, {"question": "I want to learn more", "response": "Great! Here is a link to our services."}]},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/ad-publishing/facebook/conversation-forms');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'loc_abc123', 'name': 'Welcome Form', 'text': 'Hi! How can we help?', 'questions': [{'question': 'How can we help?', 'response': 'Thanks for reaching out! A team member will assist you shortly.'}, {'question': 'I want to learn more', 'response': 'Great! Here is a link to our services.'}]}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

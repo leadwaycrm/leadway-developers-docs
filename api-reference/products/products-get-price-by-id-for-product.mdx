@@ -1,4 +1,220 @@
 ---
 title: 'Get Price by ID for a Product'
-openapi: 'GET /products/{productId}/price/{priceId}'
+description: 'The "Get Price by ID for a Product" API allows retrieving information for a specific price associated with a particular product using its unique identifier. Use this endpoint to fetch details for a si'
 ---
+
+The "Get Price by ID for a Product" API allows retrieving information for a specific price associated with a particular product using its unique identifier. Use this endpoint to fetch details for a single price based on the provided price ID and product ID.
+
+```http
+GET https://services.leadconnectorhq.com/products/{productId}/price/{priceId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="productId" type="string" required default='6578278e879ad2646715ba9c'>
+ID of the product that needs to be used
+</ParamField>
+
+<ParamField path="priceId" type="string" required default='6578278e879ad2646715ba9c'>
+ID of the price that needs to be returned
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='6578278e879ad2646715ba9c'>
+account Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="_id" type="string" required default='655b33aa2209e60b6adb87a7'>
+The unique identifier for the price.
+</ResponseField>
+
+<ResponseField name="membershipOffers" type="object[]">
+An array of membership offers associated with the price.
+<Expandable title="cada item">
+<ResponseField name="label" type="string" required default='top_50'>
+Membership offer label
+</ResponseField>
+
+<ResponseField name="value" type="string" required default='50'>
+Membership offer label
+</ResponseField>
+
+<ResponseField name="_id" type="string" required default='655b33aa2209e60b6adb87a7'>
+The unique identifier for the membership offer.
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="variantOptionIds" type="string[]">
+An array of variant option IDs associated with the price.
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='3SwdhCsvxI8Au3KsPJt6'>
+The unique identifier for the account.
+</ResponseField>
+
+<ResponseField name="product" type="string" default='655b33a82209e60b6adb87a5'>
+The unique identifier for the associated product.
+</ResponseField>
+
+<ResponseField name="userId" type="string" default='6YAtzfzpmHAdj0e8GkKp'>
+The unique identifier for the user.
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Red / S'>
+The name of the price.
+</ResponseField>
+
+<ResponseField name="type" type="string" required default='one_time'>
+The type of the price (e.g., one_time). Posibles valores: 'one_time', 'recurring'
+</ResponseField>
+
+<ResponseField name="currency" type="string" required default='INR'>
+The currency code for the price.
+</ResponseField>
+
+<ResponseField name="amount" type="number" required default='199999'>
+The amount of the price.
+</ResponseField>
+
+<ResponseField name="recurring" type="object">
+The recurring details of the price (if type is recurring).
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" default='2023-11-20T10:23:38.645Z'>
+The creation timestamp of the price.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" default='2024-01-23T09:57:04.852Z'>
+The last update timestamp of the price.
+</ResponseField>
+
+<ResponseField name="compareAtPrice" type="number" default='2000000'>
+The compare-at price for comparison purposes.
+</ResponseField>
+
+<ResponseField name="trackInventory" type="boolean">
+Indicates whether inventory tracking is enabled.
+</ResponseField>
+
+<ResponseField name="availableQuantity" type="number" default='5'>
+Available inventory stock quantity
+</ResponseField>
+
+<ResponseField name="allowOutOfStockPurchases" type="boolean" default='True'>
+Continue selling when out of stock
+</ResponseField>
+
+```json
+{
+  "_id": "655b33aa2209e60b6adb87a7",
+  "membershipOffers": [
+    {
+      "label": "top_50",
+      "value": "50",
+      "_id": "655b33aa2209e60b6adb87a7"
+    }
+  ],
+  "variantOptionIds": [
+    "h4z7u0im2q8",
+    "h3nst2ltsnn"
+  ],
+  "locationId": "3SwdhCsvxI8Au3KsPJt6",
+  "product": "655b33a82209e60b6adb87a5",
+  "userId": "6YAtzfzpmHAdj0e8GkKp",
+  "name": "Red / S",
+  "type": "one_time",
+  "currency": "INR",
+  "amount": 199999,
+  "createdAt": "2023-11-20T10:23:38.645Z",
+  "updatedAt": "2024-01-23T09:57:04.852Z",
+  "compareAtPrice": 2000000,
+  "availableQuantity": 5,
+  "allowOutOfStockPurchases": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/products/YOUR_productId/price/YOUR_priceId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/products/YOUR_productId/price/YOUR_priceId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/products/YOUR_productId/price/YOUR_priceId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/products/YOUR_productId/price/YOUR_priceId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

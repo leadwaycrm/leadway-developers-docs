@@ -1,4 +1,202 @@
 ---
 title: 'Get Custom Menu Links'
-openapi: 'GET /custom-menus/'
+description: 'Fetches a collection of custom menus based on specified criteria. This endpoint allows clients to retrieve custom menu configurations, which may include menu items, categories, and associated metadata'
 ---
+
+Fetches a collection of custom menus based on specified criteria. This endpoint allows clients to retrieve custom menu configurations, which may include menu items, categories, and associated metadata. The response can be tailored using query parameters for filtering, sorting, and pagination.
+
+```http
+GET https://services.leadconnectorhq.com/custom-menus/
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" default='5DP4iH6HLkQsiKESj6rh'>
+Unique identifier of the account
+</ParamField>
+
+<ParamField query="skip" type="number" default='0'>
+Number of items to skip for pagination
+</ParamField>
+
+<ParamField query="limit" type="number" default='10'>
+Maximum number of items to return
+</ParamField>
+
+<ParamField query="query" type="string" default='custom-menu-link-name'>
+Search query to filter custom menus by name, supports partial || full names
+</ParamField>
+
+<ParamField query="showOnCompany" type="boolean" default='True'>
+Filter to show only agency-level menu links. When omitted, fetches both agency and account menu links. Ignored if locationId is provided
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successfully retrieved custom menus. Returns an array of custom menu objects, potentially including their structure, items, and relevant metadata.">
+<ResponseField name="customMenus" type="object[]">
+Array of custom menu links
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='12345'>
+Unique identifier for the custom menu
+</ResponseField>
+
+<ResponseField name="icon" type="object">
+Icon information for the menu item
+</ResponseField>
+
+<ResponseField name="title" type="string" default='Dashboard'>
+Title of the custom menu
+</ResponseField>
+
+<ResponseField name="url" type="string" default='/dashboard'>
+URL of the custom menu
+</ResponseField>
+
+<ResponseField name="order" type="number" default='1'>
+Order of the custom menu
+</ResponseField>
+
+<ResponseField name="showOnCompany" type="boolean" default='True'>
+Filter to show only agency-level menu links. When omitted, fetches both agency and account menu links. Ignored if locationId is provided
+</ResponseField>
+
+<ResponseField name="showOnLocation" type="boolean" default='True'>
+Whether the menu must be displayed for accounts level
+</ResponseField>
+
+<ResponseField name="showToAllLocations" type="boolean" default='True'>
+Whether the menu must be displayed to all accounts
+</ResponseField>
+
+<ResponseField name="locations" type="string[]">
+List of account IDs where the menu should be shown. This list is applicable only when showOnLocation is true and showToAllLocations is false
+</ResponseField>
+
+<ResponseField name="openMode" type="string">
+Mode for opening the menu link Posibles valores: 'iframe', 'new_tab', 'current_tab'
+</ResponseField>
+
+<ResponseField name="userRole" type="string">
+Which user-roles should the menu be accessible to? Posibles valores: 'all', 'admin', 'user'
+</ResponseField>
+
+<ResponseField name="allowCamera" type="boolean" default='False'>
+Indicates if camera access is allowed for this menu
+</ResponseField>
+
+<ResponseField name="allowMicrophone" type="boolean" default='False'>
+Indicates if microphone access is allowed for this menu
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="totalLinks" type="number" default='100'>
+Total number of custom menu records
+</ResponseField>
+
+```json
+{
+  "customMenus": [
+    {
+      "id": "12345",
+      "title": "Dashboard",
+      "url": "/dashboard",
+      "order": 1,
+      "showOnCompany": true,
+      "showOnLocation": true,
+      "showToAllLocations": true,
+      "locations": [
+        "gfWreTIHL8pDbggBb7af",
+        "67WreTIHL8pDbggBb7ty"
+      ],
+      "openMode": "iframe",
+      "userRole": "all",
+      "allowCamera": false,
+      "allowMicrophone": false
+    }
+  ],
+  "totalLinks": 100
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request. Invalid query parameters provided.">
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="403 - Forbidden. The client does not have necessary permissions to access custom menus.">
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/custom-menus/' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/custom-menus/', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/custom-menus/',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/custom-menus/');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

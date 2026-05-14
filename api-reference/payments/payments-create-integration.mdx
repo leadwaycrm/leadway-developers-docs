@@ -1,4 +1,210 @@
 ---
 title: 'Create new integration'
-openapi: 'POST /payments/custom-provider/provider'
+description: 'API to create a new association for an app and account'
 ---
+
+API to create a new association for an app and account
+
+```http
+POST https://services.leadconnectorhq.com/payments/custom-provider/provider
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='Lk3nlfk4lxlelVEwcW'>
+Account id
+</ParamField>
+
+## Body
+
+<ParamField body="name" type="string" required default='Company Paypal Integration'>
+The name of the custom provider
+</ParamField>
+
+<ParamField body="description" type="string" required default='This payment gateway supports payments in India via UPI, Net banking, cards and wallets.'>
+Description of payment gateway. Shown on the payments integrations page as subtext
+</ParamField>
+
+<ParamField body="paymentsUrl" type="string" required default='https://testpayment.paypal.com'>
+This url will be loaded in iFrame to start a payment session.
+</ParamField>
+
+<ParamField body="queryUrl" type="string" required default='https://testsubscription.paypal.com'>
+The url used for querying payments related events. Ex. verify, refund, subscription etc.
+</ParamField>
+
+<ParamField body="imageUrl" type="string" required default='https://testsubscription.paypal.com'>
+Public image url for logo of the payment gateway displayed on the payments integrations page.
+</ParamField>
+
+<ParamField body="supportsSubscriptionSchedule" type="boolean" required default='True'>
+Whether the config supports subscription schedule or not. true represents config supports subscription schedule
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="name" type="string" required default='Company Paypal Integration'>
+The name of the custom provider
+</ResponseField>
+
+<ResponseField name="description" type="string" required default='This payment gateway supports payments in India via UPI, Net banking, cards and wallets.'>
+Description of payment gateway. Shown on the payments integrations page as subtext
+</ResponseField>
+
+<ResponseField name="paymentsUrl" type="string" required default='https://testpayment.paypal.com'>
+This url will be loaded in iFrame to start a payment session.
+</ResponseField>
+
+<ResponseField name="queryUrl" type="string" required default='https://testsubscription.paypal.com'>
+The url used for querying payments related events. Ex. verify, refund, subscription etc.
+</ResponseField>
+
+<ResponseField name="imageUrl" type="string" required default='https://testsubscription.paypal.com'>
+Public image url for logo of the payment gateway displayed on the payments integrations page.
+</ResponseField>
+
+<ResponseField name="_id" type="string" required default='662a44ad19a2a44d3cd9d749'>
+The unique identifier for the custom provider.
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='Lk3nlfk4lxlelVEwcW'>
+Account id
+</ResponseField>
+
+<ResponseField name="marketplaceAppId" type="string" required default='65f0b217a05c774da7f1efa5'>
+The application id of marketplace
+</ResponseField>
+
+<ResponseField name="paymentProvider" type="object" default='{ live: { liveMode: true }, test: { liveMode: false, apiKey: "y5ZQxryRFXZHvUJZdLXXXXXX", publishableKey: "rzp_test_zPRoVMLOa0A9wo" }}'>
+Payment provider details.
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='True'>
+Whether the config is deleted or not. true represents config is deleted
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required default='2023-11-20T10:23:36.515Z'>
+The creation timestamp of the custom provider.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required default='2024-01-23T09:57:04.846Z'>
+The last update timestamp of the custom provider.
+</ResponseField>
+
+<ResponseField name="traceId" type="string" default='302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a'>
+Trace id of the custom provider.
+</ResponseField>
+
+```json
+{
+  "name": "Company Paypal Integration",
+  "description": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets.",
+  "paymentsUrl": "https://testpayment.paypal.com",
+  "queryUrl": "https://testsubscription.paypal.com",
+  "imageUrl": "https://testsubscription.paypal.com",
+  "_id": "662a44ad19a2a44d3cd9d749",
+  "locationId": "Lk3nlfk4lxlelVEwcW",
+  "marketplaceAppId": "65f0b217a05c774da7f1efa5",
+  "paymentProvider": "{ live: { liveMode: true }, test: { liveMode: false, apiKey: \"y5ZQxryRFXZHvUJZdLXXXXXX\", publishableKey: \"rzp_test_zPRoVMLOa0A9wo\" }}",
+  "deleted": true,
+  "createdAt": "2023-11-20T10:23:36.515Z",
+  "updatedAt": "2024-01-23T09:57:04.846Z",
+  "traceId": "302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/payments/custom-provider/provider' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Company Paypal Integration",
+  "description": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets.",
+  "paymentsUrl": "https://testpayment.paypal.com",
+  "queryUrl": "https://testsubscription.paypal.com",
+  "imageUrl": "https://testsubscription.paypal.com",
+  "supportsSubscriptionSchedule": true
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/payments/custom-provider/provider', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"name": "Company Paypal Integration", "description": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets.", "paymentsUrl": "https://testpayment.paypal.com", "queryUrl": "https://testsubscription.paypal.com", "imageUrl": "https://testsubscription.paypal.com", "supportsSubscriptionSchedule": true}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/payments/custom-provider/provider',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"name": "Company Paypal Integration", "description": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets.", "paymentsUrl": "https://testpayment.paypal.com", "queryUrl": "https://testsubscription.paypal.com", "imageUrl": "https://testsubscription.paypal.com", "supportsSubscriptionSchedule": true},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/payments/custom-provider/provider');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'name': 'Company Paypal Integration', 'description': 'This payment gateway supports payments in India via UPI, Net banking, cards and wallets.', 'paymentsUrl': 'https://testpayment.paypal.com', 'queryUrl': 'https://testsubscription.paypal.com', 'imageUrl': 'https://testsubscription.paypal.com', 'supportsSubscriptionSchedule': true}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

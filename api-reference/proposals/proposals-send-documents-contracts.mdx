@@ -1,4 +1,239 @@
 ---
 title: 'Send document'
-openapi: 'POST /proposals/document/send'
+description: 'Send document to a client'
 ---
+
+Send document to a client
+
+```http
+POST https://services.leadconnectorhq.com/proposals/document/send
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='hTlkh7t8gujsahgg93'>
+Account Id
+</ParamField>
+
+<ParamField body="documentId" type="string" required default='hTlkh7t8gujsahgg93'>
+Document Id
+</ParamField>
+
+<ParamField body="documentName" type="string" default='new Document'>
+Document Name
+</ParamField>
+
+<ParamField body="medium" type="string" default='email'>
+Medium to be used for sending the document Posibles valores: 'link', 'email'
+</ParamField>
+
+<ParamField body="ccRecipients" type="object[]">
+CC Recipient
+<Expandable title="cada item">
+<ParamField body="email" type="string" required default='jim@gmail.com'>
+Email
+</ParamField>
+
+<ParamField body="id" type="string" required default='contactId'>
+Contact ID
+</ParamField>
+
+<ParamField body="imageUrl" type="string" required default='https://example.com/image.jpg'>
+Contact Image URL
+</ParamField>
+
+<ParamField body="contactName" type="string" required default='Jim Anton'>
+Contact Name
+</ParamField>
+
+<ParamField body="firstName" type="string" required default='Jim'>
+First Name
+</ParamField>
+
+<ParamField body="lastName" type="string" required default='Anton'>
+Last Name
+</ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="notificationSettings" type="object">
+</ParamField>
+
+<ParamField body="sentBy" type="string" required default='1234567890'>
+Sent ByUser Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Document sent successfully">
+<ResponseField name="success" type="boolean" required default='True'>
+Success status
+</ResponseField>
+
+<ResponseField name="links" type="object[]" required>
+Links for all recipients
+<Expandable title="cada item">
+<ResponseField name="referenceId" type="string" required default='550e8400-e29b-41d4-a716-446655440000'>
+Reference ID
+</ResponseField>
+
+<ResponseField name="documentId" type="string" required default='c1e87a91-93b2-4b78-821f-85cf0e1f925b'>
+Document ID
+</ResponseField>
+
+<ResponseField name="recipientId" type="string" required default='u240JcS0E5qE0ziHnwMm'>
+Recipient ID
+</ResponseField>
+
+<ResponseField name="entityName" type="string" required default='contacts'>
+Entity name that the recipient belongs to Posibles valores: 'contacts', 'users'
+</ResponseField>
+
+<ResponseField name="recipientCategory" type="string" required default='recipient'>
+Recipient category (recipient, cc, or bcc) Posibles valores: 'recipient', 'cc', 'bcc'
+</ResponseField>
+
+<ResponseField name="documentRevision" type="number" required default='1'>
+Document revision number
+</ResponseField>
+
+<ResponseField name="createdBy" type="string" required default='b6d8fa28-1112-4dc7-b9d2-f22b75a477ea'>
+Created by user ID
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Whether the document is deleted
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "links": [
+    {
+      "referenceId": "550e8400-e29b-41d4-a716-446655440000",
+      "documentId": "c1e87a91-93b2-4b78-821f-85cf0e1f925b",
+      "recipientId": "u240JcS0E5qE0ziHnwMm",
+      "entityName": "contacts",
+      "recipientCategory": "recipient",
+      "documentRevision": 1,
+      "createdBy": "b6d8fa28-1112-4dc7-b9d2-f22b75a477ea",
+      "deleted": false
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Unprocessable Entity">
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Bad Request'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 400,
+  "message": "Bad Request"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/proposals/document/send' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "hTlkh7t8gujsahgg93",
+  "documentId": "hTlkh7t8gujsahgg93",
+  "documentName": "new Document",
+  "medium": "email",
+  "ccRecipients": [
+    {
+      "id": "u240JcS0E5qE0ziHnwMm",
+      "email": "jim@gmail.com",
+      "imageUrl": "",
+      "contactName": "Jim Anton",
+      "firstName": "Jim",
+      "lastName": "Anton"
+    }
+  ],
+  "notificationSettings": {
+    "sender": {
+      "fromName": "",
+      "fromEmail": ""
+    },
+    "receive": {
+      "subject": "",
+      "templateId": ""
+    }
+  },
+  "sentBy": "1234567890"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/proposals/document/send', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "hTlkh7t8gujsahgg93", "documentId": "hTlkh7t8gujsahgg93", "documentName": "new Document", "medium": "email", "ccRecipients": [{"id": "u240JcS0E5qE0ziHnwMm", "email": "jim@gmail.com", "imageUrl": "", "contactName": "Jim Anton", "firstName": "Jim", "lastName": "Anton"}], "notificationSettings": {"sender": {"fromName": "", "fromEmail": ""}, "receive": {"subject": "", "templateId": ""}}, "sentBy": "1234567890"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/proposals/document/send',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "hTlkh7t8gujsahgg93", "documentId": "hTlkh7t8gujsahgg93", "documentName": "new Document", "medium": "email", "ccRecipients": [{"id": "u240JcS0E5qE0ziHnwMm", "email": "jim@gmail.com", "imageUrl": "", "contactName": "Jim Anton", "firstName": "Jim", "lastName": "Anton"}], "notificationSettings": {"sender": {"fromName": "", "fromEmail": ""}, "receive": {"subject": "", "templateId": ""}}, "sentBy": "1234567890"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/proposals/document/send');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'hTlkh7t8gujsahgg93', 'documentId': 'hTlkh7t8gujsahgg93', 'documentName': 'new Document', 'medium': 'email', 'ccRecipients': [{'id': 'u240JcS0E5qE0ziHnwMm', 'email': 'jim@gmail.com', 'imageUrl': '', 'contactName': 'Jim Anton', 'firstName': 'Jim', 'lastName': 'Anton'}], 'notificationSettings': {'sender': {'fromName': '', 'fromEmail': ''}, 'receive': {'subject': '', 'templateId': ''}}, 'sentBy': '1234567890'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

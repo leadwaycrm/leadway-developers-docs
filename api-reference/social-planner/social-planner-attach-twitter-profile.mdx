@@ -1,4 +1,182 @@
 ---
 title: 'Attach Twitter profile'
-openapi: 'POST /social-media-posting/oauth/{locationId}/twitter/accounts/{accountId}'
+description: '<div><div>   <span style= "display: inline-block;     width: 25px; height: 25px;     background-color: red;     color: black;     font-weight: bold;     font-size: 24px;     text-align: center;     li'
 ---
+
+&lt;div&gt;&lt;div&gt;
+  &lt;span style= "display: inline-block;
+    width: 25px; height: 25px;
+    background-color: red;
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    line-height: 20px;
+    border: 2px solid black;
+    border-radius: 20%;
+    margin-right: 10px;"&gt;
+    !
+  &lt;/span&gt;
+  &lt;span&gt;&lt;strong&gt;As of December 4, 2024, X (formerly Twitter) is no longer supported. We apologise for any inconvenience.&lt;/strong&gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+```http
+POST https://services.leadconnectorhq.com/social-media-posting/oauth/{locationId}/twitter/accounts/{accountId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="locationId" type="string" required default='w37swmmLbA02zgqKPpxITe2'>
+Account Account Id
+</ParamField>
+
+<ParamField path="accountId" type="string" required default='w37swmmLbA02zgqKPpxITe'>
+Account Id
+</ParamField>
+
+## Body
+
+<ParamField body="originId" type="string" default='244405****11687'>
+</ParamField>
+
+<ParamField body="name" type="string" default='JOHN_DEO'>
+</ParamField>
+
+<ParamField body="username" type="string" default='user_name'>
+</ParamField>
+
+<ParamField body="avatar" type="string">
+</ParamField>
+
+<ParamField body="protected" type="boolean" default='True'>
+</ParamField>
+
+<ParamField body="verified" type="boolean" default='True'>
+</ParamField>
+
+<ParamField body="companyId" type="string" default='sdfdsfdsfEWEsdfsdsW32dd'>
+Company ID
+</ParamField>
+
+## Respuestas
+
+<Accordion title="201 - Successful response">
+<ResponseField name="success" type="boolean" required default='True'>
+Success or Failure
+</ResponseField>
+
+<ResponseField name="statusCode" type="number" required default='201'>
+Status Code
+</ResponseField>
+
+<ResponseField name="message" type="string" required default='Added Twitter Account'>
+Message
+</ResponseField>
+
+<ResponseField name="results" type="object">
+Requested Results
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "statusCode": 201,
+  "message": "Added Twitter Account"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/twitter/accounts/YOUR_accountId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "originId": "244405****11687",
+  "name": "JOHN_DEO",
+  "username": "user_name",
+  "avatar": "string",
+  "protected": true,
+  "verified": true,
+  "companyId": "sdfdsfdsfEWEsdfsdsW32dd"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/twitter/accounts/YOUR_accountId', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"originId": "244405****11687", "name": "JOHN_DEO", "username": "user_name", "avatar": "string", "protected": true, "verified": true, "companyId": "sdfdsfdsfEWEsdfsdsW32dd"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/twitter/accounts/YOUR_accountId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"originId": "244405****11687", "name": "JOHN_DEO", "username": "user_name", "avatar": "string", "protected": true, "verified": true, "companyId": "sdfdsfdsfEWEsdfsdsW32dd"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/twitter/accounts/YOUR_accountId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'originId': '244405****11687', 'name': 'JOHN_DEO', 'username': 'user_name', 'avatar': 'string', 'protected': true, 'verified': true, 'companyId': 'sdfdsfdsfEWEsdfsdsW32dd'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

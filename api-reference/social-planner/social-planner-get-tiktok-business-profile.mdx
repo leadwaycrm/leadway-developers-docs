@@ -1,4 +1,127 @@
 ---
 title: 'Get Tiktok Business profile'
-openapi: 'GET /social-media-posting/oauth/{locationId}/tiktok-business/accounts/{accountId}'
+description: 'Get Tiktok Business profile'
 ---
+
+Get Tiktok Business profile
+
+```http
+GET https://services.leadconnectorhq.com/social-media-posting/oauth/{locationId}/tiktok-business/accounts/{accountId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="locationId" type="string" required default='w37swmmLbA02zgqKPpxITe2'>
+Account Account Id
+</ParamField>
+
+<ParamField path="accountId" type="string" required default='w37swmmLbA02zgqKPpxITe'>
+Account Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="success" type="boolean" required default='True'>
+Success or Failure
+</ResponseField>
+
+<ResponseField name="statusCode" type="number" required default='201'>
+Status Code
+</ResponseField>
+
+<ResponseField name="message" type="string" required default='Fetched Tiktok Business Account'>
+Message
+</ResponseField>
+
+<ResponseField name="results" type="object">
+Requested Results
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "statusCode": 201,
+  "message": "Fetched Tiktok Business Account"
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/tiktok-business/accounts/YOUR_accountId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/tiktok-business/accounts/YOUR_accountId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/tiktok-business/accounts/YOUR_accountId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/social-media-posting/oauth/YOUR_locationId/tiktok-business/accounts/YOUR_accountId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

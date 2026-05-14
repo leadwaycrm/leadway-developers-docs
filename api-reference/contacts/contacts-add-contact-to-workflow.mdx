@@ -1,4 +1,127 @@
 ---
 title: 'Add Contact to Workflow'
-openapi: 'POST /contacts/{contactId}/workflow/{workflowId}'
+description: 'Add Contact to Workflow'
 ---
+
+Add Contact to Workflow
+
+```http
+POST https://services.leadconnectorhq.com/contacts/{contactId}/workflow/{workflowId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="contactId" type="string" required default='sx6wyHhbFdRXh302LLNR'>
+Contact Id
+</ParamField>
+
+<ParamField path="workflowId" type="string" required default='sx6wyHhbFdRXh302LLNR'>
+Workflow Id
+</ParamField>
+
+## Body
+
+<ParamField body="eventStartTime" type="string" default='2021-06-23T03:30:00+01:00'>
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="succeded" type="boolean" default='True'>
+</ResponseField>
+
+```json
+{
+  "succeded": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/contacts/YOUR_contactId/workflow/YOUR_workflowId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "eventStartTime": "2021-06-23T03:30:00+01:00"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/YOUR_contactId/workflow/YOUR_workflowId', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"eventStartTime": "2021-06-23T03:30:00+01:00"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/contacts/YOUR_contactId/workflow/YOUR_workflowId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"eventStartTime": "2021-06-23T03:30:00+01:00"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/YOUR_contactId/workflow/YOUR_workflowId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'eventStartTime': '2021-06-23T03:30:00+01:00'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

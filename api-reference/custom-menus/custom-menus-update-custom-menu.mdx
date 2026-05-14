@@ -1,4 +1,184 @@
 ---
 title: 'Update Custom Menu Link'
-openapi: 'PUT /custom-menus/{customMenuId}'
+description: 'Updates an existing custom menu for a given company. Requires authentication and proper permissions.'
 ---
+
+Updates an existing custom menu for a given company. Requires authentication and proper permissions.
+
+```http
+PUT https://services.leadconnectorhq.com/custom-menus/{customMenuId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="customMenuId" type="string" required default='62e589c1-c456-47e1-a9a7-cb8900014311'>
+ID of the custom menu to update
+</ParamField>
+
+## Body
+
+<ParamField body="title" type="string" default='Custom Menu'>
+Title of the custom menu
+</ParamField>
+
+<ParamField body="url" type="string" default='https://custom-menus.com/'>
+URL of the custom menu
+</ParamField>
+
+<ParamField body="icon" type="object">
+Icon information for the custom menu
+</ParamField>
+
+<ParamField body="showOnCompany" type="boolean" default='True'>
+Whether the menu must be displayed on the agency's level
+</ParamField>
+
+<ParamField body="showOnLocation" type="boolean" default='True'>
+Whether the menu must be displayed for accounts level
+</ParamField>
+
+<ParamField body="showToAllLocations" type="boolean" default='True'>
+Whether the menu must be displayed to all accounts
+</ParamField>
+
+<ParamField body="openMode" type="string">
+Mode for opening the menu link Posibles valores: 'iframe', 'new_tab', 'current_tab'
+</ParamField>
+
+<ParamField body="locations" type="string[]">
+List of account IDs where the menu should be shown. This list is applicable only when showOnLocation is true and showToAllLocations is false
+</ParamField>
+
+<ParamField body="userRole" type="string">
+Which user-roles should the menu be accessible to? Posibles valores: 'all', 'admin', 'user'
+</ParamField>
+
+<ParamField body="allowCamera" type="boolean" default='False'>
+Whether to allow camera access (only for iframe mode)
+</ParamField>
+
+<ParamField body="allowMicrophone" type="boolean" default='False'>
+Whether to allow microphone access (only for iframe mode)
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Custom menu successfully updated">
+<ResponseField name="success" type="boolean">
+Status of update
+</ResponseField>
+
+<ResponseField name="customMenu" type="object">
+Updated custom menu link
+</ResponseField>
+
+```json
+{
+  "success": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request - Invalid input">
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="403 - Forbidden - Insufficient permissions">
+</Accordion>
+
+<Accordion title="404 - Not Found - Custom menu or company not found">
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT 'https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "title": "Custom Menu",
+  "url": "https://custom-menus.com/",
+  "showOnCompany": true,
+  "showOnLocation": true,
+  "showToAllLocations": true,
+  "openMode": "iframe",
+  "locations": [
+    "gfWreTIHL8pDbggBb7af",
+    "67WreTIHL8pDbggBb7ty"
+  ],
+  "userRole": "all",
+  "allowCamera": false,
+  "allowMicrophone": false
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId', {
+  method: 'PUT',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"title": "Custom Menu", "url": "https://custom-menus.com/", "showOnCompany": true, "showOnLocation": true, "showToAllLocations": true, "openMode": "iframe", "locations": ["gfWreTIHL8pDbggBb7af", "67WreTIHL8pDbggBb7ty"], "userRole": "all", "allowCamera": false, "allowMicrophone": false}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PUT',
+    'https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"title": "Custom Menu", "url": "https://custom-menus.com/", "showOnCompany": true, "showOnLocation": true, "showToAllLocations": true, "openMode": "iframe", "locations": ["gfWreTIHL8pDbggBb7af", "67WreTIHL8pDbggBb7ty"], "userRole": "all", "allowCamera": false, "allowMicrophone": false},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/custom-menus/YOUR_customMenuId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'title': 'Custom Menu', 'url': 'https://custom-menus.com/', 'showOnCompany': true, 'showOnLocation': true, 'showToAllLocations': true, 'openMode': 'iframe', 'locations': ['gfWreTIHL8pDbggBb7af', '67WreTIHL8pDbggBb7ty'], 'userRole': 'all', 'allowCamera': false, 'allowMicrophone': false}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,472 @@
 ---
 title: 'Get Contact'
-openapi: 'GET /contacts/{contactId}'
+description: 'Get Contact'
 ---
+
+Get Contact
+
+```http
+GET https://services.leadconnectorhq.com/contacts/{contactId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="contactId" type="string" required default='ocQHyuzHvysMo5N5VsXc'>
+Contact Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="contact" type="object">
+<Expandable title="propiedades">
+<ResponseField name="id" type="string" default='seD4PfOuKoVMLkEZqohJ'>
+</ResponseField>
+
+<ResponseField name="name" type="string" default='rubika deo'>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" default='ve9EPM428h8vShlRW1KT'>
+</ResponseField>
+
+<ResponseField name="firstName" type="string" default='rubika'>
+</ResponseField>
+
+<ResponseField name="lastName" type="string" default='Deo'>
+</ResponseField>
+
+<ResponseField name="email" type="string" default='rubika@deos.com'>
+</ResponseField>
+
+<ResponseField name="emailLowerCase" type="string" default='rubika@deos.com'>
+</ResponseField>
+
+<ResponseField name="timezone" type="string" default='Asia/Calcutta'>
+</ResponseField>
+
+<ResponseField name="companyName" type="string" default='DGS VolMAX'>
+</ResponseField>
+
+<ResponseField name="phone" type="string" default='+18832327657'>
+</ResponseField>
+
+<ResponseField name="dnd" type="boolean" default='True'>
+</ResponseField>
+
+<ResponseField name="dndSettings" type="object">
+<Expandable title="propiedades">
+<ResponseField name="Call" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="Email" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="SMS" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="WhatsApp" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="GMB" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="FB" type="object">
+<Expandable title="propiedades">
+<ResponseField name="status" type="string" required>
+Posibles valores: 'active', 'inactive', 'permanent'
+</ResponseField>
+
+<ResponseField name="message" type="string">
+</ResponseField>
+
+<ResponseField name="code" type="string">
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="type" type="string" default='read'>
+</ResponseField>
+
+<ResponseField name="source" type="string" default='public api'>
+</ResponseField>
+
+<ResponseField name="assignedTo" type="string" default='ve9EPM428h8vShlRW1KT'>
+</ResponseField>
+
+<ResponseField name="address1" type="string" default='3535 1st St N'>
+</ResponseField>
+
+<ResponseField name="city" type="string" default='ruDolomitebika'>
+</ResponseField>
+
+<ResponseField name="state" type="string" default='AL'>
+</ResponseField>
+
+<ResponseField name="country" type="string" default='US'>
+</ResponseField>
+
+<ResponseField name="postalCode" type="string" default='35061'>
+</ResponseField>
+
+<ResponseField name="website" type="string" default='https://www.tesla.com'>
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+</ResponseField>
+
+<ResponseField name="dateOfBirth" type="string" default='Date format YYYY-MM-DD'>
+</ResponseField>
+
+<ResponseField name="dateAdded" type="string" default='2021-07-02T05:18:26.704Z'>
+</ResponseField>
+
+<ResponseField name="dateUpdated" type="string" default='2021-07-02T05:18:26.704Z'>
+</ResponseField>
+
+<ResponseField name="attachments" type="string">
+</ResponseField>
+
+<ResponseField name="ssn" type="string">
+</ResponseField>
+
+<ResponseField name="keyword" type="string" default='test'>
+</ResponseField>
+
+<ResponseField name="firstNameLowerCase" type="string" default='rubika'>
+</ResponseField>
+
+<ResponseField name="fullNameLowerCase" type="string" default='rubika deo'>
+</ResponseField>
+
+<ResponseField name="lastNameLowerCase" type="string" default='deo'>
+</ResponseField>
+
+<ResponseField name="lastActivity" type="string" default='2021-07-16T11:39:30.564Z'>
+</ResponseField>
+
+<ResponseField name="customFields" type="object[]">
+<Expandable title="cada item">
+<ResponseField name="id" type="string" default='MgobCB14YMVKuE4Ka8p1'>
+</ResponseField>
+
+<ResponseField name="value" type="string" default='name'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="businessId" type="string" default='641c094001436dbc2081e642'>
+</ResponseField>
+
+<ResponseField name="attributionSource" type="object">
+<Expandable title="propiedades">
+<ResponseField name="url" type="string" required default='Trigger Link'>
+</ResponseField>
+
+<ResponseField name="campaign" type="string">
+</ResponseField>
+
+<ResponseField name="utmSource" type="string">
+</ResponseField>
+
+<ResponseField name="utmMedium" type="string">
+</ResponseField>
+
+<ResponseField name="utmContent" type="string">
+</ResponseField>
+
+<ResponseField name="referrer" type="string" default='https: //www.google.com'>
+</ResponseField>
+
+<ResponseField name="campaignId" type="string">
+</ResponseField>
+
+<ResponseField name="fbclid" type="string">
+</ResponseField>
+
+<ResponseField name="gclid" type="string" default='CjOKCQjwnNyUBhCZARISAI9AYIFtNnIcWcYGIOQINz_ZoFI5SSLRRugSoPZoiEu27IZBY£1-MAIWmEaAo2VEALW_WCB'>
+</ResponseField>
+
+<ResponseField name="msclikid" type="string">
+</ResponseField>
+
+<ResponseField name="dclid" type="string">
+</ResponseField>
+
+<ResponseField name="fbc" type="string">
+</ResponseField>
+
+<ResponseField name="fbp" type="string" default='fb. 1.1674748390986.1171287961'>
+</ResponseField>
+
+<ResponseField name="fbEventId" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="userAgent" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="ip" type="string" default='58.111.106.198'>
+</ResponseField>
+
+<ResponseField name="medium" type="string" default='survey'>
+</ResponseField>
+
+<ResponseField name="mediumId" type="string" default='FglfHAn30PRwsZVyQlKp'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="lastAttributionSource" type="object">
+<Expandable title="propiedades">
+<ResponseField name="url" type="string" required default='Trigger Link'>
+</ResponseField>
+
+<ResponseField name="campaign" type="string">
+</ResponseField>
+
+<ResponseField name="utmSource" type="string">
+</ResponseField>
+
+<ResponseField name="utmMedium" type="string">
+</ResponseField>
+
+<ResponseField name="utmContent" type="string">
+</ResponseField>
+
+<ResponseField name="referrer" type="string" default='https: //www.google.com'>
+</ResponseField>
+
+<ResponseField name="campaignId" type="string">
+</ResponseField>
+
+<ResponseField name="fbclid" type="string">
+</ResponseField>
+
+<ResponseField name="gclid" type="string" default='CjOKCQjwnNyUBhCZARISAI9AYIFtNnIcWcYGIOQINz_ZoFI5SSLRRugSoPZoiEu27IZBY£1-MAIWmEaAo2VEALW_WCB'>
+</ResponseField>
+
+<ResponseField name="msclikid" type="string">
+</ResponseField>
+
+<ResponseField name="dclid" type="string">
+</ResponseField>
+
+<ResponseField name="fbc" type="string">
+</ResponseField>
+
+<ResponseField name="fbp" type="string" default='fb. 1.1674748390986.1171287961'>
+</ResponseField>
+
+<ResponseField name="fbEventId" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="userAgent" type="string" default='Mozilla/5.0'>
+</ResponseField>
+
+<ResponseField name="ip" type="string" default='58.111.106.198'>
+</ResponseField>
+
+<ResponseField name="medium" type="string" default='survey'>
+</ResponseField>
+
+<ResponseField name="mediumId" type="string" default='FglfHAn30PRwsZVyQlKp'>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="visitorId" type="string" default='ve9EPM428h8vShlRW1KT'>
+visitorId is the Unique ID assigned to each Live chat visitor.
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "contact": {
+    "id": "seD4PfOuKoVMLkEZqohJ",
+    "name": "rubika deo",
+    "locationId": "ve9EPM428h8vShlRW1KT",
+    "firstName": "rubika",
+    "lastName": "Deo",
+    "email": "rubika@deos.com",
+    "emailLowerCase": "rubika@deos.com",
+    "timezone": "Asia/Calcutta",
+    "companyName": "DGS VolMAX",
+    "phone": "+18832327657",
+    "dnd": true,
+    "dndSettings": {
+      "Call": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "Email": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "SMS": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "WhatsApp": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+      "GMB": {
+        "status": "active",
+        "message": "string",
+        "code": "string"
+      },
+  // truncado: 79 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/contacts/YOUR_contactId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/contacts/YOUR_contactId', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/contacts/YOUR_contactId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/contacts/YOUR_contactId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,259 @@
 ---
 title: 'Update Agent'
-openapi: 'PATCH /agent-studio/agent/versions/{versionId}'
+description: 'Updates a specific agent version by versionId. Supports updating nodes, edges, variables, and configuration.'
 ---
+
+Updates a specific agent version by versionId. Supports updating nodes, edges, variables, and configuration.
+
+```http
+PATCH https://services.leadconnectorhq.com/agent-studio/agent/versions/{versionId}
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Path parameters
+
+<ParamField path="versionId" type="string" required default='v1a2b3c4d5e6f7g8h9i0'>
+</ParamField>
+
+## Query parameters
+
+<ParamField query="source" type="string" default='api'>
+</ParamField>
+
+## Body
+
+<ParamField body="locationId" type="string" required default='C2QujeCh8ZnC7al2InWR'>
+Account ID for authorization
+</ParamField>
+
+<ParamField body="versionName" type="string" default='Customer Support Agent v2'>
+Version name
+</ParamField>
+
+<ParamField body="description" type="string" default='Updated version with improved customer handling logic'>
+Description of the version
+</ParamField>
+
+<ParamField body="nodes" type="object[]">
+Complete array of nodes for the agent workflow. Provide all nodes including unchanged ones.
+</ParamField>
+
+<ParamField body="edges" type="object[]">
+Complete array of edges connecting the nodes. Provide all edges including unchanged ones.
+</ParamField>
+
+<ParamField body="globalVariables" type="object[]">
+Global variables accessible throughout the agent workflow
+</ParamField>
+
+<ParamField body="inputVariables" type="object[]">
+Input variables required from user at execution time
+</ParamField>
+
+<ParamField body="runtimeVariables" type="object[]">
+Runtime variables generated during agent execution
+</ParamField>
+
+<ParamField body="globalConfig" type="object">
+Global configuration including prompts and settings
+</ParamField>
+
+<ParamField body="userId" type="string" default='usr_abc123def456'>
+User ID performing the update
+</ParamField>
+
+<ParamField body="userName" type="string" default='John Doe'>
+User name performing the update
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Version updated successfully">
+<ResponseField name="success" type="boolean" required default='True'>
+Success status
+</ResponseField>
+
+<ResponseField name="message" type="string" required default='Agent updated successfully'>
+Response message
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+Updated agent or version data
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "message": "Agent updated successfully",
+  "data": {
+    "agentId": "p1q2r3s4t5u6v7w8x9y0z1a2",
+    "versionId": "v1a2b3c4d5e6f7g8h9i0",
+    "name": "Updated Customer Support Agent",
+    "description": "Updated AI agent with enhanced customer support capabilities",
+    "status": "active",
+    "updatedAt": "2024-02-27T11:45:00.000Z"
+  }
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="404 - Version not found">
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="500 - Internal Server Error">
+<ResponseField name="statusCode" type="number" default='500'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Internal Server Error'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X PATCH 'https://services.leadconnectorhq.com/agent-studio/agent/versions/YOUR_versionId' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "locationId": "C2QujeCh8ZnC7al2InWR",
+  "versionName": "Customer Support Agent v2",
+  "description": "Updated version with improved customer handling logic",
+  "nodes": [
+    {
+      "nodeId": "node_1",
+      "nodeName": "Start",
+      "type": "start",
+      "isStartNode": true
+    },
+    {
+      "nodeId": "node_2",
+      "nodeName": "LLM Node",
+      "type": "llm",
+      "nodeConfig": {
+        "prompt": "How can I help you?",
+        "llmProvider": "openai",
+        "llmModel": "gpt-4"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "startNode": "node_1",
+      "endNode": "node_2"
+    }
+  ],
+  "globalVariables": [
+    {
+      "key": "apiKey",
+      "type": "string",
+      "value": "your-api-key"
+    }
+  ],
+  "inputVariables": [
+    {
+      "key": "customerName",
+      "type": "string",
+      "description": "Customer name for personalization"
+    }
+  ],
+  "runtimeVariables": [
+    {
+      "key": "sessionId",
+      "type": "string",
+      "description": "Current session identifier"
+    }
+  ],
+  "globalConfig": {
+    "globalPrompt": {
+      "currentPrompt": "You are a helpful customer support assistant.",
+      "history": []
+    }
+  },
+  "userId": "usr_abc123def456",
+  "userName": "John Doe"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/agent-studio/agent/versions/YOUR_versionId', {
+  method: 'PATCH',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"locationId": "C2QujeCh8ZnC7al2InWR", "versionName": "Customer Support Agent v2", "description": "Updated version with improved customer handling logic", "nodes": [{"nodeId": "node_1", "nodeName": "Start", "type": "start", "isStartNode": true}, {"nodeId": "node_2", "nodeName": "LLM Node", "type": "llm", "nodeConfig": {"prompt": "How can I help you?", "llmProvider": "openai", "llmModel": "gpt-4"}}], "edges": [{"startNode": "node_1", "endNode": "node_2"}], "globalVariables": [{"key": "apiKey", "type": "string", "value": "your-api-key"}], "inputVariables": [{"key": "customerName", "type": "string", "description": "Customer name for personalization"}], "runtimeVariables": [{"key": "sessionId", "type": "string", "description": "Current session identifier"}], "globalConfig": {"globalPrompt": {"currentPrompt": "You are a helpful customer support assistant.", "history": []}}, "userId": "usr_abc123def456", "userName": "John Doe"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'PATCH',
+    'https://services.leadconnectorhq.com/agent-studio/agent/versions/YOUR_versionId',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"locationId": "C2QujeCh8ZnC7al2InWR", "versionName": "Customer Support Agent v2", "description": "Updated version with improved customer handling logic", "nodes": [{"nodeId": "node_1", "nodeName": "Start", "type": "start", "isStartNode": true}, {"nodeId": "node_2", "nodeName": "LLM Node", "type": "llm", "nodeConfig": {"prompt": "How can I help you?", "llmProvider": "openai", "llmModel": "gpt-4"}}], "edges": [{"startNode": "node_1", "endNode": "node_2"}], "globalVariables": [{"key": "apiKey", "type": "string", "value": "your-api-key"}], "inputVariables": [{"key": "customerName", "type": "string", "description": "Customer name for personalization"}], "runtimeVariables": [{"key": "sessionId", "type": "string", "description": "Current session identifier"}], "globalConfig": {"globalPrompt": {"currentPrompt": "You are a helpful customer support assistant.", "history": []}}, "userId": "usr_abc123def456", "userName": "John Doe"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/agent-studio/agent/versions/YOUR_versionId');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PATCH',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'locationId': 'C2QujeCh8ZnC7al2InWR', 'versionName': 'Customer Support Agent v2', 'description': 'Updated version with improved customer handling logic', 'nodes': [{'nodeId': 'node_1', 'nodeName': 'Start', 'type': 'start', 'isStartNode': true}, {'nodeId': 'node_2', 'nodeName': 'LLM Node', 'type': 'llm', 'nodeConfig': {'prompt': 'How can I help you?', 'llmProvider': 'openai', 'llmModel': 'gpt-4'}}], 'edges': [{'startNode': 'node_1', 'endNode': 'node_2'}], 'globalVariables': [{'key': 'apiKey', 'type': 'string', 'value': 'your-api-key'}], 'inputVariables': [{'key': 'customerName', 'type': 'string', 'description': 'Customer name for personalization'}], 'runtimeVariables': [{'key': 'sessionId', 'type': 'string', 'description': 'Current session identifier'}], 'globalConfig': {'globalPrompt': {'currentPrompt': 'You are a helpful customer support assistant.', 'history': []}}, 'userId': 'usr_abc123def456', 'userName': 'John Doe'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

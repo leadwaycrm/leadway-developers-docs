@@ -1,4 +1,191 @@
 ---
 title: 'Send template'
-openapi: 'POST /proposals/templates/send'
+description: 'Send template to a client'
 ---
+
+Send template to a client
+
+```http
+POST https://services.leadconnectorhq.com/proposals/templates/send
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="templateId" type="string" required default='hTlkh7t8gujsahgg93'>
+Template Id
+</ParamField>
+
+<ParamField body="userId" type="string" required default='hTlkh7t8gujsahgg93'>
+User Id
+</ParamField>
+
+<ParamField body="sendDocument" type="boolean" default='True'>
+Send Document
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='hTlkh7t8gujsahgg93'>
+Account Id
+</ParamField>
+
+<ParamField body="contactId" type="string" required default='hTlkh7t8gujsahgg93'>
+Contact Id
+</ParamField>
+
+<ParamField body="opportunityId" type="string" default='hTlkh7t8gujsahgg93'>
+Opportunity Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Document sent successfully">
+<ResponseField name="success" type="boolean" required default='True'>
+Success status
+</ResponseField>
+
+<ResponseField name="links" type="object[]" required>
+Links for all recipients
+<Expandable title="cada item">
+<ResponseField name="referenceId" type="string" required default='550e8400-e29b-41d4-a716-446655440000'>
+Reference ID
+</ResponseField>
+
+<ResponseField name="documentId" type="string" required default='c1e87a91-93b2-4b78-821f-85cf0e1f925b'>
+Document ID
+</ResponseField>
+
+<ResponseField name="recipientId" type="string" required default='u240JcS0E5qE0ziHnwMm'>
+Recipient ID
+</ResponseField>
+
+<ResponseField name="entityName" type="string" required default='contacts'>
+Entity name that the recipient belongs to Posibles valores: 'contacts', 'users'
+</ResponseField>
+
+<ResponseField name="recipientCategory" type="string" required default='recipient'>
+Recipient category (recipient, cc, or bcc) Posibles valores: 'recipient', 'cc', 'bcc'
+</ResponseField>
+
+<ResponseField name="documentRevision" type="number" required default='1'>
+Document revision number
+</ResponseField>
+
+<ResponseField name="createdBy" type="string" required default='b6d8fa28-1112-4dc7-b9d2-f22b75a477ea'>
+Created by user ID
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Whether the document is deleted
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "success": true,
+  "links": [
+    {
+      "referenceId": "550e8400-e29b-41d4-a716-446655440000",
+      "documentId": "c1e87a91-93b2-4b78-821f-85cf0e1f925b",
+      "recipientId": "u240JcS0E5qE0ziHnwMm",
+      "entityName": "contacts",
+      "recipientCategory": "recipient",
+      "documentRevision": 1,
+      "createdBy": "b6d8fa28-1112-4dc7-b9d2-f22b75a477ea",
+      "deleted": false
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Unprocessable Entity">
+<ResponseField name="statusCode" type="number" default='400'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Bad Request'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 400,
+  "message": "Bad Request"
+}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/proposals/templates/send' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "templateId": "hTlkh7t8gujsahgg93",
+  "userId": "hTlkh7t8gujsahgg93",
+  "sendDocument": true,
+  "locationId": "hTlkh7t8gujsahgg93",
+  "contactId": "hTlkh7t8gujsahgg93",
+  "opportunityId": "hTlkh7t8gujsahgg93"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/proposals/templates/send', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"templateId": "hTlkh7t8gujsahgg93", "userId": "hTlkh7t8gujsahgg93", "sendDocument": true, "locationId": "hTlkh7t8gujsahgg93", "contactId": "hTlkh7t8gujsahgg93", "opportunityId": "hTlkh7t8gujsahgg93"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/proposals/templates/send',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"templateId": "hTlkh7t8gujsahgg93", "userId": "hTlkh7t8gujsahgg93", "sendDocument": true, "locationId": "hTlkh7t8gujsahgg93", "contactId": "hTlkh7t8gujsahgg93", "opportunityId": "hTlkh7t8gujsahgg93"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/proposals/templates/send');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'templateId': 'hTlkh7t8gujsahgg93', 'userId': 'hTlkh7t8gujsahgg93', 'sendDocument': true, 'locationId': 'hTlkh7t8gujsahgg93', 'contactId': 'hTlkh7t8gujsahgg93', 'opportunityId': 'hTlkh7t8gujsahgg93'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

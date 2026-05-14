@@ -1,4 +1,206 @@
 ---
 title: 'List user availability schedule'
-openapi: 'GET /calendars/schedules/search'
+description: 'Retrieve user availability schedules based on various filters including account, calendar, and user. Supports pagination.'
 ---
+
+Retrieve user availability schedules based on various filters including account, calendar, and user. Supports pagination.
+
+```http
+GET https://services.leadconnectorhq.com/calendars/schedules/search
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='IkqiJlXJ7o9h61tCHHod'>
+Account ID to filter schedules by
+</ParamField>
+
+<ParamField query="userId" type="string" required default='IkqiJlXJ7o9h61tCHHod'>
+User ID to filter schedules by specific user
+</ParamField>
+
+<ParamField query="calendarId" type="string" default='WvVX9LpvlBO6K506xLbp'>
+Calendar ID for filtering schedules by specific calendar
+</ParamField>
+
+<ParamField query="skip" type="number" default='0'>
+Number of items to skip for pagination
+</ParamField>
+
+<ParamField query="limit" type="number" default='50'>
+Maximum number of items to return (max 500)
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Schedules retrieved successfully">
+<ResponseField name="schedules" type="object[]" required>
+Array of schedules
+<Expandable title="cada item">
+<ResponseField name="id" type="string" required default='IkqiJlXJ7o9h61tCHHod'>
+Unique identifier for the schedule
+</ResponseField>
+
+<ResponseField name="name" type="string" required default='Business Hours Schedule'>
+Human-readable name for the schedule
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required default='IkqiJlXJ7o9h61tCHHod'>
+Account ID where this schedule applies
+</ResponseField>
+
+<ResponseField name="rules" type="object[]" required>
+Schedule rules defining when the schedule is active
+<Expandable title="cada item">
+<ResponseField name="type" type="string" required default='wday'>
+Type of schedule rule - weekday (recurring) or date (specific date) Posibles valores: 'wday', 'date'
+</ResponseField>
+
+<ResponseField name="intervals" type="object[]" required>
+Time intervals for the rule (e.g., 9 AM to 5 PM)
+<Expandable title="cada item">
+<ResponseField name="from" type="string" required default='09:00'>
+Start time in HH:MM format (24-hour format)
+</ResponseField>
+
+<ResponseField name="to" type="string" required default='17:00'>
+End time in HH:MM format (24-hour format)
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="date" type="string" default='2023-04-15'>
+Specific date in YYYY-MM-DD format (only for date-type rules)
+</ResponseField>
+
+<ResponseField name="day" type="string" default='monday'>
+Day of week (only for weekday-type rules) Posibles valores: 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="timezone" type="string" required default='America/New_York'>
+Timezone for the schedule (IANA timezone identifier)
+</ResponseField>
+
+<ResponseField name="dateAdded" type="string" required default='2023-01-15T10:30:00.000Z'>
+ISO date string when the schedule was created
+</ResponseField>
+
+<ResponseField name="dateUpdated" type="string" required default='2023-01-20T14:45:00.000Z'>
+ISO date string when the schedule was last updated
+</ResponseField>
+
+<ResponseField name="userId" type="string" required default='IkqiJlXJ7o9h61tCHHod'>
+User ID associated with the schedule
+</ResponseField>
+
+<ResponseField name="calendarIds" type="string[]">
+Calendar IDs associated with the schedule
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required default='False'>
+Whether the schedule has been deleted
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+```json
+{
+  "schedules": [
+    {
+      "id": "IkqiJlXJ7o9h61tCHHod",
+      "name": "Business Hours Schedule",
+      "locationId": "IkqiJlXJ7o9h61tCHHod",
+      "rules": [
+        {}
+      ],
+      "timezone": "America/New_York",
+      "dateAdded": "2023-01-15T10:30:00.000Z",
+      "dateUpdated": "2023-01-20T14:45:00.000Z",
+      "userId": "IkqiJlXJ7o9h61tCHHod",
+      "calendarIds": [
+        "string"
+      ],
+      "deleted": false
+    }
+  ]
+}
+```
+</Accordion>
+
+<Accordion title="400 - Invalid request parameters">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - User not authenticated">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/calendars/schedules/search' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/calendars/schedules/search', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/calendars/schedules/search',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/calendars/schedules/search');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

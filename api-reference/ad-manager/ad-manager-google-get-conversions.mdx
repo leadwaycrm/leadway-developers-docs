@@ -1,4 +1,120 @@
 ---
 title: 'Get conversions'
-openapi: 'GET /ad-publishing/google/conversions'
+description: 'Retrieve Google Ads conversion actions for a account'
 ---
+
+Retrieve Google Ads conversion actions for a account
+
+```http
+GET https://services.leadconnectorhq.com/ad-publishing/google/conversions
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='loc_abc123'>
+Account identifier
+</ParamField>
+
+<ParamField query="type" type="string" default='AD_MANAGER'>
+Integration type
+</ParamField>
+
+<ParamField query="conversionType" type="string" default='WEBPAGE'>
+Conversion type
+</ParamField>
+
+<ParamField query="category" type="string" default='PURCHASE'>
+Conversion category
+</ParamField>
+
+<ParamField query="startDate" type="string" default='2024-01-01'>
+Filter start date
+</ParamField>
+
+<ParamField query="endDate" type="string" default='2024-12-31'>
+Filter end date
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Response">
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/ad-publishing/google/conversions' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/ad-publishing/google/conversions', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/ad-publishing/google/conversions',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/ad-publishing/google/conversions');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,312 @@
 ---
 title: 'Get Campaigns'
-openapi: 'GET /emails/schedule'
+description: 'Get Campaigns'
 ---
+
+Get Campaigns
+
+```http
+GET https://services.leadconnectorhq.com/emails/schedule
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="locationId" type="string" required default='ohjiah0wdg3bzmzacvd6'>
+Account ID to fetch campaigns from
+</ParamField>
+
+<ParamField query="limit" type="number" default='7'>
+Maximum number of campaigns to return. Defaults to 10, maximum is 100
+</ParamField>
+
+<ParamField query="offset" type="number" default='0'>
+Number of campaigns to skip for pagination
+</ParamField>
+
+<ParamField query="status" type="string">
+Filter by schedule status
+</ParamField>
+
+<ParamField query="emailStatus" type="string">
+Filter by email delivery status
+</ParamField>
+
+<ParamField query="name" type="string" default='Black Friday Campaign'>
+Filter campaigns by name
+</ParamField>
+
+<ParamField query="parentId" type="string" default='folder123'>
+Filter campaigns by parent folder ID
+</ParamField>
+
+<ParamField query="limitedFields" type="boolean" default='false'>
+When true, returns only essential campaign fields like id, templateDataDownloadUrl, updatedAt, type, templateType, templateId, downloadUrl and isPlainText. When false, returns complete campaign data including meta information, bulkRequestStatusInfo, ABTestInfo, resendScheduleInfo and all other campaign properties
+</ParamField>
+
+<ParamField query="archived" type="boolean" default='false'>
+Filter archived campaigns
+</ParamField>
+
+<ParamField query="campaignsOnly" type="boolean" default='false'>
+Return only campaigns, excluding folders
+</ParamField>
+
+<ParamField query="showStats" type="boolean" default='true'>
+When true, returns campaign statistics including delivered count, opened count, clicked count and revenue if available for the campaign. When false, returns campaign data without statistics.
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Success">
+<ResponseField name="schedules" type="object[]" required>
+The list of campaigns
+<Expandable title="cada item">
+<ResponseField name="name" type="string" required default='Untitled new campaign'>
+</ResponseField>
+
+<ResponseField name="repeatAfter" type="string" required>
+</ResponseField>
+
+<ResponseField name="id" type="string" required>
+</ResponseField>
+
+<ResponseField name="parentId" type="string" required>
+</ResponseField>
+
+<ResponseField name="childCount" type="number" required>
+</ResponseField>
+
+<ResponseField name="campaignType" type="string" required>
+</ResponseField>
+
+<ResponseField name="bulkActionVersion" type="string" required>
+</ResponseField>
+
+<ResponseField name="_id" type="string" required>
+</ResponseField>
+
+<ResponseField name="status" type="string" required>
+</ResponseField>
+
+<ResponseField name="sendDays" type="string[]" required>
+</ResponseField>
+
+<ResponseField name="deleted" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="migrated" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="archived" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="hasTracking" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="isPlainText" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="hasUtmTracking" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="enableResendToUnopened" type="boolean" required>
+</ResponseField>
+
+<ResponseField name="locationId" type="string" required>
+</ResponseField>
+
+<ResponseField name="templateId" type="string" required>
+</ResponseField>
+
+<ResponseField name="templateType" type="string" required>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required>
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required>
+</ResponseField>
+
+<ResponseField name="__v" type="number" required>
+</ResponseField>
+
+<ResponseField name="documentId" type="string" required>
+</ResponseField>
+
+<ResponseField name="downloadUrl" type="string" required>
+</ResponseField>
+
+<ResponseField name="templateDataDownloadUrl" type="string" required>
+</ResponseField>
+
+<ResponseField name="child" type="string[]" required>
+</ResponseField>
+
+</Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="string[]" required>
+The total number of campaigns
+</ResponseField>
+
+<ResponseField name="traceId" type="string" required>
+Trace Id
+</ResponseField>
+
+```json
+{
+  "schedules": [
+    {
+      "name": "Untitled new campaign",
+      "repeatAfter": "string",
+      "id": "string",
+      "parentId": "string",
+      "childCount": 0,
+      "campaignType": "string",
+      "bulkActionVersion": "string",
+      "_id": "string",
+      "status": "string",
+      "sendDays": [
+        "string"
+      ],
+      "deleted": true,
+      "migrated": true,
+      "archived": true,
+      "hasTracking": true,
+      "isPlainText": true,
+      "hasUtmTracking": true,
+      "enableResendToUnopened": true,
+      "locationId": "string",
+      "templateId": "string",
+      "templateType": "string",
+      "createdAt": "string",
+      "updatedAt": "string",
+      "__v": 0,
+      "documentId": "string",
+      "downloadUrl": "string",
+      "templateDataDownloadUrl": "string",
+      "child": [
+        "string"
+      ]
+    }
+  ],
+  "total": [
+    "string"
+  ],
+  // truncado: 2 lineas mas
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="403 - The token does not have access to this account">
+<ResponseField name="statusCode" type="number" default='403'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='The token does not have access to this account'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 403,
+  "message": "The token does not have access to this account"
+}
+```
+</Accordion>
+
+<Accordion title="404 - Not Found">
+<ResponseField name="statusCode" type="number" default='404'>
+</ResponseField>
+
+<ResponseField name="message" type="string" default='Not Found'>
+</ResponseField>
+
+<ResponseField name="error" type="string" default='The requested resource was not found'>
+</ResponseField>
+
+```json
+{
+  "statusCode": 404,
+  "message": "Not Found",
+  "error": "The requested resource was not found"
+}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET 'https://services.leadconnectorhq.com/emails/schedule' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/emails/schedule', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+  },
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'GET',
+    'https://services.leadconnectorhq.com/emails/schedule',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+    },
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/emails/schedule');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+    ],
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>

@@ -1,4 +1,175 @@
 ---
 title: 'Upsert Opportunity'
-openapi: 'POST /opportunities/upsert'
+description: 'Upsert Opportunity'
 ---
+
+Upsert Opportunity
+
+```http
+POST https://services.leadconnectorhq.com/opportunities/upsert
+```
+
+## Autorizacion
+
+<ParamField header="Authorization" type="string" required>
+Bearer token generado desde el portal Leadway. Ver [Autenticacion](/authentication).
+</ParamField>
+
+<ParamField header="Version" type="string" required default="2021-07-28">
+Version de la API.
+</ParamField>
+
+## Body
+
+<ParamField body="id" type="string" default='yWQobCRIhRguQtD2llvk'>
+opportunityId
+</ParamField>
+
+<ParamField body="pipelineId" type="string" required default='bCkKGpDsyPP4peuKowkG'>
+pipeline Id
+</ParamField>
+
+<ParamField body="locationId" type="string" required default='CLu7BaljjqrEjBGKTNNe'>
+locationId
+</ParamField>
+
+<ParamField body="followers" type="string[]" required default='LiKJ2vnRg5ETM8Z19K7'>
+contactId
+</ParamField>
+
+<ParamField body="isRemoveAllFollowers" type="boolean" required default='True'>
+isRemoveAllFollowers
+</ParamField>
+
+<ParamField body="followersActionType" type="string" required default='add'>
+followers action type Posibles valores: 'add', 'remove'
+</ParamField>
+
+<ParamField body="name" type="string" default='opportunity name'>
+name
+</ParamField>
+
+<ParamField body="status" type="string">
+Posibles valores: 'open', 'won', 'lost', 'abandoned', 'all'
+</ParamField>
+
+<ParamField body="pipelineStageId" type="string" default='7915dedc-8f18-44d5-8bc3-77c04e994a10'>
+</ParamField>
+
+<ParamField body="monetaryValue" type="object" default='220'>
+</ParamField>
+
+<ParamField body="assignedTo" type="string" default='082goXVW3lIExEQPOnd3'>
+</ParamField>
+
+<ParamField body="lostReasonId" type="string" default='CLu7BaljjqrEjBGKTNNe'>
+lost reason Id
+</ParamField>
+
+## Respuestas
+
+<Accordion title="200 - Successful response">
+<ResponseField name="opportunity" type="object" required>
+Updated / New Opportunity
+</ResponseField>
+
+<ResponseField name="new" type="boolean" required default='True'>
+</ResponseField>
+
+```json
+{
+  "opportunity": {},
+  "new": true
+}
+```
+</Accordion>
+
+<Accordion title="400 - Bad Request">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="401 - Unauthorized">
+```json
+{}
+```
+</Accordion>
+
+<Accordion title="422 - Unprocessable Entity">
+```json
+{}
+```
+</Accordion>
+
+
+## Ejemplo
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST 'https://services.leadconnectorhq.com/opportunities/upsert' \
+  -H 'Authorization: Bearer YOUR_TOKEN' \
+  -H 'Version: 2021-07-28' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": "yWQobCRIhRguQtD2llvk",
+  "pipelineId": "bCkKGpDsyPP4peuKowkG",
+  "locationId": "CLu7BaljjqrEjBGKTNNe",
+  "followers": "LiKJ2vnRg5ETM8Z19K7",
+  "isRemoveAllFollowers": true,
+  "followersActionType": "add",
+  "name": "opportunity name",
+  "status": "open",
+  "pipelineStageId": "7915dedc-8f18-44d5-8bc3-77c04e994a10",
+  "monetaryValue": 220,
+  "assignedTo": "082goXVW3lIExEQPOnd3",
+  "lostReasonId": "CLu7BaljjqrEjBGKTNNe"
+}'
+```
+
+```javascript Node.js
+const response = await fetch('https://services.leadconnectorhq.com/opportunities/upsert', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.LEADWAY_TOKEN}`,
+    Version: '2021-07-28',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({"id": "yWQobCRIhRguQtD2llvk", "pipelineId": "bCkKGpDsyPP4peuKowkG", "locationId": "CLu7BaljjqrEjBGKTNNe", "followers": "LiKJ2vnRg5ETM8Z19K7", "isRemoveAllFollowers": true, "followersActionType": "add", "name": "opportunity name", "status": "open", "pipelineStageId": "7915dedc-8f18-44d5-8bc3-77c04e994a10", "monetaryValue": 220, "assignedTo": "082goXVW3lIExEQPOnd3", "lostReasonId": "CLu7BaljjqrEjBGKTNNe"}),
+});
+const data = await response.json();
+```
+
+```python Python
+import os, requests
+response = requests.request(
+    'POST',
+    'https://services.leadconnectorhq.com/opportunities/upsert',
+    headers={
+        'Authorization': f"Bearer {os.environ['LEADWAY_TOKEN']}",
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json',
+    },
+    json={"id": "yWQobCRIhRguQtD2llvk", "pipelineId": "bCkKGpDsyPP4peuKowkG", "locationId": "CLu7BaljjqrEjBGKTNNe", "followers": "LiKJ2vnRg5ETM8Z19K7", "isRemoveAllFollowers": true, "followersActionType": "add", "name": "opportunity name", "status": "open", "pipelineStageId": "7915dedc-8f18-44d5-8bc3-77c04e994a10", "monetaryValue": 220, "assignedTo": "082goXVW3lIExEQPOnd3", "lostReasonId": "CLu7BaljjqrEjBGKTNNe"},
+)
+data = response.json()
+```
+
+```php PHP
+<?php
+$ch = curl_init('https://services.leadconnectorhq.com/opportunities/upsert');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('LEADWAY_TOKEN'),
+        'Version: 2021-07-28',
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS => json_encode({'id': 'yWQobCRIhRguQtD2llvk', 'pipelineId': 'bCkKGpDsyPP4peuKowkG', 'locationId': 'CLu7BaljjqrEjBGKTNNe', 'followers': 'LiKJ2vnRg5ETM8Z19K7', 'isRemoveAllFollowers': true, 'followersActionType': 'add', 'name': 'opportunity name', 'status': 'open', 'pipelineStageId': '7915dedc-8f18-44d5-8bc3-77c04e994a10', 'monetaryValue': 220, 'assignedTo': '082goXVW3lIExEQPOnd3', 'lostReasonId': 'CLu7BaljjqrEjBGKTNNe'}),
+]);
+$data = json_decode(curl_exec($ch), true);
+```
+
+</CodeGroup>
