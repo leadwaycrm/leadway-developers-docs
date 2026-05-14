@@ -38,7 +38,7 @@
     "tabs": [
       {
         "tab": "Documentación",
-        "openapi": "openapi.json",
+        "openapi": "https://raw.githubusercontent.com/leadwaycrm/leadway-developers-docs/main/openapi.json",
         "groups": [
           {
             "group": "Empezar",
