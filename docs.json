@@ -808,7 +808,5 @@
     },
     "indexing": "navigable"
   },
-  "api": {
-    "openapi": "openapi.json"
-  }
+  "openapi": "openapi.json"
 }
