@@ -82,7 +82,7 @@
       },
       {
         "tab": "Referencia API",
-        "openapi": "openapi.json"
+        "openapi": "api-reference/contacts.json"
       }
     ]
   },
