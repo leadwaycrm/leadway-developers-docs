@@ -99,7 +99,23 @@ function rewriteRefs(node, slug, schemaNames) {
   return out;
 }
 
+async function loadCommonSchemas() {
+  const commonPath = join(IN_DIR, "raw", "common-schemas.json");
+  try {
+    const data = JSON.parse(await readFile(commonPath, "utf8"));
+    return data.components?.schemas ?? {};
+  } catch (e) {
+    console.warn(`[warn] common schemas not loaded: ${e.message}`);
+    return {};
+  }
+}
+
 async function main() {
+  // Pull in cross-spec shared schemas (BadRequestDTO, UnauthorizedDTO, etc).
+  // These are referenced by multiple specs without being defined locally.
+  const commonSchemas = await loadCommonSchemas();
+  console.log(`Loaded ${Object.keys(commonSchemas).length} common schemas.`);
+
   const merged = {
     openapi: "3.0.0",
     info: {
@@ -114,7 +130,7 @@ async function main() {
       description: `Endpoints para ${CATEGORY_NAMES[slug]}.`,
     })),
     paths: {},
-    components: { schemas: {}, securitySchemes: {} },
+    components: { schemas: { ...commonSchemas }, securitySchemes: {} },
   };
 
   let totalOps = 0;
