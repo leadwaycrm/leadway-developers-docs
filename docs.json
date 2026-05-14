@@ -82,7 +82,7 @@
       },
       {
         "tab": "Referencia API",
-        "openapi": "api-reference/openapi.json"
+        "openapi": "openapi.json"
       }
     ]
   },

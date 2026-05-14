@@ -23,7 +23,7 @@ import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const IN_DIR = join(__dirname, "..", "api-reference");
-const OUT_PATH = join(IN_DIR, "openapi.json");
+const OUT_PATH = join(__dirname, "..", "openapi.json");
 
 // Map slug → display name (controls sidebar group title in Mintlify).
 const CATEGORY_NAMES = {
