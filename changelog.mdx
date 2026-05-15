@@ -1,0 +1,42 @@
+---
+title: "Changelog"
+description: "Novedades del producto y de la API de Leadway."
+---
+
+Cambios recientes en la API de Leadway y en las herramientas para desarrolladores. Las entradas más recientes van primero.
+
+## 15 de mayo de 2026
+
+### Nuevo
+
+<Update label="Portal de desarrolladores de Leadway" tags={["lanzamiento"]}>
+  Lanzamos el portal público de desarrolladores con guía de inicio, autenticación y referencia completa de la API REST.
+
+  - Guía [Empezar](/landing) con base URL, headers y un ejemplo `curl` listo para copiar.
+  - Guía de [Autenticación](/authentication) que explica cómo generar tu Bearer token desde el portal y qué headers exige la API en cada petición.
+  - Soporte oficial vía [soporte@leadwaycrm.com](mailto:soporte@leadwaycrm.com).
+
+  Para ti: ya puedes automatizar tu cuenta de Leadway sin esperar a integraciones intermedias. Generas un token, eliges scopes y empiezas a hacer llamadas.
+</Update>
+
+<Update label="Referencia completa de la API REST" tags={["api"]}>
+  Publicamos 507 endpoints documentados, cada uno con parámetros, ejemplos de petición y respuesta, y bloque "Try it" para probar en vivo.
+
+  La referencia cubre todas las áreas de la plataforma, entre ellas:
+
+  - [Contacts](/scopes/contacts), [Opportunities](/scopes/opportunities) y [Companies](/scopes/companies) para tu CRM.
+  - [Conversations](/scopes/conversations), [LC Email](/scopes/lc-email) y [Phone System](/scopes/phone-system) para mensajería y llamadas.
+  - [Calendars](/scopes/business-calendars), [Workflows](/scopes/workflows) y [Campaigns](/scopes/campaigns) para automatización.
+  - [Payments](/scopes/payments), [Invoice](/scopes/invoice), [Products](/scopes/products) y [Store](/scopes/store) para comercio.
+  - [Funnels](/scopes/funnels), [Blogs](/scopes/blogs), [Surveys](/scopes/surveys) y [Forms](/scopes/email-forms) para sitios y captación.
+  - [Voice AI](/scopes/voice-ai), [Conversation AI](/scopes/conversation-ai) y [AI Agent](/scopes/ai-agent) para flujos con IA.
+  - [Media Storage](/scopes/media-storage), [Custom Fields](/scopes/custom-fields), [Custom Menus](/scopes/custom-menus), [Users](/scopes/users) y más.
+
+  Para ti: si antes tenías que adivinar el shape de una respuesta o leer código de terceros, ahora tienes la fuente oficial con ejemplos por endpoint.
+</Update>
+
+<Update label="Catálogo de scopes" tags={["nuevo"]}>
+  Publicamos un [catálogo de scopes](/scopes) navegable. Cada scope tiene su propia página con la lista de endpoints que habilita y los permisos `readonly` vs `write` disponibles.
+
+  Para ti: cuando generes un token, sabes exactamente qué scope pedir según lo que vayas a automatizar — sin permisos de más, sin sorpresas al hacer la primera llamada.
+</Update>
