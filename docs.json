@@ -37,6 +37,12 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "Changelog",
+        "pages": [
+          "changelog"
+        ]
+      },
+      {
         "tab": "Documentación",
         "groups": [
           {
